@@ -16,4 +16,13 @@ public class QuizControllerImpl implements QuizController {
             });
         });
     }
+
+    public void outputOfQuestions2(){
+        questionService.getQuizInfo().forEach(x->{
+            ConsoleHelper.writeMessage(x.getQuestion());
+            x.getAnswers().forEach(a-> {
+                ConsoleHelper.writeMessage(a);
+            });
+        });
+    }
 }

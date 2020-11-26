@@ -2,16 +2,16 @@ package ru.quizapp.service;
 
 import lombok.RequiredArgsConstructor;
 import ru.quizapp.dto.QuestionDTO;
-import ru.quizapp.repository.QuestionsRepository;
+import ru.quizapp.repository.QuestionsRepositoryImpl;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 public class QuestionService {
-    private final QuestionsRepository repository;
+    private final QuestionsRepositoryImpl repository;
 
   public List<QuestionDTO> getQuizInfo(){
-      return repository.readData();
+      return repository.readAllDataFromBase();
   }
 
 }

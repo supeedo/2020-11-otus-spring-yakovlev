@@ -13,7 +13,7 @@
         <constructor-arg name="repository" ref="questionsRepository"/>
     </bean>
 
-    <bean id="questionsRepository" class="ru.quizapp.repository.QuestionsRepository">
+    <bean id="questionsRepository" class="ru.quizapp.repository.QuestionsRepositoryImpl">
         <constructor-arg name="path" value="questions.csv"/>
     </bean>
 
