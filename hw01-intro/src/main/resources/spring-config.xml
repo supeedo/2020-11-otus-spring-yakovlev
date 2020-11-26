@@ -3,6 +3,18 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="someControllerWork" class="ru.quizapp.controller.SomeController"/>
+
+
+    <bean id="quizController" class="ru.quizapp.controller.QuizControllerImpl">
+        <constructor-arg name="questionService" ref="questionService"/>
+    </bean>
+
+    <bean id="questionService" class="ru.quizapp.service.QuestionService">
+        <constructor-arg name="repository" ref="questionsRepository"/>
+    </bean>
+
+    <bean id="questionsRepository" class="ru.quizapp.repository.QuestionsRepository">
+        <constructor-arg name="path" value="questions.csv"/>
+    </bean>
 
 </beans>
