@@ -2,7 +2,7 @@ package ru.quizapp.repository;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import ru.quizapp.dto.QuestionDTO;
+import ru.quizapp.dto.ExamTicketDTO;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,20 +11,20 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class QuestionsRepositoryImpl implements QuestionsRepository {
+public class ExamTicketRepositoryImpl implements ExamTicketRepository {
 
     private final String dataLink;
 
-    public QuestionsRepositoryImpl(String dataLink) {
+    public ExamTicketRepositoryImpl(String dataLink) {
         this.dataLink = dataLink;
     }
 
-    public List<QuestionDTO> readAllDataFromBase() {
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
+    public List<ExamTicketDTO> readAllDataFromBase() {
+        List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getClass().getClassLoader().getResource(dataLink).getPath())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
             for (CSVRecord record : records) {
-                questionDTOList.add(new QuestionDTO()
+                questionDTOList.add(new ExamTicketDTO()
                         .setQuestion(record.get(0))
                         .setAnswers(new HashSet<>() {{
                             add(record.get(1));

@@ -5,15 +5,15 @@
 
 
 
-    <bean id="quizController" class="ru.quizapp.controller.QuizControllerImpl">
+    <bean id="quizController" class="ru.quizapp.controller.ExaminationControllerImpl">
         <constructor-arg name="questionService" ref="questionService"/>
     </bean>
 
-    <bean id="questionService" class="ru.quizapp.service.QuestionServiceImpl">
+    <bean id="questionService" class="ru.quizapp.service.ExamTicketServiceImpl">
         <constructor-arg name="repository" ref="questionsRepository"/>
     </bean>
 
-    <bean id="questionsRepository" class="ru.quizapp.repository.QuestionsRepositoryImpl">
+    <bean id="questionsRepository" class="ru.quizapp.repository.ExamTicketRepositoryImpl">
         <constructor-arg name="dataLink" value="questions.csv"/>
     </bean>
 

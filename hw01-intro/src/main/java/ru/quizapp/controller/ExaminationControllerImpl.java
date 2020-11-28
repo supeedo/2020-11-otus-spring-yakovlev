@@ -1,15 +1,15 @@
 package ru.quizapp.controller;
 
-import ru.quizapp.service.QuestionServiceImpl;
+import ru.quizapp.service.ExamTicketServiceImpl;
 import ru.quizapp.utils.ConsoleHelper;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class QuizControllerImpl implements QuizController {
-    private final QuestionServiceImpl questionService;
+public class ExaminationControllerImpl implements ExaminationController {
+    private final ExamTicketServiceImpl questionService;
 
-    public QuizControllerImpl(QuestionServiceImpl questionService) {
+    public ExaminationControllerImpl(ExamTicketServiceImpl questionService) {
         this.questionService = questionService;
     }
 

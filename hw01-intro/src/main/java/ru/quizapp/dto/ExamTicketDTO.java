@@ -3,7 +3,7 @@ package ru.quizapp.dto;
 import java.util.Set;
 
 
-public class QuestionDTO {
+public class ExamTicketDTO {
     private String question;
     private Set<String> answers;
 
@@ -11,7 +11,7 @@ public class QuestionDTO {
         return question;
     }
 
-    public QuestionDTO setQuestion(String question) {
+    public ExamTicketDTO setQuestion(String question) {
         this.question = question;
         return this;
     }
@@ -20,7 +20,7 @@ public class QuestionDTO {
         return answers;
     }
 
-    public QuestionDTO setAnswers(Set<String> answers) {
+    public ExamTicketDTO setAnswers(Set<String> answers) {
         this.answers = answers;
         return this;
     }

@@ -1,5 +1,5 @@
 package ru.quizapp.controller;
 
-public interface QuizController {
+public interface ExaminationController {
     void outputOfQuestions();
 }

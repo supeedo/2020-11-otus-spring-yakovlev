@@ -5,32 +5,36 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.quizapp.dto.QuestionDTO;
-import ru.quizapp.repository.QuestionsRepository;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
+import ru.quizapp.dto.ExamTicketDTO;
+import ru.quizapp.repository.ExamTicketRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 class QuestionServiceTest {
-    private static final List<QuestionDTO> questionDTOList = new ArrayList<>();
 
-    @Mock
-    private QuestionsRepository repository;
+    List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
-    private QuestionServiceImpl service;
+    @Mock private ExamTicketRepository repository;
+
+    private ExamTicketService service;
 
 
 
     @BeforeEach
     void setUp() {
-        service = new QuestionServiceImpl(repository);
-//
-//        questionDTOList.add(new QuestionDTO()
-//                .setQuestion("test Mock questions")
-//                .setAnswers(new HashSet<>() {{
-//                    add("test Mock Answer");
-//                }}));
+        this.service = new ExamTicketServiceImpl(repository);
+
+        questionDTOList.add(new ExamTicketDTO()
+                .setQuestion("test Mock questions")
+                .setAnswers(new HashSet<>() {{
+                    add("test Mock Answer");
+                }}));
 
     }
 
