@@ -4,25 +4,21 @@ import lombok.RequiredArgsConstructor;
 import ru.quizapp.service.QuestionService;
 import ru.quizapp.utils.ConsoleHelper;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @RequiredArgsConstructor
 public class QuizControllerImpl implements QuizController {
     private final QuestionService questionService;
 
     public void outputOfQuestions(){
+        AtomicInteger z = new AtomicInteger(1);
         questionService.getQuizInfo().forEach(x->{
             ConsoleHelper.writeMessage(x.getQuestion());
             x.getAnswers().forEach(a-> {
-                ConsoleHelper.writeMessage(a);
+                ConsoleHelper.writeMessage(z + a);
+                z.getAndIncrement();
             });
-        });
-    }
-
-    public void outputOfQuestions2(){
-        questionService.getQuizInfo().forEach(x->{
-            ConsoleHelper.writeMessage(x.getQuestion());
-            x.getAnswers().forEach(a-> {
-                ConsoleHelper.writeMessage(a);
-            });
+            z.set(1);
         });
     }
 }

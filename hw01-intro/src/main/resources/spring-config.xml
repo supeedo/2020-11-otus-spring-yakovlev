@@ -14,7 +14,7 @@
     </bean>
 
     <bean id="questionsRepository" class="ru.quizapp.repository.QuestionsRepositoryImpl">
-        <constructor-arg name="path" value="questions.csv"/>
+        <constructor-arg name="dataLink" value="questions.csv"/>
     </bean>
 
 </beans>
