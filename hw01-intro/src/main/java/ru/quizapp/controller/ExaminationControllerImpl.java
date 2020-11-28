@@ -13,11 +13,11 @@ public class ExaminationControllerImpl implements ExaminationController {
         this.questionService = questionService;
     }
 
-    public void outputQuestionsAndAnswerOptionsFromTickets(){
+    public void outputQuestionsAndAnswerOptionsFromTickets() {
         AtomicInteger z = new AtomicInteger(1);
-        questionService.getAllTickets().forEach(x->{
-            ConsoleHelper.writeMessage(x.getQuestion());
-            x.getAnswers().forEach(a-> {
+        questionService.getAllTickets().forEach(x -> {
+            ConsoleHelper.writeMessage("\n" + x.getQuestion() + "\n");
+            x.getAnswers().forEach(a -> {
                 ConsoleHelper.writeMessage(z + a);
                 z.getAndIncrement();
             });
