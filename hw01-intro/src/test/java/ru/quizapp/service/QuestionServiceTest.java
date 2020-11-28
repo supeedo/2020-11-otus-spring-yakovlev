@@ -23,8 +23,7 @@ class QuestionServiceTest {
 
     private static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
-    @Mock
-    private ExamTicketRepository repository;
+    @Mock private ExamTicketRepository repository;
 
     private ExamTicketService service;
 
@@ -44,11 +43,13 @@ class QuestionServiceTest {
 
 
     @Test
-    @DisplayName("compare ticket list")
+    @DisplayName("Compare examination ticket ")
     void getQuizInfo() {
+        ExamTicketDTO ticketDTOFromBase = repository.readAllDataFromDataBase().get(0);
+        ExamTicketDTO ticketDTOFromServise = service.getAllTickets().get(0);
         Assertions.assertEquals(
-                service.getAllTickets(),
-                repository.readAllDataFromDataBase(), "Список билетов не равен");
+                ticketDTOFromBase,
+                ticketDTOFromServise, "exam tickets are not equal");
 
     }
 
