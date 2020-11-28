@@ -19,7 +19,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         this.dataLink = dataLink;
     }
 
-    public List<ExamTicketDTO> readAllDataFromBase() {
+    public List<ExamTicketDTO> readAllDataFromDataBase() {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getClass().getClassLoader().getResource(dataLink).getPath())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);

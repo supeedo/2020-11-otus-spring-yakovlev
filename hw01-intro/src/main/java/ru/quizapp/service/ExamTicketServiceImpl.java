@@ -13,8 +13,8 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         this.repository = repository;
     }
 
-    public List<ExamTicketDTO> getQuizInfo(){
-      return repository.readAllDataFromBase();
+    public List<ExamTicketDTO> getAllTickets(){
+      return repository.readAllDataFromDataBase();
   }
 
 }

@@ -1,9 +1,12 @@
 package ru.quizapp.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
@@ -18,32 +21,36 @@ import java.util.List;
 @MockitoSettings(strictness = Strictness.WARN)
 class QuestionServiceTest {
 
-    List<ExamTicketDTO> questionDTOList = new ArrayList<>();
+    private static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
-    @Mock private ExamTicketRepository repository;
+    @Mock
+    private ExamTicketRepository repository;
 
     private ExamTicketService service;
-
 
 
     @BeforeEach
     void setUp() {
         this.service = new ExamTicketServiceImpl(repository);
 
-        questionDTOList.add(new ExamTicketDTO()
-                .setQuestion("test Mock questions")
+        this.questionDTOList.add(new ExamTicketDTO()
+                .setQuestion("Tests mock questions")
                 .setAnswers(new HashSet<>() {{
-                    add("test Mock Answer");
+                    add("Test mock answers");
                 }}));
-
+        Mockito.when(repository.readAllDataFromDataBase())
+                .thenReturn(questionDTOList);
     }
 
 
     @Test
+    @DisplayName("compare ticket list")
     void getQuizInfo() {
+        Assertions.assertEquals(
+                service.getAllTickets(),
+                repository.readAllDataFromDataBase(), "Список билетов не равен");
+
     }
-
-
 
 
 }

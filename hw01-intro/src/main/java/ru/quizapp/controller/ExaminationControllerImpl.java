@@ -13,9 +13,9 @@ public class ExaminationControllerImpl implements ExaminationController {
         this.questionService = questionService;
     }
 
-    public void outputOfQuestions(){
+    public void outputQuestionsAndAnswerOptionsFromTickets(){
         AtomicInteger z = new AtomicInteger(1);
-        questionService.getQuizInfo().forEach(x->{
+        questionService.getAllTickets().forEach(x->{
             ConsoleHelper.writeMessage(x.getQuestion());
             x.getAnswers().forEach(a-> {
                 ConsoleHelper.writeMessage(z + a);

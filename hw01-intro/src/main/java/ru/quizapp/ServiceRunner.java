@@ -7,7 +7,7 @@ public class ServiceRunner {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-config.xml");
         ExaminationController controller = context.getBean(ExaminationController.class);
-        controller.outputOfQuestions();
+        controller.outputQuestionsAndAnswerOptionsFromTickets();
         context.close();
 
     }
