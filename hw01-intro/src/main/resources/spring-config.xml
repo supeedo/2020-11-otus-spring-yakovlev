@@ -9,7 +9,7 @@
         <constructor-arg name="questionService" ref="questionService"/>
     </bean>
 
-    <bean id="questionService" class="ru.quizapp.service.QuestionService">
+    <bean id="questionService" class="ru.quizapp.service.QuestionServiceImpl">
         <constructor-arg name="repository" ref="questionsRepository"/>
     </bean>
 

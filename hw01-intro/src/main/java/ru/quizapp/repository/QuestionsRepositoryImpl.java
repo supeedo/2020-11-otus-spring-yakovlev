@@ -1,6 +1,5 @@
 package ru.quizapp.repository;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import ru.quizapp.dto.QuestionDTO;
@@ -12,10 +11,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class QuestionsRepositoryImpl implements QuestionsRepository {
 
     private final String dataLink;
+
+    public QuestionsRepositoryImpl(String dataLink) {
+        this.dataLink = dataLink;
+    }
 
     public List<QuestionDTO> readAllDataFromBase() {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
