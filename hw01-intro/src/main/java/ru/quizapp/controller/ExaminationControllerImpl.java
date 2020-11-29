@@ -13,6 +13,7 @@ public class ExaminationControllerImpl implements ExaminationController {
         this.questionService = questionService;
     }
 
+    @Override
     public void outputQuestionsAndAnswerOptionsFromTickets() {
         AtomicInteger z = new AtomicInteger(1);
         questionService.getAllTickets().forEach(x -> {

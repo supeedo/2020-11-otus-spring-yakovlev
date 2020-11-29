@@ -19,6 +19,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         this.dataLink = dataLink;
     }
 
+    @Override
     public List<ExamTicketDTO> readAllDataFromDataBase() {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getClass().getClassLoader().getResource(dataLink).getPath())) {

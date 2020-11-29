@@ -13,6 +13,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         this.repository = repository;
     }
 
+    @Override
     public List<ExamTicketDTO> getAllTickets(){
       return repository.readAllDataFromDataBase();
   }
