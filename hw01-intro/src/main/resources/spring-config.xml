@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="quizController" class="ru.quizapp.controller.ExaminationControllerImpl">
+        <constructor-arg name="questionService" ref="questionService"/>
+    </bean>
+
+    <bean id="questionService" class="ru.quizapp.service.ExamTicketServiceImpl">
+        <constructor-arg name="repository" ref="questionsRepository"/>
+    </bean>
+
+    <bean id="questionsRepository" class="ru.quizapp.repository.ExamTicketRepositoryImpl">
+        <constructor-arg name="dataLink" value="questions.csv"/>
+    </bean>
+
+</beans>
