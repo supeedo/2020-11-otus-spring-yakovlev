@@ -32,11 +32,12 @@ class QuestionServiceTest {
     void setUp() {
         this.service = new ExamTicketServiceImpl(repository);
 
-        this.questionDTOList.add(new ExamTicketDTO()
+        this.questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                 .setQuestion("Tests mock questions")
                 .setAnswers(new HashSet<>() {{
                     add("Test mock answers");
-                }}));
+                }}).build()
+        );
         Mockito.when(repository.readAllDataFromDataBase())
                 .thenReturn(questionDTOList);
     }
