@@ -25,13 +25,14 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         try (Reader in = new FileReader(getClass().getClassLoader().getResource(dataLink).getPath())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
             for (CSVRecord record : records) {
-                questionDTOList.add(new ExamTicketDTO()
+                questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                         .setQuestion(record.get(0))
                         .setAnswers(new HashSet<>() {{
                             add(record.get(1));
                             add(record.get(2));
                             add(record.get(3));
-                        }}));
+                        }}).build()
+                );
             }
         } catch (IOException e) {
             e.printStackTrace();
