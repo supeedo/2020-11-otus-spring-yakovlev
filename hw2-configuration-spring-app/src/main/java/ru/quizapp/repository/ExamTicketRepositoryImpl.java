@@ -7,10 +7,7 @@ import ru.quizapp.dto.ExamTicketDTO;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class ExamTicketRepositoryImpl implements ExamTicketRepository {
@@ -29,10 +26,10 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
             for (CSVRecord record : records)
                 questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                         .setQuestion(record.get(0))
-                        .setAnswers(new HashSet<>() {{
-                            add(record.get(1));
-                            add(record.get(2));
-                            add(record.get(3));
+                        .setAnswers(new HashMap<>() {{
+                            put(record.get(1), record.get(2));
+                            put(record.get(3), record.get(4));
+                            put(record.get(5), record.get(6));
                         }}).build()
                 );
         } catch (IOException e) {

@@ -14,6 +14,7 @@ import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.repository.ExamTicketRepository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -34,8 +35,8 @@ class QuestionServiceTest {
 
         this.questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                 .setQuestion("Tests mock questions")
-                .setAnswers(new HashSet<>() {{
-                    add("Test mock answers");
+                .setAnswers(new HashMap<>() {{
+                    put("Test mock answers", "1");
                 }}).build()
         );
         Mockito.when(repository.readAllDataFromDataBase())
