@@ -11,25 +11,32 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import ru.quizapp.dto.ExamTicketDTO;
+import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.repository.ExamTicketRepository;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.WARN)
-class QuestionServiceTest {
+class ExamTicketServiceTest {
 
     private final static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
-    @Mock private ExamTicketRepository repository;
+    @Mock
+    private ExamTicketRepository repository;
 
     private ExamTicketService service;
 
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         this.service = new ExamTicketServiceImpl(repository);
 
         questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
@@ -45,7 +52,7 @@ class QuestionServiceTest {
 
     @Test
     @DisplayName("Compare examination ticket ")
-    void getQuizInfo() {
+    public void getAllTickets() {
         ExamTicketDTO ticketDTOFromBase = repository.readAllDataFromDataBase().get(0);
         ExamTicketDTO ticketDTOFromServise = service.getAllTickets().get(0);
         Assertions.assertEquals(
@@ -54,5 +61,8 @@ class QuestionServiceTest {
 
     }
 
+    @Test
+    public void studentRegistration(){
+    }
 
 }
