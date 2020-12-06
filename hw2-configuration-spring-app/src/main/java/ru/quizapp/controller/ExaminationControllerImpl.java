@@ -38,44 +38,59 @@ public class ExaminationControllerImpl implements ExaminationController {
         return new StudentDTO(firstName, lastName);
     }
 
-    private int checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
-        String a = Objects.requireNonNull(mainAnswer.get(bufferAnswer.get(String.valueOf(answerNumber))));
-        return Integer.parseInt(a);
-    }
 
     private ExaminationDTO studentTesting(StudentDTO student) throws IOException {
         AtomicInteger examResult = new AtomicInteger();
         AtomicInteger possibleAnswerCount = new AtomicInteger(1);
-        // тут задаем вопрос
         questionService.getAllTickets().forEach(x -> {
             ConsoleHelper.writeMessage("\n" + x.getQuestion() + "\n");
-
-            //предоставляем варианты ответа
             Map<String, String> buff = new HashMap<>();
             for (Map.Entry<String, String> qw : x.getAnswers().entrySet()) {
                 ConsoleHelper.writeMessage(possibleAnswerCount + qw.getKey());
                 buff.put(possibleAnswerCount.toString(), qw.getKey());
                 possibleAnswerCount.getAndIncrement();
             }
-
-            // нужно проверить правильность ответа
             try {
-                int answerNumber = ConsoleHelper
-                                .readOptionAnswerQuestionWithVerification(x.getAnswers().size());
-                if(answerNumber == 0){
-                    ConsoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
-                    possibleAnswerCount.set(1);
-                    return;
-                }
+                int answerNumber = readOptionAnswerQuestionWithVerificationAndThreeAttempts(x.getAnswers().size());
                 examResult.addAndGet(checkAnswer(x.getAnswers(), buff, answerNumber));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             possibleAnswerCount.set(1);
         });
+        return getTheResultsOfTheExam(student, examResult.get(), questionService.getAllTickets().size());
+    }
 
-        return new ExaminationDTO(student, examResult.get(), questionService.getAllTickets().size());
+    private Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
+        if(answerNumber == 0){
+            ConsoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
+            return 0;
+        }
+        String a = Objects.requireNonNull(mainAnswer.get(bufferAnswer.get(String.valueOf(answerNumber))));
+        return Integer.parseInt(a);
     }
 
 
+    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws IOException {
+        int result = 0;
+        for (int i = 0; i < 3; i++) {
+            String bufferReadString = ConsoleHelper.readString();
+            try {
+                int buf = Integer.parseInt(bufferReadString);
+                if (buf <= answerCount && buf > 0) {
+                    result = buf;
+                    break;
+                }else{
+                    ConsoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Поробуйте еще раз.");
+                }
+            } catch (NumberFormatException e) {
+                ConsoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
+            }
+        }
+        return result;
+    }
+
+    private ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount){
+        return  new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
+    }
 }
