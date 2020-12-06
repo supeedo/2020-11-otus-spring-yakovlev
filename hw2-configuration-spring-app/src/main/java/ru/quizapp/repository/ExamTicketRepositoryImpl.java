@@ -2,8 +2,6 @@ package ru.quizapp.repository;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import ru.quizapp.dto.ExamTicketDTO;
 
 import java.io.FileReader;
