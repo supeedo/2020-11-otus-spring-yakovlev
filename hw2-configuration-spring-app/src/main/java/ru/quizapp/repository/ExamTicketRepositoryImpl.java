@@ -25,7 +25,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     @Override
     public List<ExamTicketDTO> readAllDataFromDataBase() {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
-        try (Reader in = new FileReader(getClass().getClassLoader().getResource(dataLink).getPath())) {
+        try (Reader in = new FileReader(this.getClass().getClassLoader().getResource(dataLink).getPath())) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
             for (CSVRecord record : records) {
                 questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
