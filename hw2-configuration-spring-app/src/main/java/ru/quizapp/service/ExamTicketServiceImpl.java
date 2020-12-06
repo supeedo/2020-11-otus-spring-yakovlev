@@ -53,18 +53,15 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                 buff.put(possibleAnswerCount.toString(), qw.getKey());
                 possibleAnswerCount.getAndIncrement();
             }
-            try {
-                int answerNumber = readOptionAnswerQuestionWithVerificationAndThreeAttempts(x.getAnswers().size());
-                examResult.addAndGet(checkAnswer(x.getAnswers(), buff, answerNumber));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            int answerNumber = readOptionAnswerQuestionWithVerificationAndThreeAttempts(x.getAnswers().size());
+            examResult.addAndGet(checkAnswer(x.getAnswers(), buff, answerNumber));
             possibleAnswerCount.set(1);
         });
         return getTheResultsOfTheExam(student, examResult.get(), getAllTickets().size());
     }
 
-    private Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
+    @Override
+    public Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
         if (answerNumber == 0) {
             ConsoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
             return 0;
@@ -73,12 +70,14 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return Integer.parseInt(a);
     }
 
-
-    private int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws IOException {
+    @Override
+    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) {
         int result = 0;
         for (int i = 0; i < 3; i++) {
-            String bufferReadString = ConsoleHelper.readString();
+            String bufferReadString;
             try {
+                bufferReadString = ConsoleHelper.readString();
+
                 int buf = Integer.parseInt(bufferReadString);
                 if (buf <= answerCount && buf > 0) {
                     result = buf;
@@ -88,6 +87,8 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                 }
             } catch (NumberFormatException e) {
                 ConsoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         return result;

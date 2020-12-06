@@ -5,6 +5,7 @@ import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ExamTicketService {
     List<ExamTicketDTO> getAllTickets();
@@ -12,4 +13,8 @@ public interface ExamTicketService {
     StudentDTO studentRegistration();
 
     ExaminationDTO studentTesting(StudentDTO student);
+
+    Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber);
+
+    int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount);
 }
