@@ -15,4 +15,12 @@ public class StudentDTO {
         return "Студент: " +
                 firstName + " " + lastName;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
 }

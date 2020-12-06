@@ -62,7 +62,7 @@ public class ExaminationControllerImpl implements ExaminationController {
     }
 
     private Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
-        if(answerNumber == 0){
+        if (answerNumber == 0) {
             ConsoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
             return 0;
         }
@@ -80,7 +80,7 @@ public class ExaminationControllerImpl implements ExaminationController {
                 if (buf <= answerCount && buf > 0) {
                     result = buf;
                     break;
-                }else{
+                } else {
                     ConsoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Поробуйте еще раз.");
                 }
             } catch (NumberFormatException e) {
@@ -90,7 +90,7 @@ public class ExaminationControllerImpl implements ExaminationController {
         return result;
     }
 
-    private ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount){
-        return  new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
+    private ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount) {
+        return new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
     }
 }
