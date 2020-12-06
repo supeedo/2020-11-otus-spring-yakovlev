@@ -1,5 +1,6 @@
 package ru.quizapp.service;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +22,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
+
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.WARN)
 class ExamTicketServiceTest {
+    private final String testFirstName = "testFirstNameStudent";
+    private final String testLastName = "testLastNameStudent";
 
     private final static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
@@ -46,7 +51,7 @@ class ExamTicketServiceTest {
         );
         Mockito.when(repository.readAllDataFromDataBase())
                 .thenReturn(questionDTOList);
-        student = new StudentDTO("testFirstName", "testLastName");
+        student = new StudentDTO(testFirstName, testLastName);
     }
 
 
@@ -54,18 +59,16 @@ class ExamTicketServiceTest {
     @DisplayName("Compare examination ticket ")
     public void getAllTickets() {
         ExamTicketDTO ticketDTOFromBase = repository.readAllDataFromDataBase().get(0);
-        ExamTicketDTO ticketDTOFromServise = service.getAllTickets().get(0);
+        ExamTicketDTO ticketDTOFromService = service.getAllTickets().get(0);
         Assertions.assertEquals(
                 ticketDTOFromBase,
-                ticketDTOFromServise, "exam tickets are not equal");
+                ticketDTOFromService, "exam tickets are not equal");
 
     }
 
     @Test
     @DisplayName("Check receipt studentDTO")
     public void studentRegistration() {
-        String testFirstName = "testFirstName";
-        String testLastName = "testLastName";
         try (MockedStatic<ConsoleHelper> dummy = Mockito.mockStatic(ConsoleHelper.class)) {
             dummy.when(ConsoleHelper::readString).thenReturn(testFirstName, testLastName);
             StudentDTO studentDTO = service.studentRegistration();
@@ -77,9 +80,11 @@ class ExamTicketServiceTest {
 
     @Test
     public void studentTesting() {
-        try(MockedStatic<ConsoleHelper> dummy = Mockito.mockStatic(ConsoleHelper.class)) {
+        try (MockedStatic<ConsoleHelper> dummy = Mockito.mockStatic(ConsoleHelper.class)) {
             dummy.when(ConsoleHelper::readString).thenReturn("1");
-            ExaminationDTO examination = service.studentTesting(student);
+            ExaminationDTO dummyExam = new ExaminationDTO(student, 1, 1);
+            ExaminationDTO examinationDTO = service.studentTesting(student);
+            Assertions.assertNotNull(examinationDTO);
         }
     }
 

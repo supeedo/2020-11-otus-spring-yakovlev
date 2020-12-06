@@ -17,4 +17,6 @@ public interface ExamTicketService {
     Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber);
 
     int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount);
+
+    ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount);
 }

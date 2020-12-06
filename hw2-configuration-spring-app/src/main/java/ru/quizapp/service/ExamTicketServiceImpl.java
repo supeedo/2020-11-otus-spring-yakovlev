@@ -94,7 +94,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return result;
     }
 
-    private ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount) {
+    public ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount) {
         return new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
     }
 

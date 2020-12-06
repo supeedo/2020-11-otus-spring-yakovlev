@@ -21,6 +21,7 @@
         <mockito-junit-jupiter.version>3.6.28</mockito-junit-jupiter.version>
         <mockito-inline.version>3.6.28</mockito-inline.version>
         <junit-jupiter-api.version>5.7.0</junit-jupiter-api.version>
+        <java-hamcrest.version>2.0.0.0</java-hamcrest.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-shade-plugin.version>3.2.2</maven-shade-plugin.version>
     </properties>
@@ -74,8 +75,6 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -83,6 +82,16 @@
             <version>${junit-jupiter-api.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hamcrest/java-hamcrest -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>java-hamcrest</artifactId>
+            <version>${java-hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
 
     </dependencies>
 
