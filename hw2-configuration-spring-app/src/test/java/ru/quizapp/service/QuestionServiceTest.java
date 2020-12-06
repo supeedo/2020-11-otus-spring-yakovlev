@@ -15,14 +15,13 @@ import ru.quizapp.repository.ExamTicketRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.WARN)
 class QuestionServiceTest {
 
-    private static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
+    private final static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
     @Mock private ExamTicketRepository repository;
 
@@ -33,7 +32,7 @@ class QuestionServiceTest {
     void setUp() {
         this.service = new ExamTicketServiceImpl(repository);
 
-        this.questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
+        questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                 .setQuestion("Tests mock questions")
                 .setAnswers(new HashMap<>() {{
                     put("Test mock answers", "1");
