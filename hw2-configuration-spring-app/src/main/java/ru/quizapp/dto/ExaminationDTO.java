@@ -26,4 +26,24 @@ public class ExaminationDTO {
                 ",\n Правильных ответов = " + rightAnswers +
                 " из " + totalQuestions;
     }
+
+    public String getID() {
+        return ID;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public StudentDTO getStudent() {
+        return student;
+    }
+
+    public Integer getRightAnswers() {
+        return rightAnswers;
+    }
+
+    public Integer getTotalQuestions() {
+        return totalQuestions;
+    }
 }
