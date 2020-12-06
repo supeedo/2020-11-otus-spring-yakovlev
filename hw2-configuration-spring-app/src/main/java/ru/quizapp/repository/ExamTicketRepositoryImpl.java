@@ -7,7 +7,6 @@ import ru.quizapp.dto.ExamTicketDTO;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +26,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
-            for (CSVRecord record : records) {
+            for (CSVRecord record : records)
                 questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                         .setQuestion(record.get(0))
                         .setAnswers(new HashSet<>() {{
@@ -36,7 +35,6 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
                             add(record.get(3));
                         }}).build()
                 );
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
