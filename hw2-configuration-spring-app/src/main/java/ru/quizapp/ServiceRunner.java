@@ -3,7 +3,6 @@ package ru.quizapp;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.quizapp.config.AppConfiguration;
 import ru.quizapp.controller.ExaminationController;
 
