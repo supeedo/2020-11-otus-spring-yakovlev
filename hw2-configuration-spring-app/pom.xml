@@ -19,6 +19,7 @@
         <spring-test.version>5.3.1</spring-test.version>
         <mockito-core.version>3.6.28</mockito-core.version>
         <mockito-junit-jupiter.version>3.6.28</mockito-junit-jupiter.version>
+        <mockito-inline.version>3.6.28</mockito-inline.version>
         <junit-jupiter-api.version>5.7.0</junit-jupiter-api.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-shade-plugin.version>3.2.2</maven-shade-plugin.version>
@@ -64,6 +65,16 @@
             <version>${mockito-junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mockito/mockito-inline -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-inline</artifactId>
+            <version>${mockito-inline.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
 
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>

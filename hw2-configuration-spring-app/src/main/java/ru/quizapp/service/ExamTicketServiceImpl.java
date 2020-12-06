@@ -26,6 +26,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return repository.readAllDataFromDataBase();
     }
 
+    @Override
     public StudentDTO studentRegistration() {
         String firstName = "";
         String lastName = "";
@@ -40,7 +41,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return new StudentDTO(firstName, lastName);
     }
 
-
+    @Override
     public ExaminationDTO studentTesting(StudentDTO student) {
         AtomicInteger examResult = new AtomicInteger();
         AtomicInteger possibleAnswerCount = new AtomicInteger(1);
