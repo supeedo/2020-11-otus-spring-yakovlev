@@ -20,7 +20,7 @@ public class ExaminationControllerImpl implements ExaminationController {
     }
 
     @Override
-    public void outputQuestionsAndAnswerOptionsFromTickets() {
+    public void takingAnExamination() {
         try {
             StudentDTO student = studentRegistration();
             ExaminationDTO examination = studentTesting(student);
@@ -39,7 +39,7 @@ public class ExaminationControllerImpl implements ExaminationController {
     }
 
 
-    private ExaminationDTO studentTesting(StudentDTO student) throws IOException {
+    private ExaminationDTO studentTesting(StudentDTO student) {
         AtomicInteger examResult = new AtomicInteger();
         AtomicInteger possibleAnswerCount = new AtomicInteger(1);
         questionService.getAllTickets().forEach(x -> {
@@ -71,7 +71,7 @@ public class ExaminationControllerImpl implements ExaminationController {
     }
 
 
-    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws IOException {
+    private int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws IOException {
         int result = 0;
         for (int i = 0; i < 3; i++) {
             String bufferReadString = ConsoleHelper.readString();

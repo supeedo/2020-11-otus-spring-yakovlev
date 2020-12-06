@@ -12,7 +12,7 @@ public class ServiceRunner {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
         ExaminationController controller = context.getBean(ExaminationController.class);
-        controller.outputQuestionsAndAnswerOptionsFromTickets();
+        controller.takingAnExamination();
         context.close();
 
     }
