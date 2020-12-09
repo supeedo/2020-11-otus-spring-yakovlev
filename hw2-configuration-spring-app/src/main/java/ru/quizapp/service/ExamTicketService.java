@@ -19,4 +19,6 @@ public interface ExamTicketService {
     int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount);
 
     ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount);
+
+    void resultsOfTheConductedTesting(ExaminationDTO examination);
 }

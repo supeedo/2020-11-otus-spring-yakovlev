@@ -42,7 +42,7 @@ class ExamTicketServiceTest {
 
     @BeforeEach
     public void setUp() {
-        this.service = new ExamTicketServiceImpl(repository);
+       // this.service = new ExamTicketServiceImpl(repository);
         questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                 .setQuestion("Tests mock questions")
                 .setAnswers(new HashMap<>() {{
@@ -70,7 +70,7 @@ class ExamTicketServiceTest {
     @DisplayName("Check receipt studentDTO")
     public void studentRegistration() {
         try (MockedStatic<ConsoleHelper> dummy = Mockito.mockStatic(ConsoleHelper.class)) {
-            dummy.when(ConsoleHelper::readString).thenReturn(testFirstName, testLastName);
+         //   dummy.when(ConsoleHelper::readString).thenReturn(testFirstName, testLastName);
             StudentDTO studentDTO = service.studentRegistration();
             Assertions.assertNotNull(studentDTO);
             Assertions.assertEquals(studentDTO.getFirstName(), testFirstName, "FirstName разные");
@@ -81,7 +81,7 @@ class ExamTicketServiceTest {
     @Test
     public void studentTesting() {
         try (MockedStatic<ConsoleHelper> dummy = Mockito.mockStatic(ConsoleHelper.class)) {
-            dummy.when(ConsoleHelper::readString).thenReturn("1");
+         //   dummy.when(ConsoleHelper::readString).thenReturn("1");
             ExaminationDTO dummyExam = new ExaminationDTO(student, 1, 1);
             ExaminationDTO examinationDTO = service.studentTesting(student);
             Assertions.assertNotNull(examinationDTO);

@@ -17,7 +17,7 @@ public class ExaminationControllerImpl implements ExaminationController {
     public void takingAnExamination() {
         StudentDTO student = questionService.studentRegistration();
         ExaminationDTO examination = questionService.studentTesting(student);
-        ConsoleHelper.writeMessage(examination.toString());
+        questionService.resultsOfTheConductedTesting(examination);
     }
 
 

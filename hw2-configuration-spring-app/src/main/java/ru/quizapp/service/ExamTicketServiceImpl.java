@@ -16,9 +16,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExamTicketServiceImpl implements ExamTicketService {
     private final ExamTicketRepository repository;
+    private final ConsoleHelper consoleHelper;
 
-    public ExamTicketServiceImpl(ExamTicketRepository repository) {
+    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper) {
         this.repository = repository;
+        this.consoleHelper = consoleHelper;
     }
 
     @Override
@@ -31,10 +33,10 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         String firstName = "";
         String lastName = "";
         try {
-            ConsoleHelper.writeMessage("Введите имя");
-            firstName = Objects.requireNonNull(ConsoleHelper.readString());
-            ConsoleHelper.writeMessage("Введите фамилию");
-            lastName = Objects.requireNonNull(ConsoleHelper.readString());
+            consoleHelper.writeMessage("Введите имя");
+            firstName = Objects.requireNonNull(consoleHelper.readString());
+            consoleHelper.writeMessage("Введите фамилию");
+            lastName = Objects.requireNonNull(consoleHelper.readString());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,10 +48,10 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         AtomicInteger examResult = new AtomicInteger();
         AtomicInteger possibleAnswerCount = new AtomicInteger(1);
         getAllTickets().forEach(x -> {
-            ConsoleHelper.writeMessage("\n" + x.getQuestion() + "\n");
+            consoleHelper.writeMessage("\n" + x.getQuestion() + "\n");
             Map<String, String> buff = new HashMap<>();
             for (Map.Entry<String, String> qw : x.getAnswers().entrySet()) {
-                ConsoleHelper.writeMessage(possibleAnswerCount + qw.getKey());
+                consoleHelper.writeMessage(possibleAnswerCount + qw.getKey());
                 buff.put(possibleAnswerCount.toString(), qw.getKey());
                 possibleAnswerCount.getAndIncrement();
             }
@@ -63,11 +65,11 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     @Override
     public Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
         if (answerNumber == 0) {
-            ConsoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
+            consoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
             return 0;
         }
-        String a = Objects.requireNonNull(mainAnswer.get(bufferAnswer.get(String.valueOf(answerNumber))));
-        return Integer.parseInt(a);
+        String bufferAnswerNumber = Objects.requireNonNull(mainAnswer.get(bufferAnswer.get(String.valueOf(answerNumber))));
+        return Integer.parseInt(bufferAnswerNumber);
     }
 
     @Override
@@ -76,17 +78,17 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         for (int i = 0; i < 3; i++) {
             String bufferReadString;
             try {
-                bufferReadString = ConsoleHelper.readString();
+                bufferReadString = consoleHelper.readString();
 
                 int buf = Integer.parseInt(bufferReadString);
                 if (buf <= answerCount && buf > 0) {
                     result = buf;
                     break;
                 } else {
-                    ConsoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Поробуйте еще раз.");
+                    consoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Поробуйте еще раз.");
                 }
             } catch (NumberFormatException e) {
-                ConsoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
+                consoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -98,4 +100,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
     }
 
+    public void resultsOfTheConductedTesting(ExaminationDTO examination) {
+        consoleHelper.writeMessage(examination.toString());
+    }
 }

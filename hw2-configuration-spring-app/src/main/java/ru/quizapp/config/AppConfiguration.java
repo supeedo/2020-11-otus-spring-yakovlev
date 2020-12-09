@@ -10,6 +10,7 @@ import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.repository.ExamTicketRepositoryImpl;
 import ru.quizapp.service.ExamTicketService;
 import ru.quizapp.service.ExamTicketServiceImpl;
+import ru.quizapp.utils.ConsoleHelper;
 
 @Configuration
 @PropertySource("classpath:appConfig.properties")
@@ -21,13 +22,18 @@ public class AppConfiguration {
     }
 
     @Bean
-    public ExamTicketService questionService(ExamTicketRepository repository){
-        return new ExamTicketServiceImpl(repository);
+    public ExamTicketService questionService(ExamTicketRepository repository, ConsoleHelper consoleHelper){
+        return new ExamTicketServiceImpl(repository, consoleHelper);
     }
 
     @Bean
     public ExamTicketRepository examTicketRepository(@Value("${db.url}")String dataLink){
         return new ExamTicketRepositoryImpl(dataLink);
+    }
+
+    @Bean
+    public ConsoleHelper consoleHelper(){
+        return new ConsoleHelper();
     }
 
 }
