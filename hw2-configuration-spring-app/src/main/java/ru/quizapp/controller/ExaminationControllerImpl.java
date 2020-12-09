@@ -3,7 +3,6 @@ package ru.quizapp.controller;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.service.ExamTicketService;
-import ru.quizapp.utils.ConsoleHelper;
 
 
 public class ExaminationControllerImpl implements ExaminationController {

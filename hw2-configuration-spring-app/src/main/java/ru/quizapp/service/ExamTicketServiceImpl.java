@@ -96,10 +96,12 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return result;
     }
 
+    @Override
     public ExaminationDTO getTheResultsOfTheExam(StudentDTO student, Integer numberOfCorrectAnswers, Integer questionsCount) {
         return new ExaminationDTO(student, numberOfCorrectAnswers, questionsCount);
     }
 
+    @Override
     public void resultsOfTheConductedTesting(ExaminationDTO examination) {
         consoleHelper.writeMessage(examination.toString());
     }
