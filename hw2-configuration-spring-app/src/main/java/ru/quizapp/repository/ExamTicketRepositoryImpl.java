@@ -3,6 +3,7 @@ package ru.quizapp.repository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import ru.quizapp.dto.ExamTicketDTO;
+import ru.quizapp.exceptions.ResourceNotFoundException;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     }
 
     @Override
-    public List<ExamTicketDTO> readAllDataFromDataBase() {
+    public List<ExamTicketDTO> readAllDataFromDataBase() throws ResourceNotFoundException{
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
@@ -32,8 +33,8 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
                             put(record.get(5), record.get(6));
                         }}).build()
                 );
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException error) {
+            throw new ResourceNotFoundException("Error reading data from resource", error);
         }
         return questionDTOList;
     }

@@ -47,7 +47,8 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     public ExaminationDTO studentTesting(StudentDTO student) {
         AtomicInteger examResult = new AtomicInteger();
         AtomicInteger possibleAnswerCount = new AtomicInteger(1);
-        getAllTickets().forEach(x -> {
+        List<ExamTicketDTO> examTicketDTOList = getAllTickets();
+        examTicketDTOList.forEach(x -> {
             consoleHelper.writeMessage("\n" + x.getQuestion() + "\n");
             Map<String, String> buff = new HashMap<>();
             for (Map.Entry<String, String> qw : x.getAnswers().entrySet()) {
@@ -59,7 +60,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             examResult.addAndGet(checkAnswer(x.getAnswers(), buff, answerNumber));
             possibleAnswerCount.set(1);
         });
-        return getTheResultsOfTheExam(student, examResult.get(), getAllTickets().size());
+        return getTheResultsOfTheExam(student, examResult.get(), examTicketDTOList.size());
     }
 
     @Override
