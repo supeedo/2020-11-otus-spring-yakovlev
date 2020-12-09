@@ -3,6 +3,7 @@ package ru.quizapp.service;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
+import ru.quizapp.exceptions.ResourceNotFoundException;
 import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.utils.ConsoleHelper;
 
@@ -29,7 +30,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     }
 
     @Override
-    public StudentDTO studentRegistration() {
+    public StudentDTO studentRegistration() throws ResourceNotFoundException {
         String firstName = "";
         String lastName = "";
         try {
@@ -37,8 +38,8 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             firstName = Objects.requireNonNull(consoleHelper.readString());
             consoleHelper.writeMessage("Введите фамилию");
             lastName = Objects.requireNonNull(consoleHelper.readString());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException error) {
+            throw new ResourceNotFoundException("Error reading responses from student", error);
         }
         return new StudentDTO(firstName, lastName);
     }
@@ -74,7 +75,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     }
 
     @Override
-    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) {
+    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws ResourceNotFoundException{
         int result = 0;
         for (int i = 0; i < 3; i++) {
             String bufferReadString;
@@ -90,8 +91,8 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                 }
             } catch (NumberFormatException e) {
                 consoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException error) {
+                throw new ResourceNotFoundException("Error reading responses from student", error);
             }
         }
         return result;
