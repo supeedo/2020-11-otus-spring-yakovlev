@@ -3,7 +3,7 @@ package ru.quizapp.service;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
-import ru.quizapp.exceptions.ResourceNotFoundException;
+import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.utils.ConsoleHelper;
 
@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_ERROR;
 
 
 public class ExamTicketServiceImpl implements ExamTicketService {
@@ -30,7 +32,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     }
 
     @Override
-    public StudentDTO studentRegistration() throws ResourceNotFoundException {
+    public StudentDTO studentRegistration() throws ResourceException {
         String firstName = "";
         String lastName = "";
         try {
@@ -39,7 +41,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             consoleHelper.writeMessage("Введите фамилию");
             lastName = Objects.requireNonNull(consoleHelper.readString());
         } catch (IOException error) {
-            throw new ResourceNotFoundException("Error reading responses from student", error);
+            throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
         }
         return new StudentDTO(firstName, lastName);
     }
@@ -75,7 +77,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     }
 
     @Override
-    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws ResourceNotFoundException{
+    public int readOptionAnswerQuestionWithVerificationAndThreeAttempts(int answerCount) throws ResourceException {
         int result = 0;
         for (int i = 0; i < 3; i++) {
             String bufferReadString;
@@ -92,7 +94,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             } catch (NumberFormatException e) {
                 consoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
             } catch (IOException error) {
-                throw new ResourceNotFoundException("Error reading responses from student", error);
+                throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
             }
         }
         return result;

@@ -3,12 +3,14 @@ package ru.quizapp.repository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import ru.quizapp.dto.ExamTicketDTO;
-import ru.quizapp.exceptions.ResourceNotFoundException;
+import ru.quizapp.exceptions.ResourceException;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+
+import static ru.quizapp.exceptions.ResourceException.ErrorCode.READING_FROM_DATABASE_ERROR;
 
 
 public class ExamTicketRepositoryImpl implements ExamTicketRepository {
@@ -20,7 +22,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     }
 
     @Override
-    public List<ExamTicketDTO> readAllDataFromDataBase() throws ResourceNotFoundException{
+    public List<ExamTicketDTO> readAllDataFromDataBase() throws ResourceException {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
@@ -34,7 +36,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
                         }}).build()
                 );
         } catch (IOException error) {
-            throw new ResourceNotFoundException("Error reading data from resource", error);
+            throw new ResourceException("Error reading data from resource", error, READING_FROM_DATABASE_ERROR);
         }
         return questionDTOList;
     }
