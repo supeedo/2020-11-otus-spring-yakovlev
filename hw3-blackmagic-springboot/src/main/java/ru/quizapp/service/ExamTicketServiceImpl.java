@@ -1,6 +1,9 @@
 package ru.quizapp.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.quizapp.controller.ExaminationController;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
@@ -19,6 +22,7 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_
 
 @Service
 public class ExamTicketServiceImpl implements ExamTicketService {
+    private static final Logger logger = LoggerFactory.getLogger(ExamTicketService.class);
     private final ExamTicketRepository repository;
     private final ConsoleHelper consoleHelper;
 

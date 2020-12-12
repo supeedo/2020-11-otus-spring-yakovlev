@@ -2,9 +2,12 @@ package ru.quizapp.repository;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.exceptions.ResourceException;
+import ru.quizapp.service.ExamTicketService;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +21,7 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.READING_FROM_DAT
 
 @Component
 public class ExamTicketRepositoryImpl implements ExamTicketRepository {
-
+    private static final Logger logger = LoggerFactory.getLogger(ExamTicketRepository.class);
     private final String dataLink;
 
     public ExamTicketRepositoryImpl(String dataLink) {
@@ -45,7 +48,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         return questionDTOList;
     }
 
-    private String getAbsolutePathToDataFile(String dataLink){
+    private String getAbsolutePathToDataFile(String dataLink) {
         return Objects.requireNonNull(this.getClass().getClassLoader().getResource(dataLink)).getPath();
     }
 }

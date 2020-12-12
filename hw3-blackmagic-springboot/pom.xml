@@ -8,14 +8,17 @@
         <version>2.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>ru.quizapp</groupId>
-    <artifactId>demo</artifactId>
+    <artifactId>hw3</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>hw3</name>
     <description>home work with springboot</description>
 
     <properties>
         <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <commons-csv.version>1.8</commons-csv.version>
     </properties>
 
@@ -44,6 +47,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
             </plugin>
         </plugins>
     </build>
