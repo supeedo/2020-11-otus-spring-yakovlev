@@ -2,7 +2,9 @@ package ru.quizapp.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import ru.quizapp.config.AppConfiguration;
 import ru.quizapp.controller.ExaminationController;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
@@ -25,10 +27,14 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     private static final Logger logger = LoggerFactory.getLogger(ExamTicketService.class);
     private final ExamTicketRepository repository;
     private final ConsoleHelper consoleHelper;
+    private final MessageSource source;
+    private final AppConfiguration configuration;
 
-    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper) {
+    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper, MessageSource source, AppConfiguration configuration) {
         this.repository = repository;
         this.consoleHelper = consoleHelper;
+        this.source = source;
+        this.configuration = configuration;
     }
 
     @Override
@@ -94,7 +100,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                     result = buf;
                     break;
                 } else {
-                    consoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Поробуйте еще раз.");
+                    consoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Попробуйте еще раз.");
                 }
             } catch (NumberFormatException e) {
                 consoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
