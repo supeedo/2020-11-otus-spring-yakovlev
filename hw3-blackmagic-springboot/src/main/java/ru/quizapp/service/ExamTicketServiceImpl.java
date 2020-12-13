@@ -113,6 +113,14 @@ public class ExamTicketServiceImpl implements ExamTicketService {
 
     @Override
     public void resultsOfTheConductedTesting(ExaminationDTO examination) {
-        consoleHelper.writeMessage(examination.toString());
+        // consoleHelper.writeMessage(examination.toString());
+        consoleHelper.writeMessage(String
+                .format(localeDataHelper
+                                .getLocaleMessage("exam.result"),
+                        examination.getID(),
+                        examination.getDate(),
+                        examination.getStudent(),
+                        examination.getRightAnswers(),
+                        examination.getTotalQuestions()));
     }
 }

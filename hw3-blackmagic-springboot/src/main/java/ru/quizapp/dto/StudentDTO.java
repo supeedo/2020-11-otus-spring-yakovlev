@@ -12,8 +12,7 @@ public class StudentDTO {
 
     @Override
     public String toString() {
-        return "Студент: " +
-                firstName + " " + lastName;
+        return firstName + " " + lastName;
     }
 
     public String getFirstName() {
