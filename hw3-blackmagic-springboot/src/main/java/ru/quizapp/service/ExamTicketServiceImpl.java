@@ -44,8 +44,10 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         try {
             consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
             firstName = Objects.requireNonNull(consoleHelper.readString());
+            logger.info("Got the student's firstname = " + firstName);
             consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
             lastName = Objects.requireNonNull(consoleHelper.readString());
+            logger.info("Got the student's lastname = " + lastName);
         } catch (IOException error) {
             throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
         }
@@ -75,6 +77,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     @Override
     public Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
         if (answerNumber == 0) {
+            logger.debug("The answer to the question was not selected");
             consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.attempts.ended"));
             return 0;
         }
@@ -89,20 +92,22 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             String bufferReadString;
             try {
                 bufferReadString = consoleHelper.readString();
-
                 int buf = Integer.parseInt(bufferReadString);
                 if (buf <= answerCount && buf > 0) {
                     result = buf;
                     break;
                 } else {
+                    logger.debug("The answer number is entered which is not");
                     consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.wrong.number"));
                 }
             } catch (NumberFormatException e) {
+                logger.debug("No number entered as answer");
                 consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.format.answer"));
             } catch (IOException error) {
                 throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
             }
         }
+        logger.info("Answer number read = " + result);
         return result;
     }
 
@@ -113,7 +118,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
 
     @Override
     public void resultsOfTheConductedTesting(ExaminationDTO examination) {
-        // consoleHelper.writeMessage(examination.toString());
+        logger.info("Formation and output of the exam result = " + examination);
         consoleHelper.writeMessage(String
                 .format(localeDataHelper
                                 .getLocaleMessage("exam.result"),

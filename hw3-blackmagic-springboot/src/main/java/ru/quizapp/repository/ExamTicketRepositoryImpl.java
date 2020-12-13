@@ -4,9 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
-import ru.quizapp.config.AppConfiguration;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.utils.LocaleDataHelper;
@@ -37,6 +35,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         List<ExamTicketDTO> questionDTOList = new ArrayList<>();
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
+            logger.info("Information received from the database " + records);
             for (CSVRecord record : records)
                 questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                         .setQuestion(record.get(0))
@@ -49,10 +48,12 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         } catch (IOException error) {
             throw new ResourceException("Error reading data from resource", error, READING_FROM_DATABASE_ERROR);
         }
+        logger.info("Test list generated" + questionDTOList);
         return questionDTOList;
     }
 
     private String getAbsolutePathToDataFile(String dataLink) {
+        logger.info("Attempt to form full link to the data file = "+ dataLink);
         return Objects.requireNonNull(this.getClass().getClassLoader().getResource(dataLink)).getPath();
     }
 }

@@ -14,11 +14,12 @@ public class ConsoleHelper {
     private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public void writeMessage(String message) {
+        logger.info("Write in console the message = " + message);
         System.out.println(message);
-
     }
 
     public String readString() throws IOException {
+        logger.info("Read from console");
         return reader.readLine();
     }
 }

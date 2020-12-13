@@ -19,7 +19,9 @@ public class ExaminationControllerImpl implements ExaminationController {
     @Override
     public void takingAnExamination() {
         StudentDTO student = questionService.studentRegistration();
+        logger.info("Enrolled student = " + student);
         ExaminationDTO examination = questionService.studentTesting(student);
+        logger.info("Exam passed with results = " + examination);
         questionService.resultsOfTheConductedTesting(examination);
     }
 }
