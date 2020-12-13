@@ -2,16 +2,14 @@ package ru.quizapp.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import ru.quizapp.config.AppConfiguration;
-import ru.quizapp.controller.ExaminationController;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.utils.ConsoleHelper;
+import ru.quizapp.utils.LocaleDataHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,14 +25,12 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     private static final Logger logger = LoggerFactory.getLogger(ExamTicketService.class);
     private final ExamTicketRepository repository;
     private final ConsoleHelper consoleHelper;
-    private final MessageSource source;
-    private final AppConfiguration configuration;
+    private final LocaleDataHelper localeDataHelper;
 
-    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper, MessageSource source, AppConfiguration configuration) {
+    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper, LocaleDataHelper localeMessageHelper) {
         this.repository = repository;
         this.consoleHelper = consoleHelper;
-        this.source = source;
-        this.configuration = configuration;
+        this.localeDataHelper = localeMessageHelper;
     }
 
     @Override
@@ -44,12 +40,11 @@ public class ExamTicketServiceImpl implements ExamTicketService {
 
     @Override
     public StudentDTO studentRegistration() throws ResourceException {
-        String firstName = "";
-        String lastName = "";
+        String firstName, lastName;
         try {
-            consoleHelper.writeMessage("Введите имя");
+            consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
             firstName = Objects.requireNonNull(consoleHelper.readString());
-            consoleHelper.writeMessage("Введите фамилию");
+            consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
             lastName = Objects.requireNonNull(consoleHelper.readString());
         } catch (IOException error) {
             throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
@@ -80,7 +75,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     @Override
     public Integer checkAnswer(Map<String, String> mainAnswer, Map<String, String> bufferAnswer, Integer answerNumber) {
         if (answerNumber == 0) {
-            consoleHelper.writeMessage("Вы не смогли ввести номер варианта ответа. Вопрос пропускается.");
+            consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.attempts.ended"));
             return 0;
         }
         String bufferAnswerNumber = Objects.requireNonNull(mainAnswer.get(bufferAnswer.get(String.valueOf(answerNumber))));
@@ -100,10 +95,10 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                     result = buf;
                     break;
                 } else {
-                    consoleHelper.writeMessage("Ошибка!!! Такого варианта ответа нет! Попробуйте еще раз.");
+                    consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.wrong.number"));
                 }
             } catch (NumberFormatException e) {
-                consoleHelper.writeMessage("Ошибка!!! Необходимо ввести номер одного из вариантов ответа! Попробуйте еще раз!");
+                consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.format.answer"));
             } catch (IOException error) {
                 throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
             }

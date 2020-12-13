@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.quizapp.config.AppConfiguration;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.exceptions.ResourceException;
+import ru.quizapp.utils.LocaleDataHelper;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,14 +24,12 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.READING_FROM_DAT
 @Component
 public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     private static final Logger logger = LoggerFactory.getLogger(ExamTicketRepository.class);
-    private final MessageSource source;
-    private final AppConfiguration configuration;
+    private final LocaleDataHelper localeDataHelper;
     private final String dataLink;
 
-    public ExamTicketRepositoryImpl(MessageSource source, AppConfiguration configuration) {
-        this.source = source;
-        this.configuration = configuration;
-        this.dataLink = source.getMessage("db.url", new String []{} ,configuration.getLocale());
+    public ExamTicketRepositoryImpl(LocaleDataHelper dataHelper) {
+        this.localeDataHelper = dataHelper;
+        this.dataLink = localeDataHelper.getLocaleMessage("db.url");
     }
 
     @Override
