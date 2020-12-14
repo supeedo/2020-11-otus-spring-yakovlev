@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class ExaminationDTO {
-    private final String ID = UUID.randomUUID().toString();
+    private final String id = UUID.randomUUID().toString();
     private final String date;
     private final StudentDTO student;
     private final Integer rightAnswers;
@@ -20,15 +20,15 @@ public class ExaminationDTO {
     @Override
     public String toString() {
         return "Экзамен №:" +
-                " " + ID + ",\n" +
+                " " + id + ",\n" +
                 " от " + date +
                 ",\n " + student +
                 ",\n Правильных ответов = " + rightAnswers +
                 " из " + totalQuestions;
     }
 
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     public String getDate() {

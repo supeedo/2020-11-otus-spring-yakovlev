@@ -122,7 +122,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         consoleHelper.writeMessage(String
                 .format(localeDataHelper
                                 .getLocaleMessage("exam.result"),
-                        examination.getID(),
+                        examination.getId(),
                         examination.getDate(),
                         examination.getStudent(),
                         examination.getRightAnswers(),
