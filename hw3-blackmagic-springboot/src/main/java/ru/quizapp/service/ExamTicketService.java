@@ -10,7 +10,7 @@ import java.util.Map;
 public interface ExamTicketService {
     List<ExamTicketDTO> getAllTickets();
 
-    StudentDTO studentRegistration();
+//    StudentDTO studentRegistration();
 
     ExaminationDTO studentTesting(StudentDTO student);
 

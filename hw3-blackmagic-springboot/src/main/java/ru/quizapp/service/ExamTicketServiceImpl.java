@@ -37,17 +37,17 @@ public class ExamTicketServiceImpl implements ExamTicketService {
         return repository.readAllDataFromDataBase();
     }
 
-    @Override
-    public StudentDTO studentRegistration() throws ResourceException {
-        String firstName, lastName;
-        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
-        firstName = Objects.requireNonNull(consoleHelper.readString());
-        logger.info("Got the student's firstname = " + firstName);
-        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
-        lastName = Objects.requireNonNull(consoleHelper.readString());
-        logger.info("Got the student's lastname = " + lastName);
-        return new StudentDTO(firstName, lastName);
-    }
+//    @Override
+//    public StudentDTO studentRegistration() throws ResourceException {
+//        String firstName, lastName;
+//        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
+//        firstName = Objects.requireNonNull(consoleHelper.readString());
+//        logger.info("Got the student's firstname = " + firstName);
+//        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
+//        lastName = Objects.requireNonNull(consoleHelper.readString());
+//        logger.info("Got the student's lastname = " + lastName);
+//        return new StudentDTO(firstName, lastName);
+//    }
 
     @Override
     public ExaminationDTO studentTesting(StudentDTO student) {

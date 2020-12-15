@@ -5,22 +5,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
-import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.utils.LocaleDataHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_ERROR;
 
 @SpringBootTest
 class ExamTicketServiceTest {
@@ -29,14 +25,15 @@ class ExamTicketServiceTest {
 
     private final static List<ExamTicketDTO> questionDTOList = new ArrayList<>();
 
-    @Mock
+    @MockBean
     private ExamTicketRepository repository;
 
-    @Mock
+    @MockBean
     private IOServiceImpl consoleHelper;
 
-    @Mock
+    @MockBean
     private LocaleDataHelper localeDataHelper;
+
 
     private ExamTicketService service;
 
@@ -44,7 +41,6 @@ class ExamTicketServiceTest {
 
     @BeforeEach
     public void setUp() {
-        consoleHelper = Mockito.mock(IOServiceImpl.class);
         student = new StudentDTO(testFirstName, testLastName);
         service = new ExamTicketServiceImpl(repository, consoleHelper, localeDataHelper);
         questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
@@ -69,15 +65,6 @@ class ExamTicketServiceTest {
 
     }
 
-    @Test
-    @DisplayName("Check receipt studentDTO")
-    public void studentRegistration() {
-        Mockito.when(consoleHelper.readString()).thenReturn(testFirstName, testLastName);
-        StudentDTO studentDTO = service.studentRegistration();
-        Assertions.assertNotNull(studentDTO, "Object is null");
-        Assertions.assertEquals(studentDTO.getFirstName(), testFirstName, "FirstName various");
-        Assertions.assertEquals(studentDTO.getLastName(), testLastName, "LastName various");
-    }
 
     @Test
     public void studentTesting() {
