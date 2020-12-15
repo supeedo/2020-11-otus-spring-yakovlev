@@ -8,7 +8,6 @@ import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
-import ru.quizapp.utils.ConsoleHelper;
 import ru.quizapp.utils.LocaleDataHelper;
 
 import java.io.IOException;
@@ -24,10 +23,10 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_
 public class ExamTicketServiceImpl implements ExamTicketService {
     private static final Logger logger = LoggerFactory.getLogger(ExamTicketService.class);
     private final ExamTicketRepository repository;
-    private final ConsoleHelper consoleHelper;
+    private final IOServiceImpl consoleHelper;
     private final LocaleDataHelper localeDataHelper;
 
-    public ExamTicketServiceImpl(ExamTicketRepository repository, ConsoleHelper consoleHelper, LocaleDataHelper localeMessageHelper) {
+    public ExamTicketServiceImpl(ExamTicketRepository repository, IOServiceImpl consoleHelper, LocaleDataHelper localeMessageHelper) {
         this.repository = repository;
         this.consoleHelper = consoleHelper;
         this.localeDataHelper = localeMessageHelper;

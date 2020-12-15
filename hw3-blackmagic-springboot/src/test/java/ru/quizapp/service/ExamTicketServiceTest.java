@@ -13,7 +13,6 @@ import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
-import ru.quizapp.utils.ConsoleHelper;
 import ru.quizapp.utils.LocaleDataHelper;
 
 import java.io.IOException;
@@ -34,7 +33,7 @@ class ExamTicketServiceTest {
     private ExamTicketRepository repository;
 
     @Mock
-    private ConsoleHelper consoleHelper;
+    private IOServiceImpl consoleHelper;
 
     @Mock
     private LocaleDataHelper localeDataHelper;
@@ -45,7 +44,7 @@ class ExamTicketServiceTest {
 
     @BeforeEach
     public void setUp() {
-        consoleHelper = Mockito.mock(ConsoleHelper.class);
+        consoleHelper = Mockito.mock(IOServiceImpl.class);
         student = new StudentDTO(testFirstName, testLastName);
         service = new ExamTicketServiceImpl(repository, consoleHelper, localeDataHelper);
         questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
