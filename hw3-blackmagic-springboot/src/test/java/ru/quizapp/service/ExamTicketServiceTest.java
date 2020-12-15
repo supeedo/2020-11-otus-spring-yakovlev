@@ -72,27 +72,19 @@ class ExamTicketServiceTest {
     @Test
     @DisplayName("Check receipt studentDTO")
     public void studentRegistration() {
-        try {
-            Mockito.when(consoleHelper.readString()).thenReturn(testFirstName, testLastName);
-            StudentDTO studentDTO = service.studentRegistration();
-            Assertions.assertNotNull(studentDTO, "Object is null");
-            Assertions.assertEquals(studentDTO.getFirstName(), testFirstName, "FirstName various");
-            Assertions.assertEquals(studentDTO.getLastName(), testLastName, "LastName various");
-        } catch (IOException error) {
-            throw new ResourceException("Error reading data from console", error, CONSOLE_READING_ERROR);
-        }
+        Mockito.when(consoleHelper.readString()).thenReturn(testFirstName, testLastName);
+        StudentDTO studentDTO = service.studentRegistration();
+        Assertions.assertNotNull(studentDTO, "Object is null");
+        Assertions.assertEquals(studentDTO.getFirstName(), testFirstName, "FirstName various");
+        Assertions.assertEquals(studentDTO.getLastName(), testLastName, "LastName various");
     }
 
     @Test
     public void studentTesting() {
-        try {
-            Mockito.when(consoleHelper.readString()).thenReturn("1");
-            ExaminationDTO dummyExam = new ExaminationDTO(student, 1, 1);
-            ExaminationDTO examinationDTO = this.service.studentTesting(student);
-            Assertions.assertNotNull(examinationDTO, "Object is null");
-        } catch (IOException error) {
-            throw new ResourceException("Error reading data from console", error, CONSOLE_READING_ERROR);
-        }
+        Mockito.when(consoleHelper.readString()).thenReturn("1");
+        ExaminationDTO dummyExam = new ExaminationDTO(student, 1, 1);
+        ExaminationDTO examinationDTO = this.service.studentTesting(student);
+        Assertions.assertNotNull(examinationDTO, "Object is null");
     }
 
     public void checkAnswer() {

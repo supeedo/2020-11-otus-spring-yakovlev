@@ -40,16 +40,12 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     @Override
     public StudentDTO studentRegistration() throws ResourceException {
         String firstName, lastName;
-        try {
-            consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
-            firstName = Objects.requireNonNull(consoleHelper.readString());
-            logger.info("Got the student's firstname = " + firstName);
-            consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
-            lastName = Objects.requireNonNull(consoleHelper.readString());
-            logger.info("Got the student's lastname = " + lastName);
-        } catch (IOException error) {
-            throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
-        }
+        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
+        firstName = Objects.requireNonNull(consoleHelper.readString());
+        logger.info("Got the student's firstname = " + firstName);
+        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
+        lastName = Objects.requireNonNull(consoleHelper.readString());
+        logger.info("Got the student's lastname = " + lastName);
         return new StudentDTO(firstName, lastName);
     }
 
@@ -102,8 +98,6 @@ public class ExamTicketServiceImpl implements ExamTicketService {
             } catch (NumberFormatException e) {
                 logger.debug("No number entered as answer");
                 consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.format.answer"));
-            } catch (IOException error) {
-                throw new ResourceException("Error reading responses from student", error, CONSOLE_READING_ERROR);
             }
         }
         logger.info("Answer number read = " + result);
