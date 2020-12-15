@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-import static ru.quizapp.exceptions.ResourceException.ErrorCode.READING_FROM_DATABASE_ERROR;
+import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_ERROR;
 
 @Service
 public class IOServiceImpl implements IOService {
@@ -35,7 +35,7 @@ public class IOServiceImpl implements IOService {
         try {
             readString = reader.readLine();
         } catch (IOException e) {
-            throw new ResourceException("Error reading data from console", e, READING_FROM_DATABASE_ERROR);
+            throw new ResourceException("Error reading data from console", e, CONSOLE_READING_ERROR);
         }
         return readString;
     }
