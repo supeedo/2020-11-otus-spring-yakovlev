@@ -32,19 +32,11 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
 
     @Override
     public List<ExamTicketDTO> readAllDataFromDataBase() throws ResourceException {
-        List<ExamTicketDTO> questionDTOList = new ArrayList<>();
+        List<ExamTicketDTO> questionDTOList;
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
             logger.info("Information received from the database " + records);
-            for (CSVRecord record : records)
-                questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
-                        .setQuestion(record.get(0))
-                        .setAnswers(new HashMap<>() {{
-                            put(record.get(1), record.get(2));
-                            put(record.get(3), record.get(4));
-                            put(record.get(5), record.get(6));
-                        }}).build()
-                );
+            questionDTOList = parseDataInListTicket(records);
         } catch (IOException error) {
             throw new ResourceException("Error reading data from resource", error, READING_FROM_DATABASE_ERROR);
         }
@@ -53,7 +45,22 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     }
 
     private String getAbsolutePathToDataFile(String dataLink) {
-        logger.info("Attempt to form full link to the data file = "+ dataLink);
+        logger.info("Attempt to form full link to the data file = " + dataLink);
         return Objects.requireNonNull(this.getClass().getClassLoader().getResource(dataLink)).getPath();
+    }
+
+    private List<ExamTicketDTO> parseDataInListTicket(Iterable<CSVRecord> records) {
+        logger.info("Parse from database and create tickets");
+        List<ExamTicketDTO> questionDTOList = new ArrayList<>();
+        for (CSVRecord record : records)
+            questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
+                    .setQuestion(record.get(0))
+                    .setAnswers(new HashMap<>() {{
+                        put(record.get(1), record.get(2));
+                        put(record.get(3), record.get(4));
+                        put(record.get(5), record.get(6));
+                    }}).build()
+            );
+        return questionDTOList;
     }
 }
