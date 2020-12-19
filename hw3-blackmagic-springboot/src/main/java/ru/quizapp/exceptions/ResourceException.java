@@ -3,11 +3,6 @@ package ru.quizapp.exceptions;
 public class ResourceException extends RuntimeException {
     private final ErrorCode code;
 
-    public ResourceException(ErrorCode code) {
-        super();
-        this.code = code;
-    }
-
     public ResourceException(String message, Throwable cause, ErrorCode code) {
         super(message, cause);
         this.code = code;
