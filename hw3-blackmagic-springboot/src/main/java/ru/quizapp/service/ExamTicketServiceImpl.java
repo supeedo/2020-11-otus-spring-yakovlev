@@ -10,14 +10,11 @@ import ru.quizapp.exceptions.ResourceException;
 import ru.quizapp.repository.ExamTicketRepository;
 import ru.quizapp.utils.LocaleDataHelper;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_ERROR;
 
 @Service
 public class ExamTicketServiceImpl implements ExamTicketService {
@@ -36,18 +33,6 @@ public class ExamTicketServiceImpl implements ExamTicketService {
     public List<ExamTicketDTO> getAllTickets() {
         return repository.readAllDataFromDataBase();
     }
-
-//    @Override
-//    public StudentDTO studentRegistration() throws ResourceException {
-//        String firstName, lastName;
-//        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
-//        firstName = Objects.requireNonNull(consoleHelper.readString());
-//        logger.info("Got the student's firstname = " + firstName);
-//        consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.lastname"));
-//        lastName = Objects.requireNonNull(consoleHelper.readString());
-//        logger.info("Got the student's lastname = " + lastName);
-//        return new StudentDTO(firstName, lastName);
-//    }
 
     @Override
     public ExaminationDTO studentTesting(StudentDTO student) {

@@ -16,7 +16,7 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.CONSOLE_READING_
 public class IOServiceImpl implements IOService {
     private static final Logger logger = LoggerFactory.getLogger(IOServiceImpl.class);
     private final BufferedReader reader;
-    PrintStream out;
+    private final PrintStream out;
 
     public IOServiceImpl() {
         this.reader = new BufferedReader(new InputStreamReader(System.in));
@@ -26,7 +26,7 @@ public class IOServiceImpl implements IOService {
 
     public void writeMessage(String message) {
         logger.info("Write in console the message = " + message);
-        System.out.println(message);
+        out.println(message);
     }
 
     public String readString() throws ResourceException {
