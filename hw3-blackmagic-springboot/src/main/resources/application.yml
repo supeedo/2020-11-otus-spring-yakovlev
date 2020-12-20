@@ -1,0 +1,8 @@
+application:
+  locale: ru_RU
+
+logging:
+  level:
+   ru.quizapp: WARN
+  pattern:
+     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
