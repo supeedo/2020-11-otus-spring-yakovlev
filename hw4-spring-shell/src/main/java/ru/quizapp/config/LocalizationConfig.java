@@ -8,6 +8,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 @Configuration
 public class LocalizationConfig {
 
+    //TODO убрать хардкод
+
     @Bean
     public MessageSource messageSource(){
         ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
