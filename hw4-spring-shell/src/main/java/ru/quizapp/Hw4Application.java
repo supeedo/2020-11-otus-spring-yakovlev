@@ -13,8 +13,8 @@ public class Hw4Application {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Hw4Application.class, args);
-        ExaminationController controller = context.getBean(ExaminationController.class);
-        controller.takingAnExamination();
+//        ExaminationController controller = context.getBean(ExaminationController.class);
+//        controller.takingAnExamination();
     }
 
 }
