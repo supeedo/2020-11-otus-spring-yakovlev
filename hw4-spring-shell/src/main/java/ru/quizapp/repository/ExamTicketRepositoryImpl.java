@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.exceptions.ResourceException;
@@ -26,7 +27,8 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     private final String dataLink;
     private final DataParser dataParser;
 
-    public ExamTicketRepositoryImpl(LocaleDataHelper dataHelper, DataParserImpl dataParser) {
+    public ExamTicketRepositoryImpl(@Qualifier("localeDataHelper") LocaleDataHelper dataHelper,
+                                    @Qualifier("dataParserImpl") DataParser dataParser) {
         this.localeDataHelper = dataHelper;
         this.dataParser = dataParser;
         this.dataLink = localeDataHelper.getLocaleMessage("db.url");

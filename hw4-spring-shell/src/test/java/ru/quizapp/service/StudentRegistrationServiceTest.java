@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
@@ -13,8 +15,7 @@ import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.utils.LocaleDataHelper;
 
 @SpringBootTest(properties = {InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
-}, classes = StudentRegistrationServiceTest.class)
+        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"})
 class StudentRegistrationServiceTest {
 
     private static final String testFirstName = "test-First-Name-Student";
@@ -25,13 +26,8 @@ class StudentRegistrationServiceTest {
     @MockBean
     private LocaleDataHelper localeDataHelper;
 
-
+    @Autowired
     private StudentRegistrationService service;
-
-    @BeforeEach
-    void setUp() {
-        this.service = new StudentRegistrationServiceImpl(consoleHelper, localeDataHelper);
-    }
 
     @Test
     @DisplayName("Check receipt studentDTO")

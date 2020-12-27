@@ -25,7 +25,7 @@ public class IOServiceImpl implements IOService {
 
 
     public void writeMessage(String message) {
-        logger.info("Write in console the message = " + message);
+        logger.info("Write in console the message = {}", message);
         out.println(message);
     }
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.shell.jline.InteractiveShellApplicationRunner;
@@ -21,8 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @SpringBootTest(properties = {InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
-}, classes = ExamTicketServiceTest.class)
+        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"})
 class ExamTicketServiceTest {
     private static final String testFirstName = "test-First-Name-Student";
     private static final String testLastName = "test-Last-Name-Student";
@@ -35,10 +35,7 @@ class ExamTicketServiceTest {
     @MockBean
     private IOServiceImpl consoleHelper;
 
-    @MockBean
-    private LocaleDataHelper localeDataHelper;
-
-
+    @Autowired
     private ExamTicketService service;
 
     private StudentDTO student;
@@ -46,7 +43,6 @@ class ExamTicketServiceTest {
     @BeforeEach
     public void setUp() {
         student = new StudentDTO(testFirstName, testLastName);
-        service = new ExamTicketServiceImpl(repository, consoleHelper, localeDataHelper);
         questionDTOList.add(new ExamTicketDTO.ExamTicketDTOBuilder()
                 .setQuestion("Tests mock questions")
                 .setAnswers(new HashMap<>() {{

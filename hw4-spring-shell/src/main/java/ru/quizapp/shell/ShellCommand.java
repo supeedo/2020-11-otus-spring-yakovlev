@@ -3,6 +3,7 @@ package ru.quizapp.shell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.shell.Availability;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -26,7 +27,9 @@ public class ShellCommand {
     private ExaminationDTO examination;
 
     @Autowired
-    public ShellCommand(ExamTicketService questionService, StudentRegistrationService studentRegistration, LocaleDataHelper localeDataHelper) {
+    public ShellCommand(@Qualifier("examTicketServiceImpl") ExamTicketService questionService,
+                        @Qualifier("studentRegistrationServiceImpl") StudentRegistrationService studentRegistration,
+                        LocaleDataHelper localeDataHelper) {
         logger.info("Class initialization");
         this.questionService = questionService;
         this.studentRegistration = studentRegistration;

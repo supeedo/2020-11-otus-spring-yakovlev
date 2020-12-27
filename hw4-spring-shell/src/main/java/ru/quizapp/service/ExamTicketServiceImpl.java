@@ -2,6 +2,7 @@ package ru.quizapp.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
@@ -18,12 +19,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ExamTicketServiceImpl implements ExamTicketService {
-    private static final Logger logger = LoggerFactory.getLogger(ExamTicketService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExamTicketServiceImpl.class);
     private final ExamTicketRepository repository;
-    private final IOServiceImpl consoleHelper;
+    private final IOService consoleHelper;
     private final LocaleDataHelper localeDataHelper;
 
-    public ExamTicketServiceImpl(ExamTicketRepository repository, IOServiceImpl consoleHelper, LocaleDataHelper localeMessageHelper) {
+    public ExamTicketServiceImpl(@Qualifier("examTicketRepositoryImpl") ExamTicketRepository repository,
+                                 @Qualifier("IOServiceImpl") IOService consoleHelper,
+                                 @Qualifier("localeDataHelper") LocaleDataHelper localeMessageHelper) {
         this.repository = repository;
         this.consoleHelper = consoleHelper;
         this.localeDataHelper = localeMessageHelper;
@@ -85,7 +88,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
                 consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("error.format.answer"));
             }
         }
-        logger.info("Answer number read = " + result);
+        logger.info("Answer number read = {}", result);
         return result;
     }
 
@@ -96,7 +99,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
 
     @Override
     public void resultsOfTheConductedTesting(ExaminationDTO examination) {
-        logger.info("Formation and output of the exam result = " + examination);
+        logger.info("Formation and output of the exam result = {}", examination);
         consoleHelper.writeMessage(String
                 .format(localeDataHelper
                                 .getLocaleMessage("exam.result"),

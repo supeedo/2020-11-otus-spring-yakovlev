@@ -19,7 +19,7 @@ public class LocaleDataHelper {
     }
 
     public String getLocaleMessage(String code) {
-        logger.info("Get a localized string by code = " + code);
+        logger.info("Get a localized string by code = {}", code);
         return source.getMessage(code, new String[]{}, configuration.getLocale());
     }
 }
