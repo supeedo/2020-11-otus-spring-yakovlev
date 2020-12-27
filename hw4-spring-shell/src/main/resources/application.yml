@@ -1,6 +1,10 @@
 application:
   locale: ru_RU
 
+localization:
+  format: "UTF-8"
+  patch: "classpath:/i18n/bundle"
+
 logging:
   level:
    ru.quizapp: WARN

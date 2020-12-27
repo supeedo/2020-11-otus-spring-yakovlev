@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "localization.format",
+      "type": "java.lang.String",
+      "description": "Description for localization.format."
+  },
+    {
+      "name": "localization.patch",
+      "type": "java.lang.String",
+      "description": "Description for localization.patch."
+    }
+] }

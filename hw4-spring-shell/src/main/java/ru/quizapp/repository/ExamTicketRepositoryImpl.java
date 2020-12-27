@@ -35,17 +35,17 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
         List<ExamTicketDTO> questionDTOList;
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);
-            logger.info("Information received from the database " + records);
+            logger.info("Information received from the database = {}", records);
             questionDTOList = parseDataInListTicket(records);
         } catch (IOException error) {
             throw new ResourceException("Error reading data from resource", error, READING_FROM_DATABASE_ERROR);
         }
-        logger.info("Test list generated" + questionDTOList);
+        logger.info("Test list generated = {}", questionDTOList);
         return questionDTOList;
     }
 
     private String getAbsolutePathToDataFile(String dataLink) {
-        logger.info("Attempt to form full link to the data file = " + dataLink);
+        logger.info("Attempt to form full link to the data file = {}", dataLink);
         return Objects.requireNonNull(this.getClass().getClassLoader().getResource(dataLink)).getPath();
     }
 
