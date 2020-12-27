@@ -15,7 +15,6 @@ import ru.quizapp.dto.ExamTicketDTO;
 import ru.quizapp.dto.ExaminationDTO;
 import ru.quizapp.dto.StudentDTO;
 import ru.quizapp.repository.ExamTicketRepository;
-import ru.quizapp.utils.LocaleDataHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +55,7 @@ class ExamTicketServiceTest {
 
     @Test
     @DisplayName("Compare examination ticket ")
-    public void getAllTickets() {
+    void getAllTickets() {
         ExamTicketDTO ticketDTOFromBase = repository.getDataFromCsvFile().get(0);
         ExamTicketDTO ticketDTOFromService = service.getAllTickets().get(0);
         Assertions.assertEquals(
@@ -67,7 +66,7 @@ class ExamTicketServiceTest {
 
 
     @Test
-    public void studentTesting() {
+    void studentTesting() {
         Mockito.when(consoleHelper.readString()).thenReturn("1");
         ExaminationDTO dummyExam = new ExaminationDTO(student, 1, 1);
         ExaminationDTO examinationDTO = this.service.studentTesting(student);
