@@ -12,10 +12,10 @@ import org.springframework.shell.jline.ScriptShellApplicationRunner;
 class ShellCommandTest {
 
     @Autowired
-  private ShellCommand shell;
+    private ShellCommand shell;
 
     @Test
-    public void test1(){
+    void test1() {
         Assertions.assertNotNull(shell);
     }
 }
