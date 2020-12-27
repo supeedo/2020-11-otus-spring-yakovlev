@@ -21,7 +21,7 @@ import static ru.quizapp.exceptions.ResourceException.ErrorCode.READING_FROM_DAT
 
 @Component
 public class ExamTicketRepositoryImpl implements ExamTicketRepository {
-    private static final Logger logger = LoggerFactory.getLogger(ExamTicketRepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExamTicketRepositoryImpl.class);
     private final LocaleDataHelper localeDataHelper;
     private final String dataLink;
 
@@ -31,7 +31,7 @@ public class ExamTicketRepositoryImpl implements ExamTicketRepository {
     }
 
     @Override
-    public List<ExamTicketDTO> readAllDataFromDataBase() throws ResourceException {
+    public List<ExamTicketDTO> getDataFromCsvFile() throws ResourceException {
         List<ExamTicketDTO> questionDTOList;
         try (Reader in = new FileReader(getAbsolutePathToDataFile(dataLink))) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(in);

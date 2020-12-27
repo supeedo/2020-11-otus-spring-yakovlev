@@ -23,7 +23,8 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
 
     @Override
     public StudentDTO studentRegistration() throws ResourceException {
-        String firstName, lastName;
+        String firstName;
+        String lastName;
         consoleHelper.writeMessage(localeDataHelper.getLocaleMessage("query.firstname"));
         firstName = Objects.requireNonNull(consoleHelper.readString());
         logger.info("Got the student's firstname = " + firstName);

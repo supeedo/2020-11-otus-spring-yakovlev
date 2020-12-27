@@ -31,7 +31,7 @@ public class ExamTicketServiceImpl implements ExamTicketService {
 
     @Override
     public List<ExamTicketDTO> getAllTickets() {
-        return repository.readAllDataFromDataBase();
+        return repository.getDataFromCsvFile();
     }
 
     @Override
