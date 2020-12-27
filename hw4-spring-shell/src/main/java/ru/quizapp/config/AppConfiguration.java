@@ -8,7 +8,6 @@ import java.util.Locale;
 public class AppConfiguration {
 
     private Locale locale;
-    String format;
 
     public Locale getLocale() {
         return locale;
@@ -18,11 +17,4 @@ public class AppConfiguration {
         this.locale = locale;
     }
 
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
 }
