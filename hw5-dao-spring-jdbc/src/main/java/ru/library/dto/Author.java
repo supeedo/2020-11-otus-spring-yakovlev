@@ -8,4 +8,20 @@ public class Author {
         this.ID = ID;
         this.fullName = fullName;
     }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "ID=" + ID +
+                ", fullName='" + fullName + '\'' +
+                '}';
+    }
 }

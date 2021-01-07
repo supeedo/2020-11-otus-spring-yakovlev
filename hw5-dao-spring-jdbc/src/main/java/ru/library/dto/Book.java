@@ -12,4 +12,30 @@ public class Book {
         this.author = author;
         this.genre = genre;
     }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "ID=" + ID +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", author=" + author +
+                ", genre=" + genre +
+                '}';
+    }
 }

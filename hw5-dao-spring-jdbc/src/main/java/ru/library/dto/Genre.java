@@ -8,4 +8,20 @@ public class Genre {
         ID = id;
         this.genreName = genreName;
     }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public String getGenreName() {
+        return genreName;
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" +
+                "ID=" + ID +
+                ", genreName='" + genreName + '\'' +
+                '}';
+    }
 }
