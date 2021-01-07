@@ -29,14 +29,14 @@ public class AuthorDaoJdbc implements AuthorDao {
     public void insertAuthor(Author author) {
         final String INSERT_AUTHORS = "INSERT INTO AUTHORS(ID, `FULL_NAME`) VALUES (:id , :fullName)";
         jdbc.update(INSERT_AUTHORS,
-                Map.of("id", author.getID(), "fullName", author.getFullName()));
+                Map.of("id", author.getId(), "fullName", author.getFullName()));
     }
 
     @Override
     public void updateAuthor(Author author) {
         final String UPDATE_BOOK = "UPDATE AUTHORS SET FULL_NAME = :fullName WHERE ID=:id";
         jdbc.update(UPDATE_BOOK,
-                Map.of("id", author.getID(),
+                Map.of("id", author.getId(),
                         "fullName", author.getFullName()));
     }
 

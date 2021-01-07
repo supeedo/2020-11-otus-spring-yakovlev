@@ -1,16 +1,16 @@
 package ru.library.dto;
 
 public class Genre {
-    private final Long ID;
+    private final Long id;
     private final String genreName;
 
     public Genre(Long id, String genreName) {
-        ID = id;
+        this.id = id;
         this.genreName = genreName;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public String getGenreName() {
@@ -20,7 +20,7 @@ public class Genre {
     @Override
     public String toString() {
         return "Genre{" +
-                "ID=" + ID +
+                "ID=" + id +
                 ", genreName='" + genreName + '\'' +
                 '}';
     }

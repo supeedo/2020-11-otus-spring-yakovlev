@@ -31,19 +31,19 @@ public class BookDaoJdbc implements BookDao {
     public void insertBook(Book book) {
         final String INSERT_BOOK = "INSERT INTO BOOKS(ID, `BOOK_TITLE`, `AUTHOR_ID`, `GENRE_ID`) VALUES (:id , :bookTitle, :authorId, :genreId)";
         jdbc.update(INSERT_BOOK,
-                Map.of("id", book.getID(), "bookTitle", book.getBookTitle(),
-                        "authorId", book.getAuthor().getID(),
-                        "genreId", book.getGenre().getID()));
+                Map.of("id", book.getId(), "bookTitle", book.getBookTitle(),
+                        "authorId", book.getAuthor().getId(),
+                        "genreId", book.getGenre().getId()));
     }
 
     @Override
     public void updateBook(Book book) {
         final String UPDATE_BOOK = "UPDATE BOOKS SET BOOK_TITLE = :bookTitle, AUTHOR_ID=:authorId, GENRE_ID=:genreId WHERE ID=:id";
         jdbc.update(UPDATE_BOOK,
-                Map.of("id", book.getID(),
+                Map.of("id", book.getId(),
                         "bookTitle", book.getBookTitle(),
-                        "authorId", book.getAuthor().getID(),
-                        "genreId", book.getGenre().getID()));
+                        "authorId", book.getAuthor().getId(),
+                        "genreId", book.getGenre().getId()));
     }
 
     @Override

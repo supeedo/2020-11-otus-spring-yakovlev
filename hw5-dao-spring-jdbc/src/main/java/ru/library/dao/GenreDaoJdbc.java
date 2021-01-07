@@ -30,14 +30,14 @@ public class GenreDaoJdbc implements GenreDao {
     public void insertGenre(Genre genre) {
         final String INSERT_GENRE = "INSERT INTO GENRES(ID, `GENRE_NAME`) VALUES (:id , :genreName)";
         jdbc.update(INSERT_GENRE,
-                Map.of("id", genre.getID(), "genreName", genre.getGenreName()));
+                Map.of("id", genre.getId(), "genreName", genre.getGenreName()));
     }
 
     @Override
     public void updateGenre(Genre genre) {
         final String UPDATE_GENRE = "UPDATE GENRES SET GENRE_NAME = :genreName WHERE ID=:id";
         jdbc.update(UPDATE_GENRE,
-                Map.of("id", genre.getID(), "genreName", genre.getGenreName()));
+                Map.of("id", genre.getId(), "genreName", genre.getGenreName()));
     }
 
     @Override
