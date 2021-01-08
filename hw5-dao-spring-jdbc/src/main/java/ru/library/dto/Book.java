@@ -38,4 +38,8 @@ public class Book {
                 ", genre=" + genre +
                 '}';
     }
+
+    public Object[] getTablePresentation() {
+        return new Object[]{id.toString(), bookTitle, author.getFullName(), genre.getGenreName()};
+    }
 }

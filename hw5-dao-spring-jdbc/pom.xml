@@ -96,6 +96,13 @@
             <version>1.4.200</version>
         </dependency>
 
+        <!-- Table renderer -->
+        <dependency>
+            <groupId>de.vandermeer</groupId>
+            <artifactId>asciitable</artifactId>
+            <version>0.3.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

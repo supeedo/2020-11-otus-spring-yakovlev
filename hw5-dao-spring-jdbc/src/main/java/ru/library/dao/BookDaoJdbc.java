@@ -66,6 +66,11 @@ public class BookDaoJdbc implements BookDao {
         return jdbc.query(GET_ALL_BOOKS, new BookMapper());
     }
 
+    @Override
+    public List<String> getTitles() {
+        return List.of("id", "Book name", "Author full name", "Genre");
+    }
+
     private static class BookMapper implements RowMapper<Book> {
 
         @Override
