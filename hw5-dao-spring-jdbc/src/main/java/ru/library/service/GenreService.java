@@ -13,9 +13,9 @@ public interface GenreService {
 
     String deleteGenreById(Long genreId);
 
-    String createNewGenre(Long id, String genreName);
+    String createNewGenre(Long genreId, String genreName);
 
-    String updateGenre(Long id, String genreName);
+    String updateGenre(Long genreId, String genreName);
 
     List<List<String>> prepareForTable(List<Genre> genres);
 }

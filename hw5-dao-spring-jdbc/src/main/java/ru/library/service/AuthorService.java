@@ -5,7 +5,7 @@ import ru.library.dto.Author;
 import java.util.List;
 
 public interface AuthorService {
-    int getCount();
+    String getCount();
 
     String getAllAuthors();
 
@@ -13,9 +13,9 @@ public interface AuthorService {
 
     String deleteAuthorById(Long authorId);
 
-    String createNewAuthor(Long id, String authorFullName);
+    String createNewAuthor(Long authorId, String authorFullName);
 
-    String updateAuthor(Long id, String authorFullName);
+    String updateAuthor(Long authorId, String authorFullName);
 
     List<List<String>> prepareForTable(List<Author> genres);
 }

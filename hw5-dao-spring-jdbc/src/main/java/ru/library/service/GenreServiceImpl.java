@@ -43,10 +43,10 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public String createNewGenre(Long id, String genreName) {
-        genreDao.insertGenre(new Genre(id, genreName));
+    public String createNewGenre(Long genreId, String genreName) {
+        genreDao.insertGenre(new Genre(genreId, genreName));
         return String.format("Genre:\n%s \nhas insert", renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(id)))));
+                prepareForTable(List.of(genreDao.getGenreById(genreId)))));
     }
 
     @Override
