@@ -10,10 +10,5 @@ import java.sql.SQLException;
 public class Hw5Application {
     public static void main(String[] args) {
         SpringApplication.run(Hw5Application.class);
-//        try {
-//            Console.main(args);
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
     }
 }
