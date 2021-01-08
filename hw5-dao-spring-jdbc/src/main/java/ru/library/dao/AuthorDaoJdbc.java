@@ -58,6 +58,11 @@ public class AuthorDaoJdbc implements AuthorDao {
         return jdbc.query(GET_ALL_BOOKS, new AuthorsMapper());
     }
 
+    @Override
+    public List<String> getTitles() {
+        return List.of("id", "Author full name");
+    }
+
     private static class AuthorsMapper implements RowMapper<Author> {
 
         @Override

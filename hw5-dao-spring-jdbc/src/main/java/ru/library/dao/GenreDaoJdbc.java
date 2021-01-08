@@ -58,6 +58,11 @@ public class GenreDaoJdbc implements GenreDao {
         return jdbc.query(GET_ALL_GENRES, new GenreMapper());
     }
 
+    @Override
+    public List<String> getTitles() {
+        return List.of("id", "Genre name");
+    }
+
     private static class GenreMapper implements RowMapper<Genre> {
 
         @Override

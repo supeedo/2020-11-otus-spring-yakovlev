@@ -60,13 +60,13 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<List<String>> prepareForTable(List<Book> books) {
         List<List<String>> tablePresentation = new ArrayList<>();
-        for (Book b : books) {
-            List<String> stringList = new ArrayList<>();
-            stringList.add(b.getId().toString());
-            stringList.add(b.getBookTitle());
-            stringList.add(b.getAuthor().getFullName());
-            stringList.add(b.getGenre().getGenreName());
-            tablePresentation.add(stringList);
+        for (Book book : books) {
+            List<String> columnList = new ArrayList<>();
+            columnList.add(book.getId().toString());
+            columnList.add(book.getBookTitle());
+            columnList.add(book.getAuthor().getFullName());
+            columnList.add(book.getGenre().getGenreName());
+            tablePresentation.add(columnList);
         }
         return tablePresentation;
     }

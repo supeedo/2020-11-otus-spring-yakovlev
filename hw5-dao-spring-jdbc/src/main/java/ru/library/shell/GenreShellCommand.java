@@ -2,59 +2,45 @@ package ru.library.shell;
 
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import ru.library.dao.GenreDao;
-import ru.library.dto.Genre;
-import ru.library.utils.TableRenderer;
+import ru.library.service.GenreService;
 
 @ShellComponent
 public class GenreShellCommand {
 
-    private final GenreDao genreDao;
-    private final TableRenderer renderer;
+    private final GenreService service;
 
-    public GenreShellCommand(GenreDao genreDao, TableRenderer renderer) {
-        this.genreDao = genreDao;
-        this.renderer = renderer;
+    public GenreShellCommand(GenreService service) {
+        this.service = service;
     }
 
     @ShellMethod(value = "Show genres count in library", key = {"genres count", "count genres"})
     public String showGenresCount() {
-        return String.format("There are %s genres in the library", genreDao.getGenreCount());
+        return service.getCount();
     }
 
     @ShellMethod(value = "Show all genres", key = {"show all genres", "all genres"})
     public String showAllGenres() {
-        return null
-//                renderer.renderer(genreDao.getTitles(), genreDao.getAllBooks())
-                ;
+        return service.getAllGenre();
     }
 
     @ShellMethod(value = "Get genre by id", key = {"genre id"})
-    public String showGenreById(Long id) {
-        return null
-//                renderer.renderer(genreDao.getTitles(), List.of(genreDao.getBookById(id)))
-                ;
+    public String showGenreById(Long genreId) {
+        return service.getGenreById(genreId);
     }
 
-    @ShellMethod(value = "Delete genre by id", key = {"delete genre"})
-    public String deleteGenreById(Long id) {
-        genreDao.deleteGenreById(id);
-        return String.format("Genre with id: %s has delete", id);
+    @ShellMethod(value = "Delete genre by id", key = {"delete genre", "genre delete"})
+    public String deleteGenreById(Long genreId) {
+        return service.deleteGenreById(genreId);
     }
 
     @ShellMethod(value = "Insert genre", key = {"insert genre"})
-    public String insertNewGenre(Long id, String genreName) {
-        genreDao.insertGenre(new Genre(id, genreName));
-        return null;
-//                String.format("Genre:\n%s \nhas insert", renderer.renderer(genreDao.getTitles(), List.of(genreDao.getGenreById(id))));
+    public String insertNewGenre(Long genreId, String genreName) {
+        return service.createNewGenre(genreId, genreName);
     }
 
-    @ShellMethod(value = "Update genre", key = {"update genre"})
-    public String updateGenre(Long id, String genreName) {
-        genreDao.updateGenre(new Genre(id, genreName));
-        return null;
-//                String.format("Genre:\n%s \nhas update", renderer.renderer(genreDao.getTitles(), List.of(genreDao.getBookById(id))));
+    @ShellMethod(value = "Update genre", key = {"update genre", "genre update"})
+    public String updateGenre(Long genreId, String genreName) {
+        return service.updateGenre(genreId, genreName);
     }
-
 
 }
