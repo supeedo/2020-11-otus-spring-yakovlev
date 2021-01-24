@@ -8,7 +8,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 import ru.library.models.Author;
-import ru.library.models.Genre;
 
 import java.util.List;
 
@@ -70,7 +69,7 @@ class AuthorRepositoriesJpaTest {
     @Test
     void getAuthorById() {
         final Author expectedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
-        final Author actualAuthor = (authorDao.getAuthorById(expectedAuthor.getId())).get();
+        final Author actualAuthor = (authorDao.getAuthorById(FIRST_AUTHORS_ID)).get();
         Assertions.assertThat(expectedAuthor).usingRecursiveComparison().isEqualTo(actualAuthor);
     }
 

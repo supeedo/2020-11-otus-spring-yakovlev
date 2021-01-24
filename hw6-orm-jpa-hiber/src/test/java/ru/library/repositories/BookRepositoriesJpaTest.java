@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.EmptyResultDataAccessException;
 import ru.library.models.Author;
 import ru.library.models.Book;
 import ru.library.models.Genre;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 @DataJpaTest
@@ -71,18 +72,16 @@ class BookRepositoriesJpaTest {
     @DisplayName("Book with the specified ID removed")
     @Test
     void deleteBookById() {
-        final long bookIdForDelete = 1L;
-        bookDao.deleteBookById(bookIdForDelete);
-        Assertions
-                .assertThatThrownBy(() -> bookDao.getBookById(bookIdForDelete))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+        bookDao.deleteBookById(FIRST_ID);
+        assertNull(tem.find(Book.class, FIRST_ID));
     }
 
     @DisplayName("The book received from the ID corresponds to the expected")
     @Test
     void getBookById() {
-//        final Book actualBook = (bookDao.getBookById(expectedBook.getId())).get();
-//        Assertions.assertThat(expectedBook).usingRecursiveComparison().isEqualTo(actualBook);
+        final Book expectedBook = tem.find(Book.class, FIRST_ID);
+        final Book actualBook = bookDao.getBookById(FIRST_ID).get();
+        Assertions.assertThat(expectedBook).usingRecursiveComparison().isEqualTo(actualBook);
     }
 
     @DisplayName("The resulting list of all books is as expected")
