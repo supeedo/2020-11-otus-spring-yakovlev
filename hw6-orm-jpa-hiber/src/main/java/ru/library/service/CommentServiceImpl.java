@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getCommentById(Long commentId) {
+    public String getCommentById(long commentId) {
         Optional<BookComment> genre = commentDao.getCommentById(commentId);
         if (genre.isPresent()) {
             return renderer.tableRender(commentDao.getTitles(),
@@ -51,14 +51,14 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public String deleteCommentById(Long commentId) {
+    public String deleteCommentById(long commentId) {
         commentDao.deleteCommentById(commentId);
         return String.format("Comment with id: %s has delete", commentId);
     }
 
     @Transactional
     @Override
-    public String createNewComment(String commentText, Long bookId) {
+    public String createNewComment(String commentText, long bookId) {
         Book book = bookRepo.getBookById(bookId).get();
         BookComment comment = new BookComment();
         comment.setId(0L);
@@ -70,7 +70,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public String updateComment(Long commentId, String commentText) {
+    public String updateComment(long commentId, String commentText) {
         BookComment comment = commentDao.getCommentById(commentId).get();
         comment.setComment(commentText);
         commentDao.updateComment(comment);
@@ -88,7 +88,7 @@ public class CommentServiceImpl implements CommentService {
         List<List<String>> tablePresentation = new ArrayList<>();
         for (BookComment comment : comments) {
             List<String> columnList = new ArrayList<>();
-            columnList.add(comment.getId().toString());
+            columnList.add(String.valueOf(comment.getId()));
             columnList.add(comment.getComment());
             columnList.add(String.valueOf(comment.getBook().getId()));
             tablePresentation.add(columnList);

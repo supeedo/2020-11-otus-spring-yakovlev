@@ -10,13 +10,13 @@ public interface CommentService {
 
     String getAllComments();
 
-    String getCommentById(Long commentId);
+    String getCommentById(long commentId);
 
-    String deleteCommentById(Long commentId);
+    String deleteCommentById(long commentId);
 
-    String createNewComment(String comment, Long bookId);
+    String createNewComment(String comment, long bookId);
 
-    String updateComment(Long commentId, String commentText);
+    String updateComment(long commentId, String commentText);
 
     List<List<String>> prepareForTable(List<BookComment> genres);
 }
