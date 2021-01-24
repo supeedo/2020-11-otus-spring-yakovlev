@@ -15,12 +15,14 @@ public class Book {
     private String bookTitle;
 
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "author_id", referencedColumnName = "id")//, foreignKey = @ForeignKey(name = "FK_author_id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_author_id"))
     private Author author;
 
     @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")//, foreignKey = @ForeignKey(name = "FK_genre_id")
+    @JoinColumn(name = "genre_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_genre_id"))
     private Genre genre;
+
+
 
     public Book() {
     }
