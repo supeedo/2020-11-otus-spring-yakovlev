@@ -34,7 +34,7 @@ public class GenreShellCommand {
         return service.deleteGenreById(genreId);
     }
 
-    @ShellMethod(value = "Insert genre", key = {"create genre", "genre create"})
+    @ShellMethod(value = "Insert genre", key = {"insert genre","create genre", "genre create"})
     public String insertNewGenre(@ShellOption String genreName) {
         return service.createNewGenre(genreName);
     }

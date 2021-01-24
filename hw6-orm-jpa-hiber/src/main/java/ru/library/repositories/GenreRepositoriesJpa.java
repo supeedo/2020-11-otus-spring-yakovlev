@@ -1,7 +1,6 @@
 package ru.library.repositories;
 
 import org.springframework.stereotype.Repository;
-import ru.library.models.Author;
 import ru.library.models.Genre;
 
 import javax.persistence.EntityManager;
@@ -9,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository

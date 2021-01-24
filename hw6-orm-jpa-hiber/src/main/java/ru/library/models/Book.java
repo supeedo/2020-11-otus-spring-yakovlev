@@ -1,7 +1,6 @@
 package ru.library.models;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -49,9 +48,6 @@ public class Book {
         return genre;
     }
 
-    public Object[] getTablePresentation() {
-        return new Object[]{id, bookTitle, author.getFullName(), genre.getGenreName()};
-    }
 
     @Override
     public String toString() {

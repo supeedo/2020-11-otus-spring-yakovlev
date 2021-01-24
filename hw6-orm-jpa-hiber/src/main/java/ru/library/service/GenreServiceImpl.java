@@ -63,11 +63,13 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public String updateGenre(long genreId, String genreName) {
-        genreDao.updateGenre(new Genre(genreId, genreName));
-        Optional<Genre> genre = genreDao.getGenreById(genreId);
-        if (genre.isPresent()) {
+        Genre genre = genreDao.getGenreById(genreId).get();
+        genre.setGenreName(genreName);
+        genreDao.updateGenre(genre);
+        Optional<Genre> updateGenre = genreDao.getGenreById(genreId);
+        if (updateGenre.isPresent()) {
             return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
-                    prepareForTable(List.of(genre.get()))));
+                    prepareForTable(List.of(updateGenre.get()))));
         } else {
             return String.format("Genre with id: %d, not found!", genreId);
         }

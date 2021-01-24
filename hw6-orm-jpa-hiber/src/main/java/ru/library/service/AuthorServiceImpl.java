@@ -62,11 +62,12 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public String updateAuthor(long authorId, String authorFullName) {
-        authorDao.updateAuthorById(new Author(authorId, authorFullName));
-        Optional<Author> author = authorDao.getAuthorById(authorId);
-        if (author.isPresent()) {
+        Author author = authorDao.getAuthorById(authorId).get();
+        author.setFullName(authorFullName);
+        Optional<Author> updateAuthor = authorDao.getAuthorById(authorId);
+        if (updateAuthor.isPresent()) {
             return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
-                    prepareForTable(List.of(author.get()))));
+                    prepareForTable(List.of(updateAuthor.get()))));
         } else {
             return String.format("Author with id: %d, not found!", authorId);
         }

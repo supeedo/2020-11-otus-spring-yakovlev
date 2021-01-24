@@ -12,6 +12,7 @@ public interface AuthorService {
     String getAuthorById(long authorId);
 
     String deleteAuthorById(long authorId);
+
     String createNewAuthor(String authorFullName);
 
     String updateAuthor(long authorId, String authorFullName);
