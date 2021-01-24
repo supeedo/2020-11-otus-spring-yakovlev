@@ -1,23 +1,22 @@
-//package ru.library.repositories;
-//
-//import ru.library.models.Author;
-//import ru.library.models.Comment;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//public interface CommentRepositories {
-//    Long getCommentCount();
-//
-//    Comment insertComment(Comment comment);
-//
-//    void updateComment(Comment comment);
-//
-//    void deleteCommentById(long commentId);
-//
-//    Optional<Comment> getCommentById(long commentId);
-//
-//    List<Comment> getAllComments();
-//
-//    List<String> getTitles();
-//}
+package ru.library.repositories;
+
+import ru.library.models.BookComment;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface CommentRepositories {
+    long getCommentCount();
+
+    BookComment insertComment(BookComment comment);
+
+    void updateComment(BookComment comment);
+
+    void deleteCommentById(long commentId);
+
+    Optional<BookComment> getCommentById(long commentId);
+
+    List<BookComment> getAllComments();
+
+    List<String> getTitles();
+}
