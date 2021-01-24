@@ -4,62 +4,72 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.EmptyResultDataAccessException;
 import ru.library.models.Author;
+import ru.library.models.Genre;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DataJpaTest
 @Import(AuthorRepositoriesJpa.class)
 class AuthorRepositoriesJpaTest {
 
     private static final int EXPECTED_AUTHORS_COUNT = 2;
+    private static final long FIRST_AUTHORS_ID = 1L;
+    private static final long SECOND_AUTHORS_ID = 2L;
+    private static final long NEW_AUTHORS_ID = 3L;
+    private static final String TEST_AUTHORS_NAME = "Test author name";
+    private static final String UPDATE_AUTHORS_NAME = "Update author name";
 
     @Autowired
     private AuthorRepositories authorDao;
 
+    @Autowired
+    private TestEntityManager tem;
+
     @DisplayName("The number of authors is as expected")
     @Test
     void getAuthorsCount() {
-        final Long actualAuthorsCount = authorDao.getAuthorsCount();
+        final long actualAuthorsCount = authorDao.getAuthorsCount();
         Assertions.assertThat(actualAuthorsCount).isEqualTo(EXPECTED_AUTHORS_COUNT);
     }
 
     @DisplayName("The inserted author is as expected")
     @Test
     void insertAuthor() {
-        final Author expectedAuthor = new Author(123L, "Test Author");
+        final Author expectedAuthor = new Author(NEW_AUTHORS_ID, TEST_AUTHORS_NAME);
         authorDao.insertAuthor(expectedAuthor);
-        Author actualAuthor = (authorDao.getAuthorById(expectedAuthor.getId())).get();
+        final Author actualAuthor = tem.find(Author.class, NEW_AUTHORS_ID);
         Assertions.assertThat(actualAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
     }
 
     @DisplayName("Updated author is as expected")
     @Test
     void updateAuthor() {
-        final Author expectedAuthor = new Author(1L, "Update Author");
-        authorDao.updateAuthor(expectedAuthor);
-        Author updatedAuthor = (authorDao.getAuthorById(expectedAuthor.getId())).get();
+        final Author actualAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
+        tem.clear();
+        final Author expectedAuthor = new Author(FIRST_AUTHORS_ID, "Update author name");
+        authorDao.updateAuthorById(expectedAuthor);
+        final Author updatedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
+        Assertions.assertThat(updatedAuthor).usingRecursiveComparison().isNotEqualTo(actualAuthor);
         Assertions.assertThat(updatedAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
     }
 
     @DisplayName("Author with the specified ID removed")
     @Test
     void deleteAuthorById() {
-        final long authorIdForDelete = 1L;
-        authorDao.deleteAuthorById(authorIdForDelete);
-        Assertions
-                .assertThatThrownBy(() -> authorDao.getAuthorById(authorIdForDelete))
-                .isInstanceOf(EmptyResultDataAccessException.class);
+        authorDao.deleteAuthorById(FIRST_AUTHORS_ID);
+        assertNull(tem.find(Author.class, FIRST_AUTHORS_ID));
     }
 
     @DisplayName("The author received from the ID corresponds to the expected")
     @Test
     void getAuthorById() {
-        final Author expectedAuthor = new Author(1L, "Robert Martin");
+        final Author expectedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
         final Author actualAuthor = (authorDao.getAuthorById(expectedAuthor.getId())).get();
         Assertions.assertThat(expectedAuthor).usingRecursiveComparison().isEqualTo(actualAuthor);
     }
@@ -68,8 +78,8 @@ class AuthorRepositoriesJpaTest {
     @Test
     void getAllAuthors() {
         final List<Author> expectedAuthorsList = List.of(
-                new Author(1L, "Robert Martin"),
-                new Author(2L, "Joshua Bloch")
+                tem.find(Author.class, FIRST_AUTHORS_ID),
+                tem.find(Author.class, SECOND_AUTHORS_ID)
         );
         final List<Author> actualAuthorsList = authorDao.getAllAuthors();
         Assertions.assertThat(expectedAuthorsList.get(0)).usingRecursiveComparison()

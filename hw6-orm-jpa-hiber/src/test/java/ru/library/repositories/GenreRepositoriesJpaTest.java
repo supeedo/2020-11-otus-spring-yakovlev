@@ -20,7 +20,7 @@ class GenreRepositoriesJpaTest {
     private static final int EXPECTED_GENRES_COUNT = 2;
     private static final long FIRST_GENRE_ID = 1L;
     private static final long SECOND_GENRE_ID = 2L;
-    private static final long UPDATE_GENRE_ID = 123L;
+    private static final long NEW_GENRE_ID = 3L;
     private static final String TEST_GENRE_NAME = "Test genre name";
     private static final String UPDATE_GENRE_NAME = "Update genre name";
 
@@ -41,9 +41,9 @@ class GenreRepositoriesJpaTest {
     @DisplayName("The inserted genre is as expected")
     @Test
     void insertGenre() {
-        final Genre expectedGenre = new Genre(UPDATE_GENRE_ID, TEST_GENRE_NAME);
+        final Genre expectedGenre = new Genre(NEW_GENRE_ID, TEST_GENRE_NAME);
         genreDao.insertGenre(expectedGenre);
-        final Genre actualGenre = tem.find(Genre.class, UPDATE_GENRE_ID);
+        final Genre actualGenre = tem.find(Genre.class, NEW_GENRE_ID);
         Assertions.assertThat(actualGenre).usingRecursiveComparison().isEqualTo(expectedGenre);
     }
 

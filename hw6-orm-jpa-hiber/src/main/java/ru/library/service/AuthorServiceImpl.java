@@ -62,8 +62,8 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public String updateAuthor(long authorId, String authorFullName) {
-        authorDao.updateAuthor(new Author(authorId, authorFullName));
-        return String.format("Genre:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
+        authorDao.updateAuthorById(new Author(authorId, authorFullName));
+        return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
                 prepareForTable(List.of((authorDao.getAuthorById(authorId)).get()))));
     }
 
@@ -72,7 +72,7 @@ public class AuthorServiceImpl implements AuthorService {
         List<List<String>> tablePresentation = new ArrayList<>();
         for (Author author : authors) {
             List<String> columnList = new ArrayList<>();
-            columnList.add(author.getId().toString());
+            columnList.add(String.valueOf(author.getId()));
             columnList.add(author.getFullName());
             tablePresentation.add(columnList);
         }

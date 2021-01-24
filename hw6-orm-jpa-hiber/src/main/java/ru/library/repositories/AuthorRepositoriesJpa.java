@@ -16,9 +16,9 @@ public class AuthorRepositoriesJpa implements AuthorRepositories {
     @PersistenceContext
     private EntityManager em;
 
-    public Long getAuthorsCount() {
+    public long getAuthorsCount() {
         Query query = em.createQuery("SELECT COUNT(a) FROM Author a");
-        return (Long) query.getSingleResult();
+        return (long) query.getSingleResult();
     }
 
     @Override
@@ -32,10 +32,11 @@ public class AuthorRepositoriesJpa implements AuthorRepositories {
     }
 
     @Override
-    public void updateAuthor(Author author) {
+    public void updateAuthorById(Author author) {
         Query query = em.createQuery("UPDATE Author a SET a.fullName = :fullName WHERE a.id = :id");
         query.setParameter("fullName", author.getFullName());
         query.setParameter("id", author.getId());
+        query.executeUpdate();
     }
 
     @Override

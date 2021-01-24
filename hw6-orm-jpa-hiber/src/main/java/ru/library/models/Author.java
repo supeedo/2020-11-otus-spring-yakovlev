@@ -20,7 +20,7 @@ public class Author {
         this.fullName = fullName;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 

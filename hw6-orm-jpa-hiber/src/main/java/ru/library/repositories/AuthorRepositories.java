@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AuthorRepositories {
-    Long getAuthorsCount();
+    long getAuthorsCount();
 
     Author insertAuthor(Author author);
 
-    void updateAuthor(Author author);
+    void updateAuthorById(Author author);
 
     void deleteAuthorById(long authorId);
 
