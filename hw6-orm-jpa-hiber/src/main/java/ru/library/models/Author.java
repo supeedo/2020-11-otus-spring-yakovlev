@@ -35,4 +35,12 @@ public class Author {
                 ", fullName='" + fullName + '\'' +
                 '}';
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
 }
