@@ -22,8 +22,6 @@ public class Book {
     @JoinColumn(name = "genre_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_genre_id"))
     private Genre genre;
 
-
-
     public Book() {
     }
 
