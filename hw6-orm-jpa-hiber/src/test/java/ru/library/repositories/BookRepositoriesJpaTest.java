@@ -94,8 +94,6 @@ class BookRepositoriesJpaTest {
         final List<Book> expectedBooksList = List.of(
                 tem.find(Book.class, FIRST_ID),
                 tem.find(Book.class, SECOND_ID)
-//                new Book(2L, "Effective Java",
-//                        new Author(2L, "Joshua Bloch"), new Genre(1L, "Computer science"))
         );
         final List<Book> actualBooksList = bookDao.getAllBooks();
         Assertions.assertThat(expectedBooksList.get(0)).usingRecursiveComparison()

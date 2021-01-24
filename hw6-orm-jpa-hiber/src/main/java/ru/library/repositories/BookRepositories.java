@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookRepositories {
-    Long getBooksCount();
+    long getBooksCount();
     Book insertBook(Book book);
     void updateBook(Book book);
     void deleteBookById(long bookId);

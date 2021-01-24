@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public Long getCount() {
+    public long getCount() {
         return bookDao.getBooksCount();
     }
 
@@ -36,30 +36,27 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getBookById(Long id) {
+    public String getBookById(long id) {
         return renderer.tableRender(bookDao.getTitles(), prepareForTable(List.of((bookDao.getBookById(id)).get())));
     }
 
     @Transactional
     @Override
-    public String deleteBookById(Long id) {
+    public String deleteBookById(long id) {
         bookDao.deleteBookById(id);
         return String.format("Book with id: %s has delete", id);
     }
 
     @Transactional
     @Override
-    public String createNewBook(Long id, String bookName, Long authorId, Long genreId) {
-        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null)));
-
-        return String.format("Book:\n%s \nhas insert",
-                renderer.tableRender(bookDao.getTitles(),
-                        prepareForTable(List.of((bookDao.getBookById(id)).get()))));
+    public String createNewBook(String bookName, long authorId, long genreId) {
+        bookDao.insertBook(new Book(0L, bookName, new Author(authorId, null), new Genre(genreId, null)));
+        return "Book has insert";
     }
 
     @Transactional
     @Override
-    public String updateBook(Long id, String bookName, Long authorId, Long genreId) {
+    public String updateBook(long id, String bookName, long authorId, long genreId) {
         bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null)));
         return String.format("Book:\n%s \nhas update", renderer.tableRender(bookDao.getTitles(),
                 prepareForTable(List.of((bookDao.getBookById(id)).get()))));

@@ -35,16 +35,15 @@ public class BooksShellCommand {
         return service.deleteBookById(id);
     }
 
-    @ShellMethod(value = "Insert book", key = {"insert book"})
-    public String insertNewBook(@ShellOption Long id,
-                                @ShellOption String bookName,
-                                @ShellOption Long authorId,
-                                @ShellOption Long genreId) {
-        return service.createNewBook(id, bookName, authorId, genreId);
+    @ShellMethod(value = "Insert book", key = {"insert book", "create book", "book create"})
+    public String insertNewBook(@ShellOption String bookName,
+                                @ShellOption long authorId,
+                                @ShellOption long genreId) {
+        return service.createNewBook(bookName, authorId, genreId);
     }
 
     @ShellMethod(value = "Update book", key = {"update book"})
-    public String updateBook(Long id, String bookName, Long authorId, Long genreId) {
+    public String updateBook(long id, String bookName, long authorId, long genreId) {
         return service.updateBook(id, bookName, authorId, genreId);
     }
 

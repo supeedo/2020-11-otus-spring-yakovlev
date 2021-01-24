@@ -6,17 +6,17 @@ import java.util.List;
 
 public interface BookService {
 
-    Long getCount();
+    long getCount();
 
     String getAllBooks();
 
-    String getBookById(Long id);
+    String getBookById(long id);
 
-    String deleteBookById(Long id);
+    String deleteBookById(long id);
 
-    String createNewBook(Long id, String bookName, Long authorId, Long genreId);
+    String createNewBook(String bookName, long authorId, long genreId);
 
-    String updateBook(Long id, String bookName, Long authorId, Long genreId);
+    String updateBook(long id, String bookName, long authorId, long genreId);
 
     List<List<String>> prepareForTable(List<Book> books);
 }
