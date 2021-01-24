@@ -23,6 +23,7 @@ class BookRepositoriesJpaTest {
 
     private static final int EXPECTED_BOOKS_COUNT = 2;
     private static final long FIRST_ID = 1L;
+    private static final long SECOND_ID = 2L;
     private static final long NEW_BOOK_ID = 3L;
     private static final String TEST_BOOK_TITLE = "Test book title";
     private static final String UPDATE_BOOK_TITLE = "Update book title";
@@ -62,11 +63,14 @@ class BookRepositoriesJpaTest {
         System.out.println(genre);
         final Book expectedBook = new Book(FIRST_ID, UPDATE_BOOK_TITLE, author, genre);
         System.out.println(expectedBook);
+
+
+
         bookDao.updateBook(expectedBook);
         tem.clear();
         final Book updatedBook = tem.find(Book.class, FIRST_ID);
         System.out.println(updatedBook.toString());
-       // Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
+        // Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @DisplayName("Book with the specified ID removed")
@@ -88,10 +92,10 @@ class BookRepositoriesJpaTest {
     @Test
     void getAllBooks() {
         final List<Book> expectedBooksList = List.of(
-                new Book(1L, "Clean Code",
-                        new Author(1L, "Robert Martin"), new Genre(1L, "Computer science")),
-                new Book(2L, "Effective Java",
-                        new Author(2L, "Joshua Bloch"), new Genre(1L, "Computer science"))
+                tem.find(Book.class, FIRST_ID),
+                tem.find(Book.class, SECOND_ID)
+//                new Book(2L, "Effective Java",
+//                        new Author(2L, "Joshua Bloch"), new Genre(1L, "Computer science"))
         );
         final List<Book> actualBooksList = bookDao.getAllBooks();
         Assertions.assertThat(expectedBooksList.get(0)).usingRecursiveComparison()
