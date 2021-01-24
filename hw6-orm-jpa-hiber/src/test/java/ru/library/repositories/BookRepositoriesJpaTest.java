@@ -57,9 +57,9 @@ class BookRepositoriesJpaTest {
     @DisplayName("Updated book is as expected")
     @Test
     void updateBook() {
-        Author author = tem.find(Author.class, 1L);
+        Author author = tem.find(Author.class, FIRST_ID);
         System.out.println(author);
-        Genre genre = tem.find(Genre.class, 1L);
+        Genre genre = tem.find(Genre.class, FIRST_ID);
         System.out.println(genre);
         final Book expectedBook = new Book(FIRST_ID, UPDATE_BOOK_TITLE, author, genre);
         System.out.println(expectedBook);
