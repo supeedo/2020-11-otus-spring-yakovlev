@@ -3,17 +3,18 @@ package ru.library.repositories;
 import ru.library.models.Genre;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GenreRepositories {
-    int getGenreCount();
+    long getGenreCount();
 
-    void insertGenre(Genre genre);
+    Genre insertGenre(Genre genre);
 
     void updateGenre(Genre genre);
 
     void deleteGenreById(long genreId);
 
-    Genre getGenreById(long genreId);
+    Optional<Genre> getGenreById(long genreId);
 
     List<Genre> getAllGenres();
 

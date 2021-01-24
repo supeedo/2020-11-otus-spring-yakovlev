@@ -37,7 +37,7 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public String getGenreById(long genreId) {
         return renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(genreId))));
+                prepareForTable(List.of(genreDao.getGenreById(genreId).get())));
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class GenreServiceImpl implements GenreService {
     public String updateGenre(long genreId, String genreName) {
         genreDao.updateGenre(new Genre(genreId, genreName));
         return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(genreId)))));
+                prepareForTable(List.of(genreDao.getGenreById(genreId).get()))));
     }
 
     @Override

@@ -34,7 +34,7 @@ class GenreRepositoriesJpaTest {
     @DisplayName("The number of genres is as expected")
     @Test
     void getGenreCount() {
-        final int actualGenresCount = genreDao.getGenreCount();
+        final long actualGenresCount = genreDao.getGenreCount();
         Assertions.assertThat(actualGenresCount).isEqualTo(EXPECTED_GENRES_COUNT);
     }
 
@@ -70,7 +70,7 @@ class GenreRepositoriesJpaTest {
     @Test
     void getGenreById() {
         final Genre expectedGenre = tem.find(Genre.class, FIRST_GENRE_ID);
-        final Genre actualGenre = genreDao.getGenreById(FIRST_GENRE_ID);
+        final Genre actualGenre = genreDao.getGenreById(FIRST_GENRE_ID).get();
         Assertions.assertThat(expectedGenre).usingRecursiveComparison().isEqualTo(actualGenre);
     }
 
