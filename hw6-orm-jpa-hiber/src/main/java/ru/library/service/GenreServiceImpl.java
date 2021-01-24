@@ -2,13 +2,14 @@ package ru.library.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.library.models.Genre;
 import ru.library.repositories.GenreRepositories;
 import ru.library.repositories.GenreRepositoriesJpa;
-import ru.library.models.Genre;
 import ru.library.utils.TableRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GenreServiceImpl implements GenreService {
@@ -36,8 +37,13 @@ public class GenreServiceImpl implements GenreService {
     @Transactional(readOnly = true)
     @Override
     public String getGenreById(long genreId) {
-        return renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(genreId).get())));
+        Optional<Genre> genre = genreDao.getGenreById(genreId);
+        if (genre.isPresent()) {
+            return renderer.tableRender(genreDao.getTitles(),
+                    prepareForTable(List.of(genre.get())));
+        } else {
+            return String.format("Genre with id: %d, not found!", genreId);
+        }
     }
 
     @Transactional
@@ -58,8 +64,13 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public String updateGenre(long genreId, String genreName) {
         genreDao.updateGenre(new Genre(genreId, genreName));
-        return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(genreId).get()))));
+        Optional<Genre> genre = genreDao.getGenreById(genreId);
+        if (genre.isPresent()) {
+            return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
+                    prepareForTable(List.of(genre.get()))));
+        } else {
+            return String.format("Genre with id: %d, not found!", genreId);
+        }
     }
 
     @Override

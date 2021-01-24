@@ -2,8 +2,8 @@ package ru.library.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.library.repositories.AuthorRepositories;
 import ru.library.models.Author;
+import ru.library.repositories.AuthorRepositories;
 import ru.library.utils.TableRenderer;
 
 import java.util.ArrayList;
@@ -37,11 +37,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public String getAuthorById(long authorId) {
         Optional<Author> author = authorDao.getAuthorById(authorId);
-        if(author.isPresent()) {
+        if (author.isPresent()) {
             return renderer.tableRender(authorDao.getTitles(),
                     prepareForTable(List.of(author.get())));
-        }else {
-            return String.format("Автор с id: %d, не найден!", authorId);
+        } else {
+            return String.format("Author with id: %d, not found!", authorId);
         }
     }
 
@@ -56,15 +56,20 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public String createNewAuthor(String authorFullName) {
         authorDao.insertAuthor(new Author(0L, authorFullName));
-            return "Author has insert";
+        return "Author has insert";
     }
 
     @Transactional
     @Override
     public String updateAuthor(long authorId, String authorFullName) {
         authorDao.updateAuthorById(new Author(authorId, authorFullName));
-        return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
-                prepareForTable(List.of((authorDao.getAuthorById(authorId)).get()))));
+        Optional<Author> author = authorDao.getAuthorById(authorId);
+        if (author.isPresent()) {
+            return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
+                    prepareForTable(List.of(author.get()))));
+        } else {
+            return String.format("Author with id: %d, not found!", authorId);
+        }
     }
 
     @Override
