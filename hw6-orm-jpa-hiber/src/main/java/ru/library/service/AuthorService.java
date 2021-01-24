@@ -9,12 +9,12 @@ public interface AuthorService {
 
     String getAllAuthors();
 
-    String getAuthorById(Long authorId);
+    String getAuthorById(long authorId);
 
-    String deleteAuthorById(Long authorId);
+    String deleteAuthorById(long authorId);
     String createNewAuthor(String authorFullName);
 
-    String updateAuthor(Long authorId, String authorFullName);
+    String updateAuthor(long authorId, String authorFullName);
 
     List<List<String>> prepareForTable(List<Author> genres);
 }

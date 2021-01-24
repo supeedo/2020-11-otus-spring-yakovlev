@@ -35,29 +35,28 @@ public class GenreServiceImpl implements GenreService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getGenreById(Long genreId) {
+    public String getGenreById(long genreId) {
         return renderer.tableRender(genreDao.getTitles(),
                 prepareForTable(List.of(genreDao.getGenreById(genreId))));
     }
 
     @Transactional
     @Override
-    public String deleteGenreById(Long genreId) {
+    public String deleteGenreById(long genreId) {
         genreDao.deleteGenreById(genreId);
         return String.format("Genre with id: %s has delete", genreId);
     }
 
     @Transactional
     @Override
-    public String createNewGenre(Long genreId, String genreName) {
-        genreDao.insertGenre(new Genre(genreId, genreName));
-        return String.format("Genre:\n%s \nhas insert", renderer.tableRender(genreDao.getTitles(),
-                prepareForTable(List.of(genreDao.getGenreById(genreId)))));
+    public String createNewGenre(String genreName) {
+        genreDao.insertGenre(new Genre(0L, genreName));
+        return "Genre has insert";
     }
 
     @Transactional
     @Override
-    public String updateGenre(Long genreId, String genreName) {
+    public String updateGenre(long genreId, String genreName) {
         genreDao.updateGenre(new Genre(genreId, genreName));
         return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
                 prepareForTable(List.of(genreDao.getGenreById(genreId)))));

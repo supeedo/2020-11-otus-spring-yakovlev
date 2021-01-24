@@ -35,7 +35,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getAuthorById(Long authorId) {
+    public String getAuthorById(long authorId) {
         Optional<Author> author = authorDao.getAuthorById(authorId);
         if(author.isPresent()) {
             return renderer.tableRender(authorDao.getTitles(),
@@ -47,7 +47,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public String deleteAuthorById(Long authorId) {
+    public String deleteAuthorById(long authorId) {
         authorDao.deleteAuthorById(authorId);
         return String.format("Author with id: %s has delete", authorId);
     }
@@ -61,7 +61,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public String updateAuthor(Long authorId, String authorFullName) {
+    public String updateAuthor(long authorId, String authorFullName) {
         authorDao.updateAuthor(new Author(authorId, authorFullName));
         return String.format("Genre:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
                 prepareForTable(List.of((authorDao.getAuthorById(authorId)).get()))));

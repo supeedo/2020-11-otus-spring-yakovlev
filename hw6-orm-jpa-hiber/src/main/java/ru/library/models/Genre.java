@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "genre_name", nullable = false, unique = true)
     private String genreName;
@@ -16,7 +16,7 @@ public class Genre {
     public Genre() {
     }
 
-    public Genre(Long id, String genreName) {
+    public Genre(long id, String genreName) {
         this.id = id;
         this.genreName = genreName;
     }
@@ -27,6 +27,14 @@ public class Genre {
 
     public String getGenreName() {
         return genreName;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setGenreName(String genreName) {
+        this.genreName = genreName;
     }
 
     @Override
