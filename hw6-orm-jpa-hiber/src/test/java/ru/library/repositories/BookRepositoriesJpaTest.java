@@ -29,7 +29,7 @@ class BookRepositoriesJpaTest {
     private static final String UPDATE_BOOK_TITLE = "Update book title";
 
     @Autowired
-    private BookRepositories bookDao;
+    private BookRepositories bookRepo;
 
     @Autowired
     private TestEntityManager tem;
@@ -37,33 +37,33 @@ class BookRepositoriesJpaTest {
     @DisplayName("The number of books is as expected")
     @Test
     void getBooksCount() {
-        final long actualBooksCount = bookDao.getBooksCount();
+        final long actualBooksCount = bookRepo.getBooksCount();
         Assertions.assertThat(actualBooksCount).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
     @DisplayName("The inserted book is as expected")
     @Test
     void insertBook() {
-        Author author = tem.find(Author.class, FIRST_ID);
-        Genre genre = tem.find(Genre.class, FIRST_ID);
-        final Book booForInsert = new Book(NEW_BOOK_ID, TEST_BOOK_TITLE,
+        final Author author = tem.find(Author.class, FIRST_ID);
+        final Genre genre = tem.find(Genre.class, FIRST_ID);
+        final Book bookForInsert = new Book(NEW_BOOK_ID, TEST_BOOK_TITLE,
                 author,
                 genre);
-        bookDao.insertBook(booForInsert);
+        bookRepo.insertBook(bookForInsert);
         final Book actualBook = tem.find(Book.class, NEW_BOOK_ID);
-        Assertions.assertThat(actualBook).usingRecursiveComparison().isEqualTo(booForInsert);
+        Assertions.assertThat(actualBook).usingRecursiveComparison().isEqualTo(bookForInsert);
     }
 
     @DisplayName("Updated book is as expected")
     @Test
     void updateBook() {
-        Author author = tem.find(Author.class, SECOND_ID);
-        Genre genre = tem.find(Genre.class, SECOND_ID);
+        final Author author = tem.find(Author.class, SECOND_ID);
+        final Genre genre = tem.find(Genre.class, SECOND_ID);
         final Book expectedBook = tem.find(Book.class, FIRST_ID);
         expectedBook.setBookTitle(UPDATE_BOOK_TITLE);
         expectedBook.setAuthor(author);
         expectedBook.setGenre(genre);
-        bookDao.updateBook(expectedBook);
+        bookRepo.updateBook(expectedBook);
         final Book updatedBook = tem.find(Book.class, FIRST_ID);
         Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
@@ -71,7 +71,7 @@ class BookRepositoriesJpaTest {
     @DisplayName("Book with the specified ID removed")
     @Test
     void deleteBookById() {
-        bookDao.deleteBookById(FIRST_ID);
+        bookRepo.deleteBookById(FIRST_ID);
         assertNull(tem.find(Book.class, FIRST_ID));
     }
 
@@ -79,7 +79,7 @@ class BookRepositoriesJpaTest {
     @Test
     void getBookById() {
         final Book expectedBook = tem.find(Book.class, FIRST_ID);
-        final Book actualBook = bookDao.getBookById(FIRST_ID).get();
+        final Book actualBook = bookRepo.getBookById(FIRST_ID).get();
         Assertions.assertThat(expectedBook).usingRecursiveComparison().isEqualTo(actualBook);
     }
 
@@ -90,7 +90,7 @@ class BookRepositoriesJpaTest {
                 tem.find(Book.class, FIRST_ID),
                 tem.find(Book.class, SECOND_ID)
         );
-        final List<Book> actualBooksList = bookDao.getAllBooks();
+        final List<Book> actualBooksList = bookRepo.getAllBooks();
         Assertions.assertThat(expectedBooksList.get(0)).usingRecursiveComparison()
                 .isEqualTo(actualBooksList.get(0));
         Assertions.assertThat(expectedBooksList.get(1)).usingRecursiveComparison()
@@ -101,7 +101,7 @@ class BookRepositoriesJpaTest {
     @Test
     void getTitles() {
         final List<String> expectedTitleBook = List.of("id", "Book name", "Author full name", "Genre");
-        final List<String> actualTitleBook = bookDao.getTitles();
+        final List<String> actualTitleBook = bookRepo.getTitles();
         Assertions.assertThat(expectedTitleBook).containsExactlyInAnyOrderElementsOf(actualTitleBook);
 
     }
