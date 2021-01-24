@@ -34,10 +34,10 @@ values (default, 'Craig Walls');
 insert into comments (id, book_id, comment)
 values (default, 1, 'test comment 1');
 insert into comments (id, book_id, comment)
-values (default, 1, 'test comment 2');
+values (default, 2, 'test comment 2');
 insert into comments (id, book_id, comment)
-values (default, 2, 'test comment 3');
+values (default, 3, 'test comment 3');
 insert into comments (id, book_id, comment)
-values (default, 3, 'test comment 4');
+values (default, 4, 'test comment 4');
 insert into comments (id, book_id, comment)
-values (default, 4, 'test comment 5');
+values (default, 5, 'test comment 5');

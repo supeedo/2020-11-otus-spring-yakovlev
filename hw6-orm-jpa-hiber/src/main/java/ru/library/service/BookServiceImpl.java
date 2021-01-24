@@ -56,7 +56,9 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public String createNewBook(String bookName, long authorId, long genreId) {
-        bookDao.insertBook(new Book(0L, bookName, new Author(authorId, null), new Genre(genreId, null)));
+        Author author = authorRepo.getAuthorById(authorId).get();
+        Genre genre = genreRepo.getGenreById(genreId).get();
+        bookDao.insertBook(new Book(0L, bookName, author, genre));
         return "Book has insert";
     }
 

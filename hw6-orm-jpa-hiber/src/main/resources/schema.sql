@@ -7,7 +7,8 @@ CREATE TABLE BOOKS
     ID         BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     BOOK_TITLE VARCHAR(255)                      NOT NULL,
     AUTHOR_ID  VARCHAR(255)                      NOT NULL,
-    GENRE_ID   VARCHAR(255)                      NOT NULL
+    GENRE_ID   VARCHAR(255)                      NOT NULL,
+    COMMENTS_ID bigint references comments(id) on delete cascade
 );
 CREATE TABLE AUTHORS
 (

@@ -24,7 +24,7 @@ public class Book {
     private Genre genre;
 
     @OneToMany(targetEntity = BookComment.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinTable(name= "comments_id", foreignKey = @ForeignKey(name = "FK_comments_book_id"))
+    @JoinColumn(name= "comments_id", foreignKey = @ForeignKey(name = "FK_comments_book_id"))
     private List<BookComment> comments;
 
     public Book() {

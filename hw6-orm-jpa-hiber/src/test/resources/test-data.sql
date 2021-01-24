@@ -16,4 +16,4 @@ values (2, 'Joshua Bloch');
 insert into comments (id, book_id, comment)
 values (default, 1, 'test comment 1');
 insert into comments (id, book_id, comment)
-values (default, 1, 'test comment 2');
+values (default, 2, 'test comment 2');
