@@ -22,20 +22,15 @@ public class Book {
     @JoinColumn(name = "genre_id", foreignKey = @ForeignKey(name = "FK_genre_id"))
     private Genre genre;
 
-//    @OneToMany(targetEntity = Comment.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "comment_id", foreignKey = @ForeignKey(name = "FK_comment_id"))
-//    private List<Comment> comments;
-
     public Book() {
 
     }
 
-    public Book(Long id, String bookTitle, Author author, Genre genre, List<Comment> comments) {
+    public Book(Long id, String bookTitle, Author author, Genre genre) {
         this.id = id;
         this.bookTitle = bookTitle;
         this.author = author;
         this.genre = genre;
-//        this.comments = comments;
     }
 
     public Long getId() {
@@ -67,5 +62,9 @@ public class Book {
                 ", genre=" + genre +
 //                ", comments=" + comments +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

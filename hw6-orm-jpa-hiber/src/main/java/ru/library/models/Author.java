@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "full_name", nullable = false, unique = true)
     private String fullName;
@@ -15,7 +15,7 @@ public class Author {
     public Author() {
     }
 
-    public Author(Long id, String fullName) {
+    public Author(long id, String fullName) {
         this.id = id;
         this.fullName = fullName;
     }

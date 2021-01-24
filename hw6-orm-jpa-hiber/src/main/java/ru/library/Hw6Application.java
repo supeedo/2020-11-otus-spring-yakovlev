@@ -11,10 +11,10 @@ import java.util.logging.ConsoleHandler;
 public class Hw6Application {
     public static void main(String[] args) {
         SpringApplication.run(Hw6Application.class);
-        try {
-            Console.main(args);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+//        try {
+//            Console.main(args);
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
     }
 }

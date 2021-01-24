@@ -8,6 +8,7 @@ import ru.library.utils.TableRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -35,8 +36,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     @Override
     public String getAuthorById(Long authorId) {
-        return renderer.tableRender(authorDao.getTitles(),
-                prepareForTable(List.of((authorDao.getAuthorById(authorId)).get())));
+        Optional<Author> author = authorDao.getAuthorById(authorId);
+        if(author.isPresent()) {
+            return renderer.tableRender(authorDao.getTitles(),
+                    prepareForTable(List.of(author.get())));
+        }else {
+            return String.format("Автор с id: %d, не найден!", authorId);
+        }
     }
 
     @Transactional
@@ -48,10 +54,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public String createNewAuthor(Long authorId, String authorFullName) {
-        authorDao.insertAuthor(new Author(authorId, authorFullName));
-        return String.format("Author:\n%s \nhas insert", renderer.tableRender(authorDao.getTitles(),
-                prepareForTable(List.of((authorDao.getAuthorById(authorId)).get()))));
+    public String createNewAuthor(String authorFullName) {
+        authorDao.insertAuthor(new Author(0L, authorFullName));
+            return "Author has insert";
     }
 
     @Transactional

@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.dao.EmptyResultDataAccessException;
 import ru.library.models.Author;
 import ru.library.models.Book;
-import ru.library.models.Comment;
 import ru.library.models.Genre;
 
 import java.util.List;
@@ -45,8 +44,7 @@ class BookRepositoriesJpaTest {
         Genre genre = em.find(Genre.class, 1L);
         final Book booForInsert = new Book(UPDATE_BOOK_ID, "New book",
                 author,
-                genre,
-                List.of(new Comment()));
+                genre);
         bookDao.insertBook(booForInsert);
 //        final Book testBook = bookDao.getBookById(UPDATE_BOOK_ID).get();
         final Book actualBook = em.find(Book.class, 123L);
@@ -57,8 +55,7 @@ class BookRepositoriesJpaTest {
     @Test
     void updateBook() {
         final Book expectedBook = new Book(1L, "Update book",
-                new Author(1L, "Robert Martin"), new Genre(1L, "Computer science"),
-                List.of(new Comment()));
+                new Author(1L, "Robert Martin"), new Genre(1L, "Computer science"));
         bookDao.updateBook(expectedBook);
         final Book updatedBook = (bookDao.getBookById(expectedBook.getId())).get();
         Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
@@ -86,11 +83,9 @@ class BookRepositoriesJpaTest {
     void getAllBooks() {
         final List<Book> expectedBooksList = List.of(
                 new Book(1L, "Clean Code",
-                        new Author(1L, "Robert Martin"), new Genre(1L, "Computer science"),
-                        List.of(new Comment())),
+                        new Author(1L, "Robert Martin"), new Genre(1L, "Computer science")),
                 new Book(2L, "Effective Java",
-                        new Author(2L, "Joshua Bloch"), new Genre(1L, "Computer science"),
-                        List.of(new Comment()))
+                        new Author(2L, "Joshua Bloch"), new Genre(1L, "Computer science"))
         );
         final List<Book> actualBooksList = bookDao.getAllBooks();
         Assertions.assertThat(expectedBooksList.get(0)).usingRecursiveComparison()

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Author;
 import ru.library.models.Book;
-import ru.library.models.Comment;
 import ru.library.models.Genre;
 import ru.library.repositories.BookRepositories;
 import ru.library.utils.TableRenderer;
@@ -51,8 +50,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public String createNewBook(Long id, String bookName, Long authorId, Long genreId) {
-        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null),
-                List.of(new Comment())));
+        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null)));
 
         return String.format("Book:\n%s \nhas insert",
                 renderer.tableRender(bookDao.getTitles(),
@@ -62,8 +60,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public String updateBook(Long id, String bookName, Long authorId, Long genreId) {
-        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null),
-                List.of(new Comment())));
+        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null)));
         return String.format("Book:\n%s \nhas update", renderer.tableRender(bookDao.getTitles(),
                 prepareForTable(List.of((bookDao.getBookById(id)).get()))));
     }

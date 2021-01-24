@@ -34,10 +34,9 @@ public class AuthorsShellCommand {
         return service.deleteAuthorById(authorId);
     }
 
-    @ShellMethod(value = "Insert author", key = {"insert author"})
-    public String insertNewAuthor(@ShellOption Long authorId,
-                                  @ShellOption String authorFullName) {
-        return service.createNewAuthor(authorId, authorFullName);
+    @ShellMethod(value = "Insert author", key = {"create author", "author create"})
+    public String insertNewAuthor(@ShellOption String authorFullName) {
+        return service.createNewAuthor(authorFullName);
     }
 
     @ShellMethod(value = "Update author", key = {"update author"})
