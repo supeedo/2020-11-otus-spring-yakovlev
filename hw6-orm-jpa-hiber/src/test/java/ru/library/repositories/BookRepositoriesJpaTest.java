@@ -57,20 +57,15 @@ class BookRepositoriesJpaTest {
     @DisplayName("Updated book is as expected")
     @Test
     void updateBook() {
-        Author author = tem.find(Author.class, FIRST_ID);
-        System.out.println(author);
-        Genre genre = tem.find(Genre.class, FIRST_ID);
-        System.out.println(genre);
-        final Book expectedBook = new Book(FIRST_ID, UPDATE_BOOK_TITLE, author, genre);
-        System.out.println(expectedBook);
-
-
-
+        Author author = tem.find(Author.class, SECOND_ID);
+        Genre genre = tem.find(Genre.class, SECOND_ID);
+        final Book expectedBook = tem.find(Book.class, FIRST_ID);
+        expectedBook.setBookTitle(UPDATE_BOOK_TITLE);
+        expectedBook.setAuthor(author);
+        expectedBook.setGenre(genre);
         bookDao.updateBook(expectedBook);
-        tem.clear();
         final Book updatedBook = tem.find(Book.class, FIRST_ID);
-        System.out.println(updatedBook.toString());
-        // Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
+        Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @DisplayName("Book with the specified ID removed")

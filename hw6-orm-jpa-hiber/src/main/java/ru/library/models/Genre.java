@@ -1,6 +1,7 @@
 package ru.library.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "genres")
@@ -21,7 +22,7 @@ public class Genre {
         this.genreName = genreName;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -43,5 +44,18 @@ public class Genre {
                 "ID=" + id +
                 ", genreName='" + genreName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return id == genre.id && Objects.equals(genreName, genre.genreName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, genreName);
     }
 }

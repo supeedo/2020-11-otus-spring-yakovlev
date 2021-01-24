@@ -1,11 +1,14 @@
 package ru.library.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Author;
 import ru.library.models.Book;
 import ru.library.models.Genre;
+import ru.library.repositories.AuthorRepositories;
 import ru.library.repositories.BookRepositories;
+import ru.library.repositories.GenreRepositories;
 import ru.library.utils.TableRenderer;
 
 import java.util.ArrayList;
@@ -14,12 +17,16 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private final BookRepositories bookDao;
-    private final TableRenderer renderer;
+    private  BookRepositories bookDao;
+    private final AuthorRepositories authorRepo;
+    private final GenreRepositories genreRepo;
+    private  TableRenderer renderer;
 
-    public BookServiceImpl(BookRepositories bookDao, TableRenderer renderer) {
+    public BookServiceImpl(BookRepositories bookDao, TableRenderer renderer, AuthorRepositories authorRepo, GenreRepositories genreRepo) {
         this.bookDao = bookDao;
         this.renderer = renderer;
+        this.authorRepo = authorRepo;
+        this.genreRepo = genreRepo;
     }
 
     @Transactional(readOnly = true)
@@ -57,7 +64,13 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public String updateBook(long id, String bookName, long authorId, long genreId) {
-        bookDao.insertBook(new Book(id, bookName, new Author(authorId, null), new Genre(genreId, null)));
+        Book book = bookDao.getBookById(id).get();
+        Author author = authorRepo.getAuthorById(authorId).get();
+        Genre genre = genreRepo.getGenreById(genreId).get();
+        book.setBookTitle(bookName);
+        book.setGenre(genre);
+        book.setAuthor(author);
+        bookDao.insertBook(book);
         return String.format("Book:\n%s \nhas update", renderer.tableRender(bookDao.getTitles(),
                 prepareForTable(List.of((bookDao.getBookById(id)).get()))));
     }
@@ -67,7 +80,7 @@ public class BookServiceImpl implements BookService {
         List<List<String>> tablePresentation = new ArrayList<>();
         for (Book book : books) {
             List<String> columnList = new ArrayList<>();
-            columnList.add(book.getId().toString());
+            columnList.add(String.valueOf(book.getId()));
             columnList.add(book.getBookTitle());
             columnList.add(book.getAuthor().getFullName());
             columnList.add(book.getGenre().getGenreName());

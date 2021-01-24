@@ -78,7 +78,7 @@ public class GenreServiceImpl implements GenreService {
         List<List<String>> tablePresentation = new ArrayList<>();
         for (Genre genre : genres) {
             List<String> columnList = new ArrayList<>();
-            columnList.add(genre.getId().toString());
+            columnList.add(String.valueOf(genre.getId()));
             columnList.add(genre.getGenreName());
             tablePresentation.add(columnList);
         }

@@ -1,7 +1,6 @@
 package ru.library.repositories;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Book;
 
 import javax.persistence.EntityManager;
@@ -35,7 +34,7 @@ public class BookRepositoriesJpa implements BookRepositories {
 
     @Override
     public void updateBook(Book book) {
-        Query query = em.createQuery("UPDATE Book b SET b.bookTitle = :bookTitle, b.author=:authorId, b.genre=:genreId WHERE b.id=:id");
+        Query query = em.createQuery("UPDATE Book b SET b.bookTitle = :bookTitle, b.author.id=:authorId, b.genre.id=:genreId WHERE b.id=:id");
         query.setParameter("id", book.getId());
         query.setParameter("genreId", book.getGenre().getId());
         query.setParameter("authorId", book.getAuthor().getId());

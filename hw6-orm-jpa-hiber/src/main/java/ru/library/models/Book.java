@@ -2,6 +2,7 @@ package ru.library.models;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "books")
@@ -22,7 +23,8 @@ public class Book {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")//, foreignKey = @ForeignKey(name = "FK_genre_id")
     private Genre genre;
 
-    public Book() {}
+    public Book() {
+    }
 
     public Book(Long id, String bookTitle, Author author, Genre genre) {
         this.id = id;
@@ -31,7 +33,7 @@ public class Book {
         this.genre = genre;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -62,7 +64,35 @@ public class Book {
                 '}';
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return id == book.id && Objects.equals(bookTitle, book.bookTitle) && Objects.equals(author, book.author) && Objects.equals(genre, book.genre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, bookTitle, author, genre);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+
 }
