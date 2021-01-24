@@ -51,7 +51,7 @@ class AuthorRepositoriesJpaTest {
     void updateAuthor() {
         final Author actualAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
         tem.clear();
-        final Author expectedAuthor = new Author(FIRST_AUTHORS_ID, "Update author name");
+        final Author expectedAuthor = new Author(FIRST_AUTHORS_ID, UPDATE_AUTHORS_NAME);
         authorDao.updateAuthorById(expectedAuthor);
         final Author updatedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
         Assertions.assertThat(updatedAuthor).usingRecursiveComparison().isNotEqualTo(actualAuthor);
