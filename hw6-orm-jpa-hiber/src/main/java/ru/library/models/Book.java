@@ -1,6 +1,7 @@
 package ru.library.models;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +22,10 @@ public class Book {
     @ManyToOne(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "genre_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_genre_id"))
     private Genre genre;
+
+    @OneToMany(targetEntity = BookComment.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinTable(name= "comments_id", foreignKey = @ForeignKey(name = "FK_comments_book_id"))
+    private List<BookComment> comments;
 
     public Book() {
     }
