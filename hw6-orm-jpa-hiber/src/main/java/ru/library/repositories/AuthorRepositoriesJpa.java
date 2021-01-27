@@ -32,7 +32,7 @@ public class AuthorRepositoriesJpa implements AuthorRepositories {
     }
 
     @Override
-    public void updateAuthorById(Author author) {
+    public void updateAuthor(Author author) {
         Query query = em.createQuery("UPDATE Author a SET a.fullName = :fullName WHERE a.id = :id");
         query.setParameter("fullName", author.getFullName());
         query.setParameter("id", author.getId());

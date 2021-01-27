@@ -16,10 +16,10 @@ import java.util.List;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private  BookRepositories bookDao;
+    private BookRepositories bookDao;
     private final AuthorRepositories authorRepo;
     private final GenreRepositories genreRepo;
-    private  TableRenderer renderer;
+    private TableRenderer renderer;
 
     public BookServiceImpl(BookRepositories bookDao, TableRenderer renderer, AuthorRepositories authorRepo, GenreRepositories genreRepo) {
         this.bookDao = bookDao;

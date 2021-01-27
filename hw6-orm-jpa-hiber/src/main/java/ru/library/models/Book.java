@@ -88,7 +88,6 @@ public class Book {
                 ", bookTitle='" + bookTitle + '\'' +
                 ", author=" + author +
                 ", genre=" + genre +
-//                ", comments=" + comments +
                 '}';
     }
 

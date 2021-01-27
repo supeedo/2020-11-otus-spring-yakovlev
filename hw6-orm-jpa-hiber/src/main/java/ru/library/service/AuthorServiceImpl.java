@@ -64,6 +64,7 @@ public class AuthorServiceImpl implements AuthorService {
     public String updateAuthor(long authorId, String authorFullName) {
         Author author = authorDao.getAuthorById(authorId).get();
         author.setFullName(authorFullName);
+        authorDao.updateAuthor(author);
         Optional<Author> updateAuthor = authorDao.getAuthorById(authorId);
         if (updateAuthor.isPresent()) {
             return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),

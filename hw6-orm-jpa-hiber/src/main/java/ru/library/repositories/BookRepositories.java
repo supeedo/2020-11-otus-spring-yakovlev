@@ -7,10 +7,16 @@ import java.util.Optional;
 
 public interface BookRepositories {
     long getBooksCount();
+
     Book insertBook(Book book);
+
     void updateBook(Book book);
+
     void deleteBookById(long bookId);
+
     Optional<Book> getBookById(long bookId);
+
     List<Book> getAllBooks();
+
     List<String> getTitles();
 }

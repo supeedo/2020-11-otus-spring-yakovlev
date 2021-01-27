@@ -73,6 +73,16 @@ class CommentRepositoriesJpaTest {
         Assertions.assertThat(expectedBook).usingRecursiveComparison().isEqualTo(actualBook);
     }
 
+    @Test
+    void getAllCommentByBookId(){
+        final List<BookComment> expectedCommentsList = List.of(
+                tem.find(BookComment.class, FIRST_ID)
+        );
+        final List<BookComment> actualCommentsList = commentRep.getAllCommentByBookId(FIRST_ID);
+        Assertions.assertThat(expectedCommentsList.get(0)).usingRecursiveComparison()
+                .isEqualTo(actualCommentsList.get(0));
+    }
+
     @DisplayName("The resulting list of all comments is as expected")
     @Test
     void getAllComments() {

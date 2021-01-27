@@ -28,13 +28,18 @@ public class CommentShellCommand {
         return service.getCommentById(commentId);
     }
 
+    @ShellMethod(value = "Get comment by Book id", key = {"all comm book"})
+    public String showAllCommentByBookId(@ShellOption long bookId) {
+        return service.getAllCommentsByBookId(bookId);
+    }
+
     @ShellMethod(value = "Delete comment by id", key = {"delete comment", "comment delete"})
     public String deleteCommentById(@ShellOption long commentId) {
         return service.deleteCommentById(commentId);
     }
 
     @ShellMethod(value = "Insert comment", key = {"insert comment", "create comment", "comments create"})
-    public String insertNewComment( @ShellOption String commentText,
+    public String insertNewComment(@ShellOption String commentText,
                                    @ShellOption long bookId) {
         return service.createNewComment(commentText, bookId);
     }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name= "comments")
+@Table(name = "comments")
 public class BookComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +15,7 @@ public class BookComment {
     private String comment;
 
     @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "book_id")
+    @JoinColumn(name = "book_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_book_id"))
     private Book book;
 
     public BookComment() {
@@ -62,5 +62,14 @@ public class BookComment {
     @Override
     public int hashCode() {
         return Objects.hash(id, comment, book);
+    }
+
+    @Override
+    public String toString() {
+        return "BookComment{" +
+                "id=" + id +
+                ", comment='" + comment + '\'' +
+                ", book=" + book +
+                '}';
     }
 }

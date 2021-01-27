@@ -16,6 +16,8 @@ public interface CommentRepositories {
 
     Optional<BookComment> getCommentById(long commentId);
 
+    List<BookComment> getAllCommentByBookId(long bookId);
+
     List<BookComment> getAllComments();
 
     List<String> getTitles();

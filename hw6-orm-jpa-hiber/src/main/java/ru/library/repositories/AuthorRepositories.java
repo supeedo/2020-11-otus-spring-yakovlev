@@ -10,7 +10,7 @@ public interface AuthorRepositories {
 
     Author insertAuthor(Author author);
 
-    void updateAuthorById(Author author);
+    void updateAuthor(Author author);
 
     void deleteAuthorById(long authorId);
 

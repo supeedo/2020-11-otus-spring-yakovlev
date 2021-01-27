@@ -49,6 +49,18 @@ public class CommentServiceImpl implements CommentService {
         }
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public String getAllCommentsByBookId(long bookId) {
+        List<BookComment> commentsList = commentDao.getAllCommentByBookId(bookId);
+        if (!commentsList.isEmpty()) {
+            return renderer.tableRender(commentDao.getTitles(),
+                    prepareForTable(commentsList));
+        } else {
+            return String.format("Comments for the book with ID: %d, not found!", bookId);
+        }
+    }
+
     @Transactional
     @Override
     public String deleteCommentById(long commentId) {

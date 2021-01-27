@@ -12,6 +12,8 @@ public interface CommentService {
 
     String getCommentById(long commentId);
 
+    String getAllCommentsByBookId(long bookId);
+
     String deleteCommentById(long commentId);
 
     String createNewComment(String comment, long bookId);
