@@ -12,7 +12,7 @@ public interface AuthorRepositories {
 
     void updateAuthor(Author author);
 
-    void deleteAuthorById(long authorId);
+    void deleteAuthor(Author author);
 
     Optional<Author> getAuthorById(long authorId);
 

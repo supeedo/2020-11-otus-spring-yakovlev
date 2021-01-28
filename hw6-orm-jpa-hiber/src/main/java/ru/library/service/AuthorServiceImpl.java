@@ -48,8 +48,13 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public String deleteAuthorById(long authorId) {
-        authorDao.deleteAuthorById(authorId);
-        return String.format("Author with id: %s has delete", authorId);
+        Optional<Author> author = authorDao.getAuthorById(authorId);
+        if (author.isPresent()) {
+            authorDao.deleteAuthor(author.get());
+            return String.format("Author with id: %s has delete", authorId);
+        } else {
+            return String.format("Author with id: %d, not found!", authorId);
+        }
     }
 
     @Transactional

@@ -40,10 +40,8 @@ public class AuthorRepositoriesJpa implements AuthorRepositories {
     }
 
     @Override
-    public void deleteAuthorById(long authorId) {
-        Query query = em.createQuery("delete from Author a where a.id = :authorId");
-        query.setParameter("authorId", authorId);
-        query.executeUpdate();
+    public void deleteAuthor(Author author) {
+        em.remove(author);
     }
 
     @Override
