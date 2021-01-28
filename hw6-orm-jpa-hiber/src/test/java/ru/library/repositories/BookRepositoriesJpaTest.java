@@ -70,7 +70,7 @@ class BookRepositoriesJpaTest {
 
     @DisplayName("Book with the specified ID removed")
     @Test
-    void deleteBookById() {
+    void deleteBook() {
         bookRepo.deleteBookById(FIRST_ID);
         assertNull(tem.find(Book.class, FIRST_ID));
     }

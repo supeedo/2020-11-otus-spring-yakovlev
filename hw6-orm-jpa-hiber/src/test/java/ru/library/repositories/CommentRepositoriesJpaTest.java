@@ -60,8 +60,9 @@ class CommentRepositoriesJpaTest {
 
     @DisplayName("Comment with the specified ID removed")
     @Test
-    void deleteCommentById() {
-        commentRep.deleteCommentById(FIRST_ID);
+    void deleteComment() {
+        final BookComment expectedBook = tem.find(BookComment.class, FIRST_ID);
+        commentRep.deleteComment(expectedBook);
         assertNull(tem.find(BookComment.class, FIRST_ID));
     }
 

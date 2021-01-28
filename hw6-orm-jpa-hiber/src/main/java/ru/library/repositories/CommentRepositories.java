@@ -11,8 +11,7 @@ public interface CommentRepositories {
     BookComment insertComment(BookComment comment);
 
     void updateComment(BookComment comment);
-
-    void deleteCommentById(long commentId);
+    void deleteComment(BookComment comment);
 
     Optional<BookComment> getCommentById(long commentId);
 

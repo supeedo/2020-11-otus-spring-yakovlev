@@ -64,8 +64,13 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public String deleteCommentById(long commentId) {
-        commentDao.deleteCommentById(commentId);
-        return String.format("Comment with id: %s has delete", commentId);
+        Optional<BookComment> genre = commentDao.getCommentById(commentId);
+        if (genre.isPresent()) {
+            commentDao.deleteComment(genre.get());
+            return String.format("Comment with id: %s has delete", commentId);
+        } else {
+            return String.format("Comment with id: %d, not found!", commentId);
+        }
     }
 
     @Transactional

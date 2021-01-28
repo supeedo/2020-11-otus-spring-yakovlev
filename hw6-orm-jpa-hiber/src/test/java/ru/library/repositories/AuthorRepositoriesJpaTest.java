@@ -60,7 +60,7 @@ class AuthorRepositoriesJpaTest {
 
     @DisplayName("Author with the specified ID removed")
     @Test
-    void deleteAuthorById() {
+    void deleteAuthor() {
         final Author expectedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
         authorDao.deleteAuthor(expectedAuthor);
         assertNull(tem.find(Author.class, FIRST_AUTHORS_ID));
