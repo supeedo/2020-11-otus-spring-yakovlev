@@ -71,7 +71,8 @@ class BookRepositoriesJpaTest {
     @DisplayName("Book with the specified ID removed")
     @Test
     void deleteBook() {
-        bookRepo.deleteBookById(FIRST_ID);
+        final Book expectedBook = tem.find(Book.class, FIRST_ID);
+        bookRepo.deleteBook(expectedBook);
         assertNull(tem.find(Book.class, FIRST_ID));
     }
 

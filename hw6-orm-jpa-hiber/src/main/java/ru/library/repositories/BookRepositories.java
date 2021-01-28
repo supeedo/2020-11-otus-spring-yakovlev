@@ -12,7 +12,7 @@ public interface BookRepositories {
 
     void updateBook(Book book);
 
-    void deleteBookById(long bookId);
+    void deleteBook(Book book);
 
     Optional<Book> getBookById(long bookId);
 

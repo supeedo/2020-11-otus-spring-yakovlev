@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Author;
 import ru.library.models.Book;
+import ru.library.models.BookComment;
 import ru.library.models.Genre;
 import ru.library.repositories.AuthorRepositories;
 import ru.library.repositories.BookRepositories;
@@ -12,6 +13,7 @@ import ru.library.utils.TableRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -42,15 +44,26 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getBookById(long id) {
-        return renderer.tableRender(bookDao.getTitles(), prepareForTable(List.of((bookDao.getBookById(id)).get())));
+    public String getBookById(long bookId) {
+        Optional<Book> book = bookDao.getBookById(bookId);
+        if (book.isPresent()) {
+            return renderer.tableRender(bookDao.getTitles(),
+                    prepareForTable(List.of(book.get())));
+        } else {
+            return String.format("Book with id: %d, not found!", bookId);
+        }
     }
 
     @Transactional
     @Override
-    public String deleteBookById(long id) {
-        bookDao.deleteBookById(id);
-        return String.format("Book with id: %s has delete", id);
+    public String deleteBookById(long bookId) {
+        Optional<Book> book = bookDao.getBookById(bookId);
+        if (book.isPresent()) {
+            bookDao.deleteBook(book.get());
+            return String.format("Book with id: %s has delete", bookId);
+        } else {
+            return String.format("Book with id: %d, not found!", bookId);
+        }
     }
 
     @Transactional
