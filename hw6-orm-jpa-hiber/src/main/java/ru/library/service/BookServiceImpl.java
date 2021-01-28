@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Author;
 import ru.library.models.Book;
-import ru.library.models.BookComment;
 import ru.library.models.Genre;
 import ru.library.repositories.AuthorRepositories;
 import ru.library.repositories.BookRepositories;
