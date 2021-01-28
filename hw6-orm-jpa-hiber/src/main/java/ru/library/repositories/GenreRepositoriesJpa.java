@@ -41,10 +41,8 @@ public class GenreRepositoriesJpa implements GenreRepositories {
     }
 
     @Override
-    public void deleteGenreById(long genreId) {
-        Query query = em.createQuery("delete from Genre g where g.id = :genreId");
-        query.setParameter("genreId", genreId);
-        query.executeUpdate();
+    public void deleteGenre(Genre genre) {
+        em.remove(genre);
     }
 
     @Override

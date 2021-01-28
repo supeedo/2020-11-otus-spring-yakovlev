@@ -49,8 +49,13 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public String deleteGenreById(long genreId) {
-        genreDao.deleteGenreById(genreId);
-        return String.format("Genre with id: %s has delete", genreId);
+        Optional<Genre> genre = genreDao.getGenreById(genreId);
+        if (genre.isPresent()) {
+            genreDao.deleteGenre(genre.get());
+            return String.format("Genre with id: %s has delete", genreId);
+        } else {
+            return String.format("Genre with id: %d, not found!", genreId);
+        }
     }
 
     @Transactional

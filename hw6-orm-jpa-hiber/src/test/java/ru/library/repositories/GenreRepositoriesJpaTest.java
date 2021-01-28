@@ -62,7 +62,8 @@ class GenreRepositoriesJpaTest {
     @DisplayName("Genre with the specified ID removed")
     @Test
     void deleteGenreById() {
-        genreDao.deleteGenreById(FIRST_GENRE_ID);
+        final Genre expectedGenre = tem.find(Genre.class, FIRST_GENRE_ID);
+        genreDao.deleteGenre(expectedGenre);
         assertNull(tem.find(Genre.class, FIRST_GENRE_ID));
     }
 
