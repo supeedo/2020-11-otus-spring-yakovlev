@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BookService {
 
-    long getCount();
+    String getCount();
 
     String getAllBooks();
 

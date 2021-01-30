@@ -8,11 +8,11 @@ import java.util.Objects;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "genre_name", nullable = true, unique = true)
+    @Column(name = "genre_name", nullable = false, unique = true)
     private String genreName;
-
 
     public Genre() {
     }

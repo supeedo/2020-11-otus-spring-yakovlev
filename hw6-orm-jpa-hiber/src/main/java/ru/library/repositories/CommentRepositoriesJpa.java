@@ -33,15 +33,6 @@ public class CommentRepositoriesJpa implements CommentRepositories {
     }
 
     @Override
-    public void updateComment(BookComment comment) {
-        Query query = em.createQuery("UPDATE BookComment c SET c.comment = :comment, c.book.id = :book WHERE c.id = :id");
-        query.setParameter("id", comment.getId());
-        query.setParameter("comment", comment.getComment());
-        query.setParameter("book", comment.getBook().getId());
-        query.executeUpdate();
-    }
-
-    @Override
     public void deleteComment(BookComment comment) {
         em.remove(comment);
     }
@@ -49,13 +40,6 @@ public class CommentRepositoriesJpa implements CommentRepositories {
     @Override
     public Optional<BookComment> getCommentById(long commentId) {
         return Optional.ofNullable(em.find(BookComment.class, commentId));
-    }
-
-    @Override
-    public List<BookComment> getAllCommentByBookId(long bookId) {
-        TypedQuery<BookComment> query = em.createQuery("SELECT c FROM BookComment c where c.book.id = :bookId", BookComment.class);
-        query.setParameter("bookId", bookId);
-        return query.getResultList();
     }
 
     @Override

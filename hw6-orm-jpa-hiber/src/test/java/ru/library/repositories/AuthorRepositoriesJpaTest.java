@@ -22,7 +22,6 @@ class AuthorRepositoriesJpaTest {
     private static final long SECOND_AUTHORS_ID = 2L;
     private static final long NEW_AUTHORS_ID = 3L;
     private static final String TEST_AUTHORS_NAME = "Test author name";
-    private static final String UPDATE_AUTHORS_NAME = "Update author name";
 
     @Autowired
     private AuthorRepositories authorDao;
@@ -44,18 +43,6 @@ class AuthorRepositoriesJpaTest {
         authorDao.insertAuthor(expectedAuthor);
         final Author actualAuthor = tem.find(Author.class, NEW_AUTHORS_ID);
         Assertions.assertThat(actualAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
-    }
-
-    @DisplayName("Updated author is as expected")
-    @Test
-    void updateAuthor() {
-        final Author actualAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
-        tem.clear();
-        final Author expectedAuthor = new Author(FIRST_AUTHORS_ID, UPDATE_AUTHORS_NAME);
-        authorDao.updateAuthor(expectedAuthor);
-        final Author updatedAuthor = tem.find(Author.class, FIRST_AUTHORS_ID);
-        Assertions.assertThat(updatedAuthor).usingRecursiveComparison().isNotEqualTo(actualAuthor);
-        Assertions.assertThat(updatedAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
     }
 
     @DisplayName("Author with the specified ID removed")

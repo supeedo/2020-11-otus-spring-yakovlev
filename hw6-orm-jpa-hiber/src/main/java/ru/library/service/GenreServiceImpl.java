@@ -14,6 +14,11 @@ import java.util.Optional;
 @Service
 public class GenreServiceImpl implements GenreService {
 
+    private static final String THERE_ARE_S_GENRES_IN_THE_LIBRARY = "There are %s genres in the library";
+    private static final String GENRE_WITH_ID_D_NOT_FOUND = "Genre with id: %d, not found!";
+    private static final String GENRE_WITH_ID_S_HAS_DELETE = "Genre with id: %s has delete";
+    private static final String GENRE_S_HAS_UPDATE = "Genre:\n%s \nhas update";
+    private static final String GENRE_HAS_INSERT = "Genre has insert";
     private final GenreRepositories genreDao;
     private final TableRenderer renderer;
 
@@ -25,7 +30,7 @@ public class GenreServiceImpl implements GenreService {
     @Transactional(readOnly = true)
     @Override
     public String getCount() {
-        return String.format("There are %s genres in the library", genreDao.getGenreCount());
+        return String.format(THERE_ARE_S_GENRES_IN_THE_LIBRARY, genreDao.getGenreCount());
     }
 
     @Transactional(readOnly = true)
@@ -42,7 +47,7 @@ public class GenreServiceImpl implements GenreService {
             return renderer.tableRender(genreDao.getTitles(),
                     prepareForTable(List.of(genre.get())));
         } else {
-            return String.format("Genre with id: %d, not found!", genreId);
+            return String.format(GENRE_WITH_ID_D_NOT_FOUND, genreId);
         }
     }
 
@@ -52,9 +57,9 @@ public class GenreServiceImpl implements GenreService {
         Optional<Genre> genre = genreDao.getGenreById(genreId);
         if (genre.isPresent()) {
             genreDao.deleteGenre(genre.get());
-            return String.format("Genre with id: %s has delete", genreId);
+            return String.format(GENRE_WITH_ID_S_HAS_DELETE, genreId);
         } else {
-            return String.format("Genre with id: %d, not found!", genreId);
+            return String.format(GENRE_WITH_ID_D_NOT_FOUND, genreId);
         }
     }
 
@@ -62,7 +67,7 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public String createNewGenre(String genreName) {
         genreDao.insertGenre(new Genre(0L, genreName));
-        return "Genre has insert";
+        return GENRE_HAS_INSERT;
     }
 
     @Transactional
@@ -70,13 +75,12 @@ public class GenreServiceImpl implements GenreService {
     public String updateGenre(long genreId, String genreName) {
         Genre genre = genreDao.getGenreById(genreId).get();
         genre.setGenreName(genreName);
-        genreDao.updateGenre(genre);
         Optional<Genre> updateGenre = genreDao.getGenreById(genreId);
         if (updateGenre.isPresent()) {
-            return String.format("Genre:\n%s \nhas update", renderer.tableRender(genreDao.getTitles(),
+            return String.format(GENRE_S_HAS_UPDATE, renderer.tableRender(genreDao.getTitles(),
                     prepareForTable(List.of(updateGenre.get()))));
         } else {
-            return String.format("Genre with id: %d, not found!", genreId);
+            return String.format(GENRE_WITH_ID_D_NOT_FOUND, genreId);
         }
     }
 

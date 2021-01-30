@@ -10,8 +10,6 @@ public interface GenreRepositories {
 
     Genre insertGenre(Genre genre);
 
-    void updateGenre(Genre genre);
-
     void deleteGenre(Genre genre);
 
     Optional<Genre> getGenreById(long genreId);

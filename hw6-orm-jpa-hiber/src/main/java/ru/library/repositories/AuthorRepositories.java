@@ -10,8 +10,6 @@ public interface AuthorRepositories {
 
     Author insertAuthor(Author author);
 
-    void updateAuthor(Author author);
-
     void deleteAuthor(Author author);
 
     Optional<Author> getAuthorById(long authorId);

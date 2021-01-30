@@ -28,7 +28,7 @@ public class CommentShellCommand {
         return service.getCommentById(commentId);
     }
 
-    @ShellMethod(value = "Get comment by Book id", key = {"all comm book"})
+    @ShellMethod(value = "Get comment by Book id", key = {"all comm by book"})
     public String showAllCommentByBookId(@ShellOption long bookId) {
         return service.getAllCommentsByBookId(bookId);
     }

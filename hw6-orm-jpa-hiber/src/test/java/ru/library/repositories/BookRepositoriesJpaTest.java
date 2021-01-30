@@ -26,7 +26,6 @@ class BookRepositoriesJpaTest {
     private static final long SECOND_ID = 2L;
     private static final long NEW_BOOK_ID = 3L;
     private static final String TEST_BOOK_TITLE = "Test book title";
-    private static final String UPDATE_BOOK_TITLE = "Update book title";
 
     @Autowired
     private BookRepositories bookRepo;
@@ -52,20 +51,6 @@ class BookRepositoriesJpaTest {
         bookRepo.insertBook(bookForInsert);
         final Book actualBook = tem.find(Book.class, NEW_BOOK_ID);
         Assertions.assertThat(actualBook).usingRecursiveComparison().isEqualTo(bookForInsert);
-    }
-
-    @DisplayName("Updated book is as expected")
-    @Test
-    void updateBook() {
-        final Author author = tem.find(Author.class, SECOND_ID);
-        final Genre genre = tem.find(Genre.class, SECOND_ID);
-        final Book expectedBook = tem.find(Book.class, FIRST_ID);
-        expectedBook.setBookTitle(UPDATE_BOOK_TITLE);
-        expectedBook.setAuthor(author);
-        expectedBook.setGenre(genre);
-        bookRepo.updateBook(expectedBook);
-        final Book updatedBook = tem.find(Book.class, FIRST_ID);
-        Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
 
     @DisplayName("Book with the specified ID removed")

@@ -14,6 +14,12 @@ import java.util.Optional;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+    private static final String COMMENT_WITH_ID_D_NOT_FOUND = "Comment with id: %d, not found!";
+    private static final String THERE_ARE_S_COMMENTS_IN_THE_LIBRARY = "There are %s comments in the library";
+    private static final String COMMENTS_FOR_THE_BOOK_WITH_ID_D_NOT_FOUND = "Comments for the book with ID: %d, not found!";
+    private static final String COMMENT_WITH_ID_S_HAS_DELETE = "Comment with id: %s has delete";
+    private static final String COMMENT_HAS_INSERT = "Comment has insert";
+    private static final String COMMENT_S_HAS_UPDATE = "Comment:\n%s \nhas update";
     private final CommentRepositories commentDao;
     private final BookRepositories bookRepo;
     private final TableRenderer renderer;
@@ -27,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     @Override
     public String getCount() {
-        return String.format("There are %s comments in the library", commentDao.getCommentCount());
+        return String.format(THERE_ARE_S_COMMENTS_IN_THE_LIBRARY, commentDao.getCommentCount());
     }
 
     @Transactional(readOnly = true)
@@ -45,19 +51,24 @@ public class CommentServiceImpl implements CommentService {
             return renderer.tableRender(commentDao.getTitles(),
                     prepareForTable(List.of(genre.get())));
         } else {
-            return String.format("Comment with id: %d, not found!", commentId);
+            return String.format(COMMENT_WITH_ID_D_NOT_FOUND, commentId);
         }
     }
 
     @Transactional(readOnly = true)
     @Override
     public String getAllCommentsByBookId(long bookId) {
-        List<BookComment> commentsList = commentDao.getAllCommentByBookId(bookId);
-        if (!commentsList.isEmpty()) {
-            return renderer.tableRender(commentDao.getTitles(),
-                    prepareForTable(commentsList));
-        } else {
-            return String.format("Comments for the book with ID: %d, not found!", bookId);
+        Optional<Book> book = bookRepo.getBookById(bookId);
+        if(book.isPresent()) {
+            List<BookComment> commentsList = book.get().getComments();
+            if (!commentsList.isEmpty()) {
+                return renderer.tableRender(commentDao.getTitles(),
+                        prepareForTable(commentsList));
+            } else {
+                return String.format(COMMENTS_FOR_THE_BOOK_WITH_ID_D_NOT_FOUND, bookId);
+            }
+        }else{
+             return String.format(COMMENT_WITH_ID_D_NOT_FOUND, bookId);
         }
     }
 
@@ -67,9 +78,9 @@ public class CommentServiceImpl implements CommentService {
         Optional<BookComment> genre = commentDao.getCommentById(commentId);
         if (genre.isPresent()) {
             commentDao.deleteComment(genre.get());
-            return String.format("Comment with id: %s has delete", commentId);
+            return String.format(COMMENT_WITH_ID_S_HAS_DELETE, commentId);
         } else {
-            return String.format("Comment with id: %d, not found!", commentId);
+            return String.format(COMMENT_WITH_ID_D_NOT_FOUND, commentId);
         }
     }
 
@@ -82,7 +93,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setComment(commentText);
         comment.setBook(book);
         commentDao.insertComment(comment);
-        return "Comment has insert";
+        return COMMENT_HAS_INSERT;
     }
 
     @Transactional
@@ -90,13 +101,12 @@ public class CommentServiceImpl implements CommentService {
     public String updateComment(long commentId, String commentText) {
         BookComment comment = commentDao.getCommentById(commentId).get();
         comment.setComment(commentText);
-        commentDao.updateComment(comment);
         Optional<BookComment> updateComment = commentDao.getCommentById(commentId);
         if (updateComment.isPresent()) {
-            return String.format("Comment:\n%s \nhas update", renderer.tableRender(commentDao.getTitles(),
+            return String.format(COMMENT_S_HAS_UPDATE, renderer.tableRender(commentDao.getTitles(),
                     prepareForTable(List.of(updateComment.get()))));
         } else {
-            return String.format("BookComment with id: %d, not found!", commentId);
+            return String.format(COMMENT_WITH_ID_D_NOT_FOUND, commentId);
         }
     }
 

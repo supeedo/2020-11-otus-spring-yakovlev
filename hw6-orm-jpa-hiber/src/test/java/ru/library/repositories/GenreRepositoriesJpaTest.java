@@ -47,18 +47,6 @@ class GenreRepositoriesJpaTest {
         Assertions.assertThat(actualGenre).usingRecursiveComparison().isEqualTo(expectedGenre);
     }
 
-    @DisplayName("Updated genre is as expected")
-    @Test
-    void updateGenre() {
-        final Genre actualGenre = tem.find(Genre.class, FIRST_GENRE_ID);
-        final Genre expectedGenre = new Genre(FIRST_GENRE_ID, UPDATE_GENRE_NAME);
-        genreDao.updateGenre(expectedGenre);
-        tem.clear();
-        final Genre updatedGenre = tem.find(Genre.class, FIRST_GENRE_ID);
-        Assertions.assertThat(updatedGenre).usingRecursiveComparison().isNotEqualTo(actualGenre);
-        Assertions.assertThat(updatedGenre).usingRecursiveComparison().isEqualTo(expectedGenre);
-    }
-
     @DisplayName("Genre with the specified ID removed")
     @Test
     void deleteGenreById() {

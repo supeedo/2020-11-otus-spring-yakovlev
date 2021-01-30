@@ -13,6 +13,11 @@ import java.util.Optional;
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
+    private static final String AUTHOR_WITH_ID_D_NOT_FOUND = "Author with id: %d, not found!";
+    private static final String AUTHOR_WITH_ID_S_HAS_DELETE = "Author with id: %s has delete";
+    private static final String AUTHOR_S_HAS_UPDATE = "Author:\n%s \nhas update";
+    private static final String AUTHOR_HAS_INSERT = "Author has insert";
+    private static final String THERE_ARE_S_AUTHORS_IN_THE_LIBRARY = "There are %s authors in the library";
     private final AuthorRepositories authorDao;
     private final TableRenderer renderer;
 
@@ -24,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     @Override
     public String getCount() {
-        return String.format("There are %s authors in the library", authorDao.getAuthorsCount());
+        return String.format(THERE_ARE_S_AUTHORS_IN_THE_LIBRARY, authorDao.getAuthorsCount());
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +46,7 @@ public class AuthorServiceImpl implements AuthorService {
             return renderer.tableRender(authorDao.getTitles(),
                     prepareForTable(List.of(author.get())));
         } else {
-            return String.format("Author with id: %d, not found!", authorId);
+            return String.format(AUTHOR_WITH_ID_D_NOT_FOUND, authorId);
         }
     }
 
@@ -51,9 +56,9 @@ public class AuthorServiceImpl implements AuthorService {
         Optional<Author> author = authorDao.getAuthorById(authorId);
         if (author.isPresent()) {
             authorDao.deleteAuthor(author.get());
-            return String.format("Author with id: %s has delete", authorId);
+            return String.format(AUTHOR_WITH_ID_S_HAS_DELETE, authorId);
         } else {
-            return String.format("Author with id: %d, not found!", authorId);
+            return String.format(AUTHOR_WITH_ID_D_NOT_FOUND, authorId);
         }
     }
 
@@ -61,21 +66,24 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public String createNewAuthor(String authorFullName) {
         authorDao.insertAuthor(new Author(0L, authorFullName));
-        return "Author has insert";
+        return AUTHOR_HAS_INSERT;
     }
 
     @Transactional
     @Override
     public String updateAuthor(long authorId, String authorFullName) {
-        Author author = authorDao.getAuthorById(authorId).get();
-        author.setFullName(authorFullName);
-        authorDao.updateAuthor(author);
-        Optional<Author> updateAuthor = authorDao.getAuthorById(authorId);
-        if (updateAuthor.isPresent()) {
-            return String.format("Author:\n%s \nhas update", renderer.tableRender(authorDao.getTitles(),
-                    prepareForTable(List.of(updateAuthor.get()))));
-        } else {
-            return String.format("Author with id: %d, not found!", authorId);
+        Optional<Author> author = authorDao.getAuthorById(authorId);
+        if(author.isPresent()) {
+            author.get().setFullName(authorFullName);
+            Optional<Author> updateAuthor = authorDao.getAuthorById(authorId);
+            if (updateAuthor.isPresent()) {
+                return String.format(AUTHOR_S_HAS_UPDATE, renderer.tableRender(authorDao.getTitles(),
+                        prepareForTable(List.of(updateAuthor.get()))));
+            } else {
+                return String.format(AUTHOR_WITH_ID_D_NOT_FOUND, authorId);
+            }
+        }else{
+            return String.format(AUTHOR_WITH_ID_D_NOT_FOUND, authorId);
         }
     }
 

@@ -10,12 +10,9 @@ public interface CommentRepositories {
 
     BookComment insertComment(BookComment comment);
 
-    void updateComment(BookComment comment);
     void deleteComment(BookComment comment);
 
     Optional<BookComment> getCommentById(long commentId);
-
-    List<BookComment> getAllCommentByBookId(long bookId);
 
     List<BookComment> getAllComments();
 

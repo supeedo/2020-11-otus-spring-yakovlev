@@ -17,10 +17,15 @@ import java.util.Optional;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private BookRepositories bookDao;
+    private static final String BOOK_WITH_ID_D_NOT_FOUND = "Book with id: %d, not found!";
+    private static final String BOOK_WITH_ID_S_HAS_DELETE = "Book with id: %s has delete";
+    private static final String BOOK_S_HAS_UPDATE = "Book:\n%s \nhas update";
+    private static final String THERE_ARE_S_BOOKS_IN_THE_LIBRARY = "There are %s books in the library";
+    private static final String BOOK_HAS_INSERT = "Book has insert";
+    private final BookRepositories bookDao;
     private final AuthorRepositories authorRepo;
     private final GenreRepositories genreRepo;
-    private TableRenderer renderer;
+    private final TableRenderer renderer;
 
     public BookServiceImpl(BookRepositories bookDao, TableRenderer renderer, AuthorRepositories authorRepo, GenreRepositories genreRepo) {
         this.bookDao = bookDao;
@@ -31,8 +36,8 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public long getCount() {
-        return bookDao.getBooksCount();
+    public String getCount() {
+        return String.format(THERE_ARE_S_BOOKS_IN_THE_LIBRARY, bookDao.getBooksCount());
     }
 
     @Transactional(readOnly = true)
@@ -49,7 +54,7 @@ public class BookServiceImpl implements BookService {
             return renderer.tableRender(bookDao.getTitles(),
                     prepareForTable(List.of(book.get())));
         } else {
-            return String.format("Book with id: %d, not found!", bookId);
+            return String.format(BOOK_WITH_ID_D_NOT_FOUND, bookId);
         }
     }
 
@@ -59,9 +64,9 @@ public class BookServiceImpl implements BookService {
         Optional<Book> book = bookDao.getBookById(bookId);
         if (book.isPresent()) {
             bookDao.deleteBook(book.get());
-            return String.format("Book with id: %s has delete", bookId);
+            return String.format(BOOK_WITH_ID_S_HAS_DELETE, bookId);
         } else {
-            return String.format("Book with id: %d, not found!", bookId);
+            return String.format(BOOK_WITH_ID_D_NOT_FOUND, bookId);
         }
     }
 
@@ -71,7 +76,7 @@ public class BookServiceImpl implements BookService {
         Author author = authorRepo.getAuthorById(authorId).get();
         Genre genre = genreRepo.getGenreById(genreId).get();
         bookDao.insertBook(new Book(0L, bookName, author, genre));
-        return "Book has insert";
+        return BOOK_HAS_INSERT;
     }
 
     @Transactional
@@ -83,8 +88,7 @@ public class BookServiceImpl implements BookService {
         book.setBookTitle(bookName);
         book.setGenre(genre);
         book.setAuthor(author);
-        bookDao.insertBook(book);
-        return String.format("Book:\n%s \nhas update", renderer.tableRender(bookDao.getTitles(),
+        return String.format(BOOK_S_HAS_UPDATE, renderer.tableRender(bookDao.getTitles(),
                 prepareForTable(List.of((bookDao.getBookById(id)).get()))));
     }
 

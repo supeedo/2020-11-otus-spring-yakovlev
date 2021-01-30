@@ -48,16 +48,6 @@ class CommentRepositoriesJpaTest {
         Assertions.assertThat(actualBook).usingRecursiveComparison().isEqualTo(commentForInsert);
     }
 
-    @DisplayName("Updated comment is as expected")
-    @Test
-    void updateComment() {
-        final BookComment expectedBook = tem.find(BookComment.class, FIRST_ID);
-        expectedBook.setComment(UPDATE_COMMENT_TITLE);
-        commentRep.updateComment(expectedBook);
-        final BookComment updatedBook = tem.find(BookComment.class, FIRST_ID);
-        Assertions.assertThat(updatedBook).usingRecursiveComparison().isEqualTo(expectedBook);
-    }
-
     @DisplayName("Comment with the specified ID removed")
     @Test
     void deleteComment() {
@@ -72,16 +62,6 @@ class CommentRepositoriesJpaTest {
         final BookComment expectedBook = tem.find(BookComment.class, FIRST_ID);
         final BookComment actualBook = commentRep.getCommentById(FIRST_ID).get();
         Assertions.assertThat(expectedBook).usingRecursiveComparison().isEqualTo(actualBook);
-    }
-
-    @Test
-    void getAllCommentByBookId(){
-        final List<BookComment> expectedCommentsList = List.of(
-                tem.find(BookComment.class, FIRST_ID)
-        );
-        final List<BookComment> actualCommentsList = commentRep.getAllCommentByBookId(FIRST_ID);
-        Assertions.assertThat(expectedCommentsList.get(0)).usingRecursiveComparison()
-                .isEqualTo(actualCommentsList.get(0));
     }
 
     @DisplayName("The resulting list of all comments is as expected")
