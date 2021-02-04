@@ -37,6 +37,7 @@ class AuthorsShellCommandTest {
     private Shell shell;
 
     @Test
+    @DisplayName("")
     void showAuthorCount() {
         final String expectedResult = String.format("There are %d authors in the library", COUNT_AUTHORS_IN_BASE);
         final String resFirst = (String) shell.evaluate(() -> AUTHORS_COUNT);
@@ -47,6 +48,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
+    @DisplayName("")
     void showAllAuthors() {
         final String resFirst = (String) shell.evaluate(() -> SHOW_ALL_AUTHORS);
         final String resSecond = (String) shell.evaluate(() -> ALL_AUTHORS);
@@ -59,6 +61,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
+    @DisplayName("")
     void showAuthorById() {
         final String request = String.format("%s %s", AUTHOR_ID, ID_FIRST_AUTHOR);
         final String response = (String) shell.evaluate(() -> request);
@@ -68,6 +71,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
+    @DisplayName("")
     void showAuthorsByName() {
         final String request = String.format("%s %s", AUTHOR_NAME,
                 FIRST_EXPECTED_AUTHOR.substring(0,6));
@@ -89,11 +93,11 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    @DisplayName("")
     void insertNewAuthor() {
         final String expectedResult = "Author has insert";
-        final String firstRequest = String.format("%s %s", CREATE_AUTHOR, ID_FIRST_AUTHOR);
-        final String secondRequest = String.format("%s %s", AUTHOR_CREATE, ID_FIRST_AUTHOR);
+        final String firstRequest = String.format("%s %s", CREATE_AUTHOR, UPDATE_AUTHOR_NAME);
+        final String secondRequest = String.format("%s %s", AUTHOR_CREATE, UPDATE_AUTHOR_NAME);
         final String resFirst = (String) shell.evaluate(() -> firstRequest);
         final String resSecond = (String) shell.evaluate(() -> secondRequest);
         assertThat(resFirst).isEqualTo(expectedResult);
@@ -101,6 +105,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
+    @DisplayName("")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void updateAuthor() {
         final String expectedStartResult = "Author";
