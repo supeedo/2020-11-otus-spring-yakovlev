@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    initialization-mode: always
+    schema: schema.sql
+    data: test-data.sql
+
+  h2:
+    console:
+      path: /h2-console
+      settings:
+        web-allow-others: true
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+logging:
+  level:
+   ru.quizapp: WARN
+  pattern:
+     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
