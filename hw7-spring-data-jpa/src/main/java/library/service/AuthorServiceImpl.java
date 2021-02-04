@@ -14,6 +14,7 @@ import java.util.Optional;
 public class AuthorServiceImpl implements AuthorService {
 
     private static final String AUTHOR_WITH_ID_D_NOT_FOUND = "Author with id: %d, not found!";
+    private static final String AUTHOR_WITH_NAME_NOT_FOUND = "Author with name: %s, not found!";
     private static final String AUTHOR_WITH_ID_S_HAS_DELETE = "Author with id: %s has delete";
     private static final String AUTHOR_S_HAS_UPDATE = "Author:\n%s \nhas update";
     private static final String AUTHOR_HAS_INSERT = "Author has insert";
@@ -47,6 +48,17 @@ public class AuthorServiceImpl implements AuthorService {
                     prepareForTable(List.of(author.get())));
         } else {
             return String.format(AUTHOR_WITH_ID_D_NOT_FOUND, authorId);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public String getAuthorsByName(String authorsName) {
+        List<Author> author = authorDao.findByFullNameContains(authorsName);
+        if (!author.isEmpty()) {
+            return renderer.tableRender(getTitles(), prepareForTable(author));
+        } else {
+            return String.format(AUTHOR_WITH_NAME_NOT_FOUND, authorsName);
         }
     }
 

@@ -29,6 +29,11 @@ public class AuthorsShellCommand {
         return service.getAuthorById(authorId);
     }
 
+    @ShellMethod(value = "Get author by name", key = {"author name"})
+    public String showAuthorsByName(@ShellOption String authorName) {
+        return service.getAuthorsByName(authorName);
+    }
+
     @ShellMethod(value = "Delete author by id", key = {"delete author"})
     public String deleteAuthorById(@ShellOption Long authorId) {
         return service.deleteAuthorById(authorId);
@@ -43,6 +48,5 @@ public class AuthorsShellCommand {
     public String updateAuthor(Long authorId, String authorFullName) {
         return service.updateAuthor(authorId, authorFullName);
     }
-
 
 }
