@@ -17,7 +17,7 @@ public class BooksShellCommand {
 
     @ShellMethod(value = "Show books count in library", key = {"books count", "count books"})
     public String showBooksCount() {
-        return String.format("There are %s books in the library", service.getCount());
+        return service.getCount();
     }
 
     @ShellMethod(value = "Show all books", key = {"show all books", "all books"})

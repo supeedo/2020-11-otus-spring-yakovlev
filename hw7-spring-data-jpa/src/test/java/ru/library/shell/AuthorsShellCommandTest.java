@@ -37,7 +37,7 @@ class AuthorsShellCommandTest {
     private Shell shell;
 
     @Test
-    @DisplayName("")
+    @DisplayName("Expected quantity is as expected")
     void showAuthorCount() {
         final String expectedResult = String.format("There are %d authors in the library", COUNT_AUTHORS_IN_BASE);
         final String resFirst = (String) shell.evaluate(() -> AUTHORS_COUNT);
@@ -48,7 +48,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting all items as expected")
     void showAllAuthors() {
         final String resFirst = (String) shell.evaluate(() -> SHOW_ALL_AUTHORS);
         final String resSecond = (String) shell.evaluate(() -> ALL_AUTHORS);
@@ -61,7 +61,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting an item by ID matches what was expected")
     void showAuthorById() {
         final String request = String.format("%s %s", AUTHOR_ID, ID_FIRST_AUTHOR);
         final String response = (String) shell.evaluate(() -> request);
@@ -71,7 +71,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting an item by name matches what was expected")
     void showAuthorsByName() {
         final String request = String.format("%s %s", AUTHOR_NAME,
                 FIRST_EXPECTED_AUTHOR.substring(0,6));
@@ -82,7 +82,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Deleting an item by id works as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void deleteAuthorById() {
         final String expectedResult = String.format("Author with id: %s has delete", ID_FIRST_AUTHOR);
@@ -93,7 +93,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Adding a new item happens as expected")
     void insertNewAuthor() {
         final String expectedResult = "Author has insert";
         final String firstRequest = String.format("%s %s", CREATE_AUTHOR, UPDATE_AUTHOR_NAME);
@@ -105,7 +105,7 @@ class AuthorsShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Item update occurs as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void updateAuthor() {
         final String expectedStartResult = "Author";

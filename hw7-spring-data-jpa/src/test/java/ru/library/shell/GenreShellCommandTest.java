@@ -36,7 +36,7 @@ class GenreShellCommandTest {
     private Shell shell;
 
     @Test
-    @DisplayName("")
+    @DisplayName("Expected quantity is as expected")
     void showGenresCount() {
         final String expectedResult = String.format("There are %d genres in the library", COUNT_GENRES_IN_BASE);
         final String resFirst = (String) shell.evaluate(() -> GENRE_COUNT);
@@ -47,7 +47,7 @@ class GenreShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting all items as expected")
     void showAllGenres() {
         final String resFirst = (String) shell.evaluate(() -> SHOW_ALL_GENRES);
         final String resSecond = (String) shell.evaluate(() -> ALL_GENRES);
@@ -60,7 +60,7 @@ class GenreShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting an item by ID matches what was expected")
     void showGenreById() {
         final String request = String.format("%s %s", GENRE_ID, ID_FIRST_GENRE);
         final String response = (String) shell.evaluate(() -> request);
@@ -70,7 +70,7 @@ class GenreShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Deleting an item by id works as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void deleteGenreById() {
         final String expectedResult = String.format("Genre with id: %s has delete", ID_FIRST_GENRE);
@@ -81,7 +81,7 @@ class GenreShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Adding a new item happens as expected")
     void insertNewGenre() {
         final String expectedResult = "Genre has insert";
         final String firstRequest = String.format("%s %s", CREATE_GENRE, UPDATE_GENRE_NAME);
@@ -93,7 +93,7 @@ class GenreShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Item update occurs as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void updateGenre() {
         final String expectedStartResult = "Genre";

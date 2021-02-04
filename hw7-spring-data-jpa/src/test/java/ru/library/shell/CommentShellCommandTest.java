@@ -38,7 +38,7 @@ class CommentShellCommandTest {
     private Shell shell;
 
     @Test
-    @DisplayName("")
+    @DisplayName("Expected quantity is as expected")
     void showCommentsCount() {
         final String expectedResult = String.format("There are %d comments in the library", COUNT_COMMENTS_IN_BASE);
         final String resFirst = (String) shell.evaluate(() -> COMMENTS_COUNT);
@@ -49,7 +49,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting all items as expected")
     void showAllComments() {
         final String resFirst = (String) shell.evaluate(() -> SHOW_ALL_COMMENTS);
         final String resSecond = (String) shell.evaluate(() -> ALL_COMMENTS);
@@ -62,7 +62,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting an item by ID matches what was expected")
     void showCommentById() {
         final String request = String.format("%s %s", COMMENT_ID, ID_FIRST_COMMENT);
         final String response = (String) shell.evaluate(() -> request);
@@ -72,7 +72,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Getting an item by book ID matches what was expected")
     void showAllCommentByBookId() {
         final String request = String.format("%s %s", ALL_COMM_BY_BOOK, FIRST_BOOK_ID);
         final String response = (String) shell.evaluate(() -> request);
@@ -82,7 +82,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Deleting an item by id works as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void deleteCommentById() {
         final String expectedResult = String.format("Comment with id: %s has delete", ID_FIRST_COMMENT);
@@ -93,7 +93,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Adding a new item happens as expected")
     void insertNewComment() {
         final String expectedResult = "Comment has insert";
         final String firstRequest = String.format("%s %s %s", CREATE_COMMENT, UPDATE_COMMENT_NAME, FIRST_BOOK_ID);
@@ -105,7 +105,7 @@ class CommentShellCommandTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Item update occurs as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void updateComment(){
         final String expectedStartResult = "Comment";
