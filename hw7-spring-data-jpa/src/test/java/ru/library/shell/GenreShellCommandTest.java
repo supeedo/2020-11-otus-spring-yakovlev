@@ -82,6 +82,7 @@ class GenreShellCommandTest {
 
     @Test
     @DisplayName("Adding a new item happens as expected")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void insertNewGenre() {
         final String expectedResult = "Genre has insert";
         final String firstRequest = String.format("%s %s", CREATE_GENRE, UPDATE_GENRE_NAME);

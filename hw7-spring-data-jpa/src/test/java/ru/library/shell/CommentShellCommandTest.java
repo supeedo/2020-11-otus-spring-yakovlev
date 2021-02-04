@@ -94,6 +94,7 @@ class CommentShellCommandTest {
 
     @Test
     @DisplayName("Adding a new item happens as expected")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void insertNewComment() {
         final String expectedResult = "Comment has insert";
         final String firstRequest = String.format("%s %s %s", CREATE_COMMENT, UPDATE_COMMENT_NAME, FIRST_BOOK_ID);

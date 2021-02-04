@@ -94,6 +94,7 @@ class AuthorsShellCommandTest {
 
     @Test
     @DisplayName("Adding a new item happens as expected")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void insertNewAuthor() {
         final String expectedResult = "Author has insert";
         final String firstRequest = String.format("%s %s", CREATE_AUTHOR, UPDATE_AUTHOR_NAME);

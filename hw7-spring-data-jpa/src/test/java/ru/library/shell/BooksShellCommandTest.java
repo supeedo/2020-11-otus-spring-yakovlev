@@ -84,6 +84,7 @@ class BooksShellCommandTest {
 
     @Test
     @DisplayName("Adding a new item happens as expected")
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void insertNewBook() {
         final String expectedResult = "Book has insert";
         final String firstRequest = String.format("%s %s %s %s",
