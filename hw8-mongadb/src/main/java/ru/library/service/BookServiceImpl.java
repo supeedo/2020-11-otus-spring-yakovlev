@@ -74,7 +74,7 @@ public class BookServiceImpl implements BookService{
     public String createNewBook(String bookName, String authorId, String genreId) {
         Author author = authorRepo.findById(authorId).get();
         Genre genre = genreRepo.findById(genreId).get();
-//        bookDao.save(new Book(0L, bookName, author, genre));
+        bookDao.save(new Book(bookName, author, genre));
         return BOOK_HAS_INSERT;
     }
 

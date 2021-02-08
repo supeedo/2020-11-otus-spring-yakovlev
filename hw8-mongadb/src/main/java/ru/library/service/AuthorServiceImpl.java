@@ -77,7 +77,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     @Override
     public String createNewAuthor(String authorFullName) {
-//        authorDao.save(new Author(0L, authorFullName));
+        authorDao.save(new Author( authorFullName));
         return AUTHOR_HAS_INSERT;
     }
 

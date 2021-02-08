@@ -22,6 +22,10 @@ public class Genre {
         this.genreName = genreName;
     }
 
+    public Genre(@NotNull String genreName) {
+        this.genreName = genreName;
+    }
+
     public String getId() {
         return id;
     }

@@ -31,6 +31,12 @@ public class Book {
         this.genre = genre;
     }
 
+    public Book(@NotNull String bookTitle, Author author, Genre genre) {
+        this.bookTitle = bookTitle;
+        this.author = author;
+        this.genre = genre;
+    }
+
     public String getId() {
         return id;
     }

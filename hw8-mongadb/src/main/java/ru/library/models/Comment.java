@@ -28,6 +28,11 @@ public class Comment {
         this.book = books;
     }
 
+    public Comment(@NotNull String comment, @NotNull Book book) {
+        this.comment = comment;
+        this.book = book;
+    }
+
     public String getId() {
         return id;
     }

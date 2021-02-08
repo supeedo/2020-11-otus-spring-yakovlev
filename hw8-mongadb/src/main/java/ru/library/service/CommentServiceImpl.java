@@ -89,7 +89,6 @@ public class CommentServiceImpl implements CommentService {
     public String createNewComment(String commentText, String bookId) {
         Book book = bookRepo.findById(bookId).get();
         Comment comment = new Comment();
-//        comment.setId(0L);
         comment.setComment(commentText);
         comment.setBook(book);
         commentDao.save(comment);
