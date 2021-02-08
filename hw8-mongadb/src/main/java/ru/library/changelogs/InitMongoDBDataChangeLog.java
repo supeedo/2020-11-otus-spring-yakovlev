@@ -14,8 +14,6 @@ import ru.library.repository.BookRepositories;
 import ru.library.repository.CommentRepositories;
 import ru.library.repository.GenreRepositories;
 
-import java.util.List;
-
 @ChangeLog(order = "001")
 public class InitMongoDBDataChangeLog {
     private static final Logger log = LoggerFactory.getLogger(InitMongoDBDataChangeLog.class);
