@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="books">
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 5%" bgcolor="#5f9ea0">#</th>
+            <th style="width: 50%" bgcolor="#5f9ea0">Title</th>
+            <th style="width: 15%" bgcolor="#5f9ea0">Author</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Genre</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Comments</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Edit</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}" style="text-align: center" bgcolor="#d3d3d3">#</td>
+            <td th:text="${book.title}" bgcolor="#d3d3d3">Title</td>
+            <td th:text="${book.author.getFullName()}" bgcolor="#d3d3d3">Author</td>
+            <td th:text="${book.genre.getGenreName()}" bgcolor="#d3d3d3">Genre</td>
+            <td align="center" th:href="@{'/comments/{id}'(id=${book.id})}" bgcolor="#d3d3d3">Comments</td>
+            <td align="center" th:href="@{'/edit/{id}'(id=${book.id})}" bgcolor="#d3d3d3">Edit</td>
+            <td align="center" th:href="@{'/delete/{id}'(id=${book.id})}" bgcolor="#d3d3d3" >Del</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
