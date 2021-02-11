@@ -1,0 +1,21 @@
+spring:
+  shell:
+  #    interactive:
+  #      enabled: true
+
+  data:
+    mongodb:
+      database: testdb
+      port: 0
+
+mongock:
+   #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.library.changelogs
+
+logging:
+  level:
+    ru.quizapp: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
