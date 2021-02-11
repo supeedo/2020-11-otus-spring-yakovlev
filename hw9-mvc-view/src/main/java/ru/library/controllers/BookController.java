@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.library.models.Book;
 import ru.library.services.BookServiceImpl;
 
@@ -24,5 +27,20 @@ public class BookController {
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "library";
+    }
+
+    @PostMapping("/edit")
+    public String updateBook(@RequestParam("id") Long id,
+                             Model model) {
+        return null;
+    }
+
+    @GetMapping("/delete")
+    public String deleteBook(@RequestParam("id") Long id,
+                             Model model) {
+        bookService.deleteBookById(id);
+        List<Book> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "redirect:/";
     }
 }

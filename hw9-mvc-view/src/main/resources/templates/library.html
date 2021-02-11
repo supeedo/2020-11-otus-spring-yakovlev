@@ -22,10 +22,18 @@
             <td th:text="${book.author.getFullName()}" bgcolor="#d3d3d3">Author</td>
             <td th:text="${book.genre.getGenreName()}" bgcolor="#d3d3d3">Genre</td>
             <td align="center" th:href="@{'/comments/{id}'(id=${book.id})}" bgcolor="#d3d3d3">Comments</td>
-            <td align="center" th:href="@{'/edit/{id}'(id=${book.id})}" bgcolor="#d3d3d3">Edit</td>
-            <td align="center" th:href="@{'/delete/{id}'(id=${book.id})}" bgcolor="#d3d3d3" >Del</td>
+            <td align="center" bgcolor="#d3d3d3">
+                <a  th:href="@{'/edit/{id}'(id=${book.id})}" href="edit-book.html">Edit</a>
+            </td>
+            <td align="center" bgcolor="#d3d3d3">
+            <a  th:href="@{/delete(id=${book.id})}" >Del</a>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 </html>
+
+<!--<td>-->
+<!--    <a th:href="@{/edit(id=${person.id})}" href="edit.html">Edit</a>-->
+<!--</td>-->
