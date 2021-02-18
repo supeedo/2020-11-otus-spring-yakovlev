@@ -31,15 +31,14 @@ public class BookServiceImpl implements BookService{
 
     @Transactional(readOnly = true)
     @Override
-    public String getBookById(Long id) {
-        return null;
+    public Book getBookById(Long id) {
+        return bookRepositories.findById(id).orElseThrow(()->new IllegalArgumentException("Book not found"));
     }
 
     @Transactional
     @Override
-    public String deleteBookById(Long id) {
+    public void deleteBookById(Long id) {
         bookRepositories.deleteById(id);
-        return null;
     }
 
     @Transactional
@@ -52,6 +51,12 @@ public class BookServiceImpl implements BookService{
     @Override
     public String updateBook(Long id, String bookName, Long authorId, Long genreId) {
         return null;
+    }
+
+    @Transactional
+    @Override
+    public Book save(Book book) {
+        return bookRepositories.save(book);
     }
 
 }

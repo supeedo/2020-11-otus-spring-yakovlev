@@ -11,12 +11,13 @@ public interface BookService {
 
     List<Book> getAllBooks();
 
-    String getBookById(Long id);
+    Book getBookById(Long id);
 
-    String deleteBookById(Long id);
+    void deleteBookById(Long id);
 
     String createNewBook(String bookName, Long authorId, Long genreId);
 
     String updateBook(Long id, String bookName, Long authorId, Long genreId);
 
+    Book save(Book book);
 }
