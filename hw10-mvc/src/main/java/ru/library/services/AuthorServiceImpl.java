@@ -3,10 +3,14 @@ package ru.library.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.library.Dto.AuthorDto;
+import ru.library.Dto.AuthorMapper;
+import ru.library.Dto.GenreMapper;
 import ru.library.models.Author;
 import ru.library.repositories.AuthorRepositories;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -25,8 +29,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Author> getAllAuthors() {
-        return authorRepositories.findAll();
+    public List<AuthorDto> getAllAuthors() {
+        List<Author> authors = authorRepositories.findAll();
+        return authors.stream().map(AuthorMapper.INSTANCE::authorToAuthorDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)

@@ -1,5 +1,6 @@
 package ru.library.services;
 
+import ru.library.Dto.GenreDto;
 import ru.library.models.Genre;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public interface GenreService {
 
     String getCount();
 
-    List<Genre> getAllGenre();
+    List<GenreDto> getAllGenre();
 
     Genre getGenreById(Long genreId);
 

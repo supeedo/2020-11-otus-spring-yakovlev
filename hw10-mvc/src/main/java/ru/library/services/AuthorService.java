@@ -1,5 +1,6 @@
 package ru.library.services;
 
+import ru.library.Dto.AuthorDto;
 import ru.library.models.Author;
 
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.List;
 public interface AuthorService {
     String getCount();
 
-    List<Author> getAllAuthors();
+    List<AuthorDto> getAllAuthors();
 
     Author getAuthorById(long authorId);
 

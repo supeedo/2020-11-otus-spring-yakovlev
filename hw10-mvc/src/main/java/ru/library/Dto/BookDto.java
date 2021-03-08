@@ -1,17 +1,25 @@
 package ru.library.Dto;
 
-import ru.library.models.Book;
-
-public class BookDTO {
+public class BookDto {
     private String id;
     private String title;
     private String author;
     private String genre;
 
-    public BookDTO() {
+    @Override
+    public String toString() {
+        return "BookDTO{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", genre='" + genre + '\'' +
+                '}';
     }
 
-    public BookDTO(Long id, String title, String author, String genre) {
+    public BookDto() {
+    }
+
+    public BookDto(Long id, String title, String author, String genre) {
         this.id = id.toString();
         this.title = title;
         this.author = author;

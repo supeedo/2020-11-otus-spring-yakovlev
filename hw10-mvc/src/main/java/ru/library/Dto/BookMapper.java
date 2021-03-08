@@ -11,9 +11,9 @@ public interface BookMapper {
 
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
-    BookDTO bookToBookDto(Book book);
+    BookDto bookToBookDto(Book book);
 
-    Book bookDtoToBook(BookDTO book);
+    Book bookDtoToBook(BookDto book);
 
     default String mapAuthorToString(Author author){
         return author.getFullName();
@@ -23,11 +23,11 @@ public interface BookMapper {
         return genre.getGenreName();
     }
 
-    default Author mapStringToAuthor(String value){
-        return new Author(0L, value);
+    default Author mapStringToAuthor(String fullName){
+        return new Author(0L, fullName);
     }
 
-    default Genre mapStringToGenre(String value){
-        return new Genre(0L, value);
+    default Genre mapStringToGenre(String genreName){
+        return new Genre(0L, genreName);
     }
 }

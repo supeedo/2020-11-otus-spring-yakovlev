@@ -1,21 +1,21 @@
 package ru.library.services;
 
 
-import ru.library.Dto.BookDTO;
+import ru.library.Dto.BookDto;
 
 import java.util.List;
 
 public interface BookService {
 
-    List<BookDTO> getAllBooks();
+    List<BookDto> getAllBooks();
 
-    BookDTO getBookById(Long id);
+    BookDto getBookById(Long id);
 
     void deleteBookById(Long id);
 
-    void createNewBook(BookDTO bookDTO);
+    void createNewBook(BookDto bookDTO);
 
-    void updateBook(BookDTO bookDTO);
+    void updateBook(BookDto bookDTO);
 
-    void save(BookDTO book);
+    void save(BookDto book);
 }

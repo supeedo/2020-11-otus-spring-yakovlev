@@ -22,6 +22,10 @@ public class Author {
         this.fullName = fullName;
     }
 
+    public Author(String fullName) {
+        this.fullName = fullName;
+    }
+
     public Long getId() {
         return id;
     }

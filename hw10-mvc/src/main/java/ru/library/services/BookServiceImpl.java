@@ -3,7 +3,7 @@ package ru.library.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.library.Dto.BookDTO;
+import ru.library.Dto.BookDto;
 import ru.library.Dto.BookMapper;
 import ru.library.models.Book;
 import ru.library.repositories.BookRepositories;
@@ -22,14 +22,14 @@ public class BookServiceImpl implements BookService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<BookDTO> getAllBooks() {
+    public List<BookDto> getAllBooks() {
         List<Book> books = bookRepositories.findAll();
         return books.stream().map(BookMapper.INSTANCE::bookToBookDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public BookDTO getBookById(Long id) {
+    public BookDto getBookById(Long id) {
         Book book = bookRepositories.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
         return BookMapper.INSTANCE.bookToBookDto(book);
     }
@@ -42,22 +42,23 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public void createNewBook(BookDTO bookDTO) {
+    public void createNewBook(BookDto bookDTO) {
         Book book = BookMapper.INSTANCE.bookDtoToBook(bookDTO);
         bookRepositories.save(book);
     }
 
     @Transactional
     @Override
-    public void updateBook(BookDTO bookDTO) {
+    public void updateBook(BookDto bookDTO) {
         Book book = BookMapper.INSTANCE.bookDtoToBook(bookDTO);
         bookRepositories.save(book);
     }
 
     @Transactional
     @Override
-    public void save(BookDTO bookDto) {
+    public void save(BookDto bookDto) {
         Book book = BookMapper.INSTANCE.bookDtoToBook(bookDto);
+        System.out.println(book.toString());
         bookRepositories.save(book);
     }
 
