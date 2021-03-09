@@ -7,6 +7,7 @@ import ru.library.Dto.CommentMapper;
 import ru.library.models.Comment;
 import ru.library.repositories.CommentRepositories;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public CommentDto getCommentById(Long commentId) {
-        final Comment comment = commentRepositories.findById(commentId).orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        final Comment comment = commentRepositories.findById(commentId).orElseThrow(() -> new EntityNotFoundException("Comment not found"));
         return CommentMapper.INSTANCE.commentToCommentDto(comment);
     }
 
@@ -62,7 +63,7 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public void updateComment(CommentDto commentDto) {
-        Comment comment = commentRepositories.findById(commentDto.getId()).orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        Comment comment = commentRepositories.findById(commentDto.getId()).orElseThrow(() -> new EntityNotFoundException("Comment not found"));
         comment.setComment(commentDto.getComment());
     }
 

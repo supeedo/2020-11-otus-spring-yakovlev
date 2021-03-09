@@ -8,6 +8,7 @@ import ru.library.Dto.AuthorMapper;
 import ru.library.models.Author;
 import ru.library.repositories.AuthorRepositories;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,21 +37,20 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional(readOnly = true)
     @Override
     public AuthorDto getAuthorById(long authorId) {
-        final Author author = authorRepositories.findById(authorId).orElseThrow(() -> new IllegalArgumentException("Author not found"));
+        final Author author = authorRepositories.findById(authorId).orElseThrow(() -> new EntityNotFoundException("Author not found"));
         return AuthorMapper.INSTANCE.authorToAuthorDto(author);
     }
 
     @Transactional
     @Override
-    public void deleteAuthorById(AuthorDto authorDto) {
-        final Author author = AuthorMapper.INSTANCE.authorDtoToAuthor(authorDto);
-        authorRepositories.delete(author);
+    public void deleteAuthorById(long authorId) {
+        authorRepositories.deleteById(authorId);
     }
 
     @Transactional(readOnly = true)
     @Override
     public AuthorDto getAuthorsByName(String authorName) {
-        final Author author = authorRepositories.findAuthorByFullName(authorName).orElseThrow(() -> new IllegalArgumentException("Author not found"));
+        final Author author = authorRepositories.findAuthorByFullName(authorName).orElseThrow(() -> new EntityNotFoundException("Author not found"));
         return AuthorMapper.INSTANCE.authorToAuthorDto(author);
     }
 
@@ -70,7 +70,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     @Override
-    public Author save(Author author) {
-        return authorRepositories.save(author);
+    public void save(AuthorDto authorDto) {
+        final Author author = AuthorMapper.INSTANCE.authorDtoToAuthor(authorDto);
+        authorRepositories.save(author);
     }
 }

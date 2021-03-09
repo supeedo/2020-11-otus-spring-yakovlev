@@ -1,5 +1,7 @@
 package ru.library.Dto;
 
+import java.util.Objects;
+
 public class AuthorDto {
     private long id;
     private String fullName;
@@ -38,5 +40,18 @@ public class AuthorDto {
                 "id='" + id + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthorDto authorDto = (AuthorDto) o;
+        return id == authorDto.id && Objects.equals(fullName, authorDto.fullName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fullName);
     }
 }

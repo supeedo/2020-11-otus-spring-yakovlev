@@ -12,7 +12,7 @@ public interface AuthorService {
 
     AuthorDto getAuthorById(long authorId);
 
-    void deleteAuthorById(AuthorDto authorDto);
+    void deleteAuthorById(long authorId);
 
     AuthorDto getAuthorsByName(String authorName);
 
@@ -20,5 +20,5 @@ public interface AuthorService {
 
     void updateAuthor(AuthorDto authorDto);
 
-    Author save (Author author);
+    void save (AuthorDto authorDto);
 }

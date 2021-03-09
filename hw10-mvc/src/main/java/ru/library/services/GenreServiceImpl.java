@@ -7,6 +7,7 @@ import ru.library.Dto.GenreMapper;
 import ru.library.models.Genre;
 import ru.library.repositories.GenreRepositories;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public GenreDto getGenreById(Long genreId) {
-        Genre genre = genreRepositories.findById(genreId).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+        Genre genre = genreRepositories.findById(genreId).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
         return GenreMapper.INSTANCE.genreToGenreDto(genre);
     }
 
@@ -55,7 +56,7 @@ public class GenreServiceImpl implements GenreService {
     @Transactional
     @Override
     public void updateGenre(GenreDto genreDto) {
-        Genre genre = genreRepositories.findById(genreDto.getId()).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+        Genre genre = genreRepositories.findById(genreDto.getId()).orElseThrow(() -> new EntityNotFoundException("Genre not found"));
         genre.setGenreName(genreDto.getGenreName());
     }
 

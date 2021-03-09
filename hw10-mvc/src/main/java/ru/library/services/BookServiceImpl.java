@@ -10,6 +10,7 @@ import ru.library.Dto.GenreMapper;
 import ru.library.models.Book;
 import ru.library.repositories.BookRepositories;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public BookDto getBookById(Long id) {
-        final Book book = bookRepositories.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        final Book book = bookRepositories.findById(id).orElseThrow(() -> new EntityNotFoundException("Book not found"));
         return BookMapper.INSTANCE.bookToBookDto(book);
     }
 
@@ -53,7 +54,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void updateBook(BookDto bookDTO) {
-        Book book = bookRepositories.findById(bookDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        Book book = bookRepositories.findById(bookDTO.getId()).orElseThrow(() -> new EntityNotFoundException("Book not found"));
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(AuthorMapper.INSTANCE.authorDtoToAuthor(bookDTO.getAuthor()));
         book.setGenre(GenreMapper.INSTANCE.genreDtoToGenre(bookDTO.getGenre()));
