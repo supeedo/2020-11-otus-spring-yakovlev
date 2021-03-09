@@ -1,5 +1,7 @@
 package ru.library.Dto;
 
+import java.util.Objects;
+
 public class GenreDto {
     private long id;
     private String genreName;
@@ -38,5 +40,18 @@ public class GenreDto {
                 "id='" + id + '\'' +
                 ", genreName='" + genreName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GenreDto genreDto = (GenreDto) o;
+        return id == genreDto.id && Objects.equals(genreName, genreDto.genreName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, genreName);
     }
 }
