@@ -1,22 +1,26 @@
 package ru.library.Dto;
 
 public class AuthorDto {
-    private String id;
+    private long id;
     private String fullName;
 
     public AuthorDto() {
     }
 
-    public AuthorDto(String id, String fullName) {
+    public AuthorDto(long id, String fullName) {
         this.id = id;
         this.fullName = fullName;
     }
 
-    public String getId() {
+    public AuthorDto(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

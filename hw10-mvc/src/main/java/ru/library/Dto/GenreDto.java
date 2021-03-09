@@ -1,13 +1,13 @@
 package ru.library.Dto;
 
 public class GenreDto {
-    private String id;
+    private long id;
     private String genreName;
 
     public GenreDto() {
     }
 
-    public GenreDto(String id, String genreName) {
+    public GenreDto(long id, String genreName) {
         this.id = id;
         this.genreName = genreName;
     }
@@ -16,11 +16,11 @@ public class GenreDto {
         this.genreName = genreName;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

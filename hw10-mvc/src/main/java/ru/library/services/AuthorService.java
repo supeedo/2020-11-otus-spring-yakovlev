@@ -6,19 +6,19 @@ import ru.library.models.Author;
 import java.util.List;
 
 public interface AuthorService {
-    String getCount();
+    long getCount();
 
     List<AuthorDto> getAllAuthors();
 
-    Author getAuthorById(long authorId);
+    AuthorDto getAuthorById(long authorId);
 
-    Author deleteAuthorById(long authorId);
+    void deleteAuthorById(AuthorDto authorDto);
 
-    String getAuthorsByName(String authorName);
+    AuthorDto getAuthorsByName(String authorName);
 
-    String createNewAuthor(String authorFullName);
+    void createNewAuthor(AuthorDto authorDto);
 
-    String updateAuthor(Long authorId, String authorFullName);
+    void updateAuthor(AuthorDto authorDto);
 
     Author save (Author author);
 }

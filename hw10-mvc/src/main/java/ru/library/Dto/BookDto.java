@@ -1,10 +1,10 @@
 package ru.library.Dto;
 
 public class BookDto {
-    private String id;
+    private long id;
     private String title;
-    private String author;
-    private String genre;
+    private AuthorDto author;
+    private GenreDto genre;
 
     @Override
     public String toString() {
@@ -19,8 +19,8 @@ public class BookDto {
     public BookDto() {
     }
 
-    public BookDto(Long id, String title, String author, String genre) {
-        this.id = id.toString();
+    public BookDto(long id, String title, AuthorDto author, GenreDto genre) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -34,27 +34,27 @@ public class BookDto {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
-    public String getGenre() {
+    public GenreDto getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(GenreDto genre) {
         this.genre = genre;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

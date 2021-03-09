@@ -37,8 +37,8 @@
         <label for="author-lookup">Author:</label>
         <select class="form-control" name="author" id="author-lookup">
             <option th:each="author : ${authors}"
-                    th:value="${author.id}"
-                    th:text="${author.fullName}">
+                    th:value="${author.fullName}"
+                    th:utext="${author.fullName}">
             </option>
         </select>
     </div>
@@ -47,8 +47,8 @@
         <label for="genre-lookup">Genre:</label>
         <select class="form-control" name="genre" id="genre-lookup">
             <option th:each="genre : ${genres}"
-                    th:value="${genre.id}"
-                    th:text="${genre.genreName}">
+                    th:value="${genre.genreName}"
+                    th:utext="${genre.genreName}">
             </option>
         </select>
     </div>

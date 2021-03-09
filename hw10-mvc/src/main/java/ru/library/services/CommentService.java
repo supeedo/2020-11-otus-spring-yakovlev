@@ -1,23 +1,24 @@
 package ru.library.services;
 
+import ru.library.Dto.CommentDto;
 import ru.library.models.Comment;
 
 import java.util.List;
 
 public interface CommentService {
-    String getCount();
+    long getCount();
 
-    List<Comment> getAllComments();
+    List<CommentDto> getAllComments();
 
-    String getCommentById(Long commentId);
+    CommentDto getCommentById(Long commentId);
 
-    String getAllCommentsByBookId(Long bookId);
+    List<CommentDto> getAllCommentsByBookId(Long bookId);
 
-    String deleteCommentById(Long commentId);
+    void deleteCommentById(Long commentId);
 
-    String createNewComment(String comment, Long bookId);
+    void createNewComment(CommentDto commentDto);
 
-    String updateComment(Long commentId, String commentText);
+    void updateComment(CommentDto commentDto);
 
-    Comment save (Comment comment);
+    void save (CommentDto commentDto);
 }

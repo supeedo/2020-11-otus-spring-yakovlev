@@ -10,10 +10,10 @@ public interface AuthorMapper {
     AuthorMapper INSTANCE = Mappers.getMapper(AuthorMapper.class);
 
     default AuthorDto authorToAuthorDto(Author author){
-        return new AuthorDto(author.getId().toString(), author.getFullName());
+        return new AuthorDto(author.getId(), author.getFullName());
     }
 
     default Author authorDtoToAuthor(AuthorDto authorDto){
-        return new Author(Long.parseLong(authorDto.getId()), authorDto.getFullName());
+        return new Author(authorDto.getId(), authorDto.getFullName());
     }
 }

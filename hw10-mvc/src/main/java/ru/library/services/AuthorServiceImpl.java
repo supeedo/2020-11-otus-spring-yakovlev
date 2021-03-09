@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.Dto.AuthorDto;
 import ru.library.Dto.AuthorMapper;
-import ru.library.Dto.GenreMapper;
 import ru.library.models.Author;
 import ru.library.repositories.AuthorRepositories;
 
@@ -23,45 +22,50 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional(readOnly = true)
     @Override
-    public String getCount() {
-        return null;
+    public long getCount() {
+        return authorRepositories.count();
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<AuthorDto> getAllAuthors() {
-        List<Author> authors = authorRepositories.findAll();
+        final List<Author> authors = authorRepositories.findAll();
         return authors.stream().map(AuthorMapper.INSTANCE::authorToAuthorDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Author getAuthorById(long authorId) {
-        return authorRepositories.findById(authorId).orElseThrow(()->new IllegalArgumentException("Author not found"));
+    public AuthorDto getAuthorById(long authorId) {
+        final Author author = authorRepositories.findById(authorId).orElseThrow(() -> new IllegalArgumentException("Author not found"));
+        return AuthorMapper.INSTANCE.authorToAuthorDto(author);
     }
 
     @Transactional
     @Override
-    public Author deleteAuthorById(long authorId) {
-        return null;
+    public void deleteAuthorById(AuthorDto authorDto) {
+        final Author author = AuthorMapper.INSTANCE.authorDtoToAuthor(authorDto);
+        authorRepositories.delete(author);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public String getAuthorsByName(String authorName) {
-        return null;
+    public AuthorDto getAuthorsByName(String authorName) {
+        final Author author = authorRepositories.findAuthorByFullName(authorName).orElseThrow(() -> new IllegalArgumentException("Author not found"));
+        return AuthorMapper.INSTANCE.authorToAuthorDto(author);
     }
 
     @Transactional
     @Override
-    public String createNewAuthor(String authorFullName) {
-        return null;
+    public void createNewAuthor(AuthorDto authorDto) {
+        final Author author = AuthorMapper.INSTANCE.authorDtoToAuthor(authorDto);
+        authorRepositories.save(author);
     }
 
     @Transactional
     @Override
-    public String updateAuthor(Long authorId, String authorFullName) {
-        return null;
+    public void updateAuthor(AuthorDto authorDto) {
+        final Author author = authorRepositories.findById(authorDto.getId()).orElseThrow(() -> new IllegalArgumentException("Author not found"));
+        author.setFullName(authorDto.getFullName());
     }
 
     @Transactional

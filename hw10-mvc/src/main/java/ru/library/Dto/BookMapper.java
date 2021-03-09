@@ -15,19 +15,19 @@ public interface BookMapper {
 
     Book bookDtoToBook(BookDto book);
 
-    default String mapAuthorToString(Author author){
+    default String mapAuthorToString(Author author) {
         return author.getFullName();
     }
 
-    default String mapGenreToString(Genre genre){
-        return genre.getGenreName();
+    default GenreDto mapGenreToGenreDto(Genre genre) {
+        return new GenreDto(genre.getId(), genre.getGenreName());
     }
 
-    default Author mapStringToAuthor(String fullName){
-        return new Author(0L, fullName);
+    default Author mapStringToAuthor(AuthorDto authorDto) {
+        return new Author(authorDto.getId(), authorDto.getFullName());
     }
 
-    default Genre mapStringToGenre(String genreName){
-        return new Genre(0L, genreName);
+    default Genre mapStringToGenre(GenreDto genreDto) {
+        return new Genre(genreDto.getId(), genreDto.getGenreName());
     }
 }

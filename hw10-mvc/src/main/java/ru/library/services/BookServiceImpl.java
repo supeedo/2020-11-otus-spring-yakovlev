@@ -3,8 +3,10 @@ package ru.library.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.library.Dto.AuthorMapper;
 import ru.library.Dto.BookDto;
 import ru.library.Dto.BookMapper;
+import ru.library.Dto.GenreMapper;
 import ru.library.models.Book;
 import ru.library.repositories.BookRepositories;
 
@@ -13,7 +15,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
-    BookRepositories bookRepositories;
+
+    private final BookRepositories bookRepositories;
 
     @Autowired
     public BookServiceImpl(BookRepositories bookRepositories) {
@@ -23,14 +26,14 @@ public class BookServiceImpl implements BookService {
     @Transactional(readOnly = true)
     @Override
     public List<BookDto> getAllBooks() {
-        List<Book> books = bookRepositories.findAll();
+        final List<Book> books = bookRepositories.findAll();
         return books.stream().map(BookMapper.INSTANCE::bookToBookDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
     public BookDto getBookById(Long id) {
-        Book book = bookRepositories.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        final Book book = bookRepositories.findById(id).orElseThrow(() -> new IllegalArgumentException("Book not found"));
         return BookMapper.INSTANCE.bookToBookDto(book);
     }
 
@@ -43,22 +46,23 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void createNewBook(BookDto bookDTO) {
-        Book book = BookMapper.INSTANCE.bookDtoToBook(bookDTO);
+        final Book book = BookMapper.INSTANCE.bookDtoToBook(bookDTO);
         bookRepositories.save(book);
     }
 
     @Transactional
     @Override
     public void updateBook(BookDto bookDTO) {
-        Book book = BookMapper.INSTANCE.bookDtoToBook(bookDTO);
-        bookRepositories.save(book);
+        Book book = bookRepositories.findById(bookDTO.getId()).orElseThrow(() -> new IllegalArgumentException("Book not found"));
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(AuthorMapper.INSTANCE.authorDtoToAuthor(bookDTO.getAuthor()));
+        book.setGenre(GenreMapper.INSTANCE.genreDtoToGenre(bookDTO.getGenre()));
     }
 
     @Transactional
     @Override
     public void save(BookDto bookDto) {
-        Book book = BookMapper.INSTANCE.bookDtoToBook(bookDto);
-        System.out.println(book.toString());
+        final Book book = BookMapper.INSTANCE.bookDtoToBook(bookDto);
         bookRepositories.save(book);
     }
 

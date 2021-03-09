@@ -1,13 +1,12 @@
 package ru.library.services;
 
 import org.springframework.stereotype.Service;
-import ru.library.Dto.BookMapper;
+import org.springframework.transaction.annotation.Transactional;
 import ru.library.Dto.GenreDto;
 import ru.library.Dto.GenreMapper;
 import ru.library.models.Genre;
 import ru.library.repositories.GenreRepositories;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,46 +19,50 @@ public class GenreServiceImpl implements GenreService {
         this.genreRepositories = genreRepositories;
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public String getCount() {
-        return null;
+    public long getCount() {
+        return genreRepositories.count();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<GenreDto> getAllGenre() {
-        List<Genre> genres = genreRepositories.findAll();
-        System.out.println("Из Базы данных - " + genres.toString());
-//        List<GenreDto> dtos = new ArrayList<>();
-//        for (Genre genre : genres) {
-//            dtos.add(GenreMapper.INSTANCE.genreToGenreDto(genre));
-//        }
-        List<GenreDto> dtos = genres.stream().map(GenreMapper.INSTANCE::genreToGenreDto).collect(Collectors.toList());
-        System.out.println("Service dtos - " + dtos);
-        return dtos;
+        final List<Genre> genres = genreRepositories.findAll();
+        return genres.stream().map(GenreMapper.INSTANCE::genreToGenreDto).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
-    public Genre getGenreById(Long genreId) {
-        return genreRepositories.findById(genreId).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+    public GenreDto getGenreById(Long genreId) {
+        Genre genre = genreRepositories.findById(genreId).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+        return GenreMapper.INSTANCE.genreToGenreDto(genre);
     }
 
+    @Transactional
     @Override
-    public String deleteGenreById(Long genreId) {
-        return null;
+    public void deleteGenreById(Long genreId) {
+        genreRepositories.deleteById(genreId);
     }
 
+    @Transactional
     @Override
-    public String createNewGenre(String genreName) {
-        return null;
+    public void createNewGenre(GenreDto genreDto) {
+        Genre genre = GenreMapper.INSTANCE.genreDtoToGenre(genreDto);
+        genreRepositories.save(genre);
     }
 
+    @Transactional
     @Override
-    public String updateGenre(Long genreId, String genreName) {
-        return null;
+    public void updateGenre(GenreDto genreDto) {
+        Genre genre = genreRepositories.findById(genreDto.getId()).orElseThrow(() -> new IllegalArgumentException("Genre not found"));
+        genre.setGenreName(genreDto.getGenreName());
     }
 
+    @Transactional
     @Override
-    public Genre save(Genre genre) {
-        return null;
+    public void save(GenreDto genreDto) {
+        Genre genre = GenreMapper.INSTANCE.genreDtoToGenre(genreDto);
+        genreRepositories.save(genre);
     }
 }

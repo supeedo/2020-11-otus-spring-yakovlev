@@ -37,11 +37,11 @@
 <tr>
 <td style="text-align: center" bgcolor="#d3d3d3">${book.id}</td>
 <td bgcolor="#d3d3d3">${book.title}</td>
-<td bgcolor="#d3d3d3">${book.author}</td>
-<td bgcolor="#d3d3d3">${book.genre}</td>
+<td bgcolor="#d3d3d3">${book.author.fullName}</td>
+<td bgcolor="#d3d3d3">${book.genre.genreName}</td>
 
 <td style="text-align: center" bgcolor="#d3d3d3">
-<a class="ui-button ui-widget ui-corner-all" href="book/${book.id}" methods="GET">Comment</a>
+<a class="ui-button ui-widget ui-corner-all" href="comment?id=${book.id}" methods="GET">Comment</a>
 </td>
 
 <td style="text-align: center" bgcolor="#d3d3d3">
@@ -49,7 +49,7 @@
 </td>
 
 <td style="text-align: center" bgcolor="#d3d3d3">
-<a class="ui-button ui-widget ui-corner-all"  href="book/${book.id}" methods="DELETE">Delete</a>
+<a class="ui-button ui-widget ui-corner-all"  href="/delete?id=${book.id}" methods="GET">Delete</a>
 </td>
 
 </tr>

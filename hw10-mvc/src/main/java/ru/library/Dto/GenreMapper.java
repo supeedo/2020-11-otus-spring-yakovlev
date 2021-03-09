@@ -10,10 +10,10 @@ public interface GenreMapper {
     GenreMapper INSTANCE = Mappers.getMapper(GenreMapper.class);
 
     default GenreDto genreToGenreDto (Genre genre){
-        return new GenreDto(genre.getId().toString(), genre.getGenreName());
+        return new GenreDto(genre.getId(), genre.getGenreName());
     }
 
     default Genre genreDtoToGenre (GenreDto genreDto){
-        return new Genre(Long.parseLong(genreDto.getId()), genreDto.getGenreName());
+        return new Genre(genreDto.getId(), genreDto.getGenreName());
     }
 }

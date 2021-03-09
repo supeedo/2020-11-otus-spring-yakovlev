@@ -14,9 +14,9 @@ import java.util.List;
 @RestController
 public class BookRestController {
 
-    BookServiceImpl bookService;
-    GenreService genreService;
-    AuthorService authorService;
+    private final BookServiceImpl bookService;
+    private final GenreService genreService;
+    private final AuthorService authorService;
 
     @Autowired
     public BookRestController(BookServiceImpl bookService,
@@ -30,7 +30,7 @@ public class BookRestController {
     @GetMapping("/book")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> showAllBooks() {
-        List<BookDto> books = bookService.getAllBooks();
+        final List<BookDto> books = bookService.getAllBooks();
         return books.isEmpty() ?
                 ResponseEntity.ok().body(HttpStatus.NOT_FOUND) :
                 ResponseEntity.ok(books);
@@ -47,7 +47,7 @@ public class BookRestController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
         bookService.deleteBookById(id);
-        List<BookDto> books = bookService.getAllBooks();
+        final List<BookDto> books = bookService.getAllBooks();
         return books.isEmpty() ?
                 ResponseEntity.ok(books) :
                 ResponseEntity.ok().body(HttpStatus.NOT_FOUND);
@@ -56,7 +56,7 @@ public class BookRestController {
     @GetMapping("/book/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> showBook(@PathVariable Long id) {
-        BookDto book = bookService.getBookById(id);
+        final BookDto book = bookService.getBookById(id);
         return book != null ? ResponseEntity.ok(book)
                 : ResponseEntity.ok(HttpStatus.NOT_FOUND);
     }
