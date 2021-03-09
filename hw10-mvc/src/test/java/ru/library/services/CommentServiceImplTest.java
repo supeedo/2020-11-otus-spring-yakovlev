@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 import ru.library.Dto.AuthorDto;
 import ru.library.Dto.BookDto;
 import ru.library.Dto.CommentDto;
@@ -13,6 +14,7 @@ import ru.library.Dto.GenreDto;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +29,7 @@ class CommentServiceImplTest {
             new AuthorDto(1L, "Robert Martin"), new GenreDto(1L, "Computer science")));
     private static final CommentDto SECOND_EXPECTED_COMMENT
             = new CommentDto(2L, "test comment 2", new BookDto(2L, "Effective Java",
-            new AuthorDto(2L, "Joshua Bloch"), new GenreDto(2L, "Science Fiction")));
+            new AuthorDto(2L, "Joshua Bloch"), new GenreDto(1L, "Computer science")));
     private static final String UPDATE_COMMENT = "UpdateComment";
     private static final long ID_FIRST_COMMENT = 1L;
     private static final long FIRST_BOOK_ID = 1L;
@@ -35,6 +37,7 @@ class CommentServiceImplTest {
     @Autowired
     private CommentServiceImpl service;
 
+    @Transactional(readOnly = true)
     @Test
     @DisplayName("Expected quantity is as expected")
     void getCount() {
@@ -42,6 +45,7 @@ class CommentServiceImplTest {
         assertThat(count).isEqualTo(EXPECTED_COUNT_COMMENTS_IN_BASE);
     }
 
+    @Transactional(readOnly = true)
     @Test
     @DisplayName("Getting all items as expected")
     void getAllComments() {
@@ -55,6 +59,7 @@ class CommentServiceImplTest {
                 .containsAll(expectedList);
     }
 
+    @Transactional(readOnly = true)
     @Test
     @DisplayName("Getting an item by ID matches what was expected")
     void getCommentById() {
@@ -65,11 +70,21 @@ class CommentServiceImplTest {
                 .isNotEqualTo(SECOND_EXPECTED_COMMENT);
     }
 
+    @Transactional(readOnly = true)
     @Test
     @DisplayName("Getting items by book id matches what was expected")
     void getAllCommentsByBookId() {
+        final List<CommentDto> expectedList = new ArrayList<>(Collections.singletonList(FIRST_EXPECTED_COMMENT));
+        final List<CommentDto> actualList = service.getAllCommentsByBookId(FIRST_BOOK_ID);
+
+        assertThat(actualList)
+                .isNotEmpty()
+                .hasSizeLessThan((int) EXPECTED_COUNT_COMMENTS_IN_BASE)
+                .doesNotHaveDuplicates()
+                .containsAll(expectedList);
     }
 
+    @Transactional
     @Test
     @DisplayName("Deleting an item by id works as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -79,6 +94,7 @@ class CommentServiceImplTest {
         assertThrows(EntityNotFoundException.class, () -> service.getCommentById(ID_FIRST_COMMENT));
     }
 
+    @Transactional
     @Test
     @DisplayName("Adding a new item happens as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -90,6 +106,7 @@ class CommentServiceImplTest {
         assertThat(service.getAllComments()).hasSizeGreaterThan((int) EXPECTED_COUNT_COMMENTS_IN_BASE);
     }
 
+    @Transactional
     @Test
     @DisplayName("Item update occurs as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
@@ -103,6 +120,7 @@ class CommentServiceImplTest {
                 .isNotEqualTo(SECOND_EXPECTED_COMMENT);
     }
 
+    @Transactional
     @Test
     @DisplayName("Save item happens as expected")
     @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
