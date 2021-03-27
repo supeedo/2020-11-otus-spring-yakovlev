@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Books list</title>
+<style type="text/css">
+body {
+	padding: 50px;
+}
+
+.books, .books td {
+	border: 1px solid lightgray;
+	padding: 5px;
+}
+
+input[type=text] {
+	width: 50%;
+}
+.createBookButton{
+	height:50px;
+	width:150px;
+	text-align: center;
+	border-radius: 12px;
+	background-color: #5f9ea0;
+	color: #5f9ea0;
+	font-size: 100%;
+}
+
+</style>
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<div>
+	<button class="createBookButton" id="createBookButton">
+		<a href="book-create.html">Add new book</a>
+	</button>
+</div>
+
+<body>
+	<h1>Books</h1>
+	<div class="container">
+		<div id="search">
+			<input id="bookSearchInput" type="text" />
+		</div>
+		<div id="table">
+			<table class="books" border="1">
+				<thead>
+					<tr>
+						<th id="books.column.id" bgcolor="#5f9ea0">#</th>
+						<th id="books.column.name" bgcolor="#5f9ea0">Title</th>
+						<th id="books.column.author" bgcolor="#5f9ea0">Author</th>
+						<th id="books.column.genre" bgcolor="#5f9ea0">Genre</th>
+						<th id="books.column.edit" bgcolor="#5f9ea0">Edit</th>
+						<th id="books.column.delete" bgcolor="#5f9ea0">Delete</th>
+					</tr>
+				</thead>
+				<tbody id="booksTableBody">
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<button id="returnButton">Return</button>
+		</div>
+	</div>
+	<script>
+		    $(function () {
+		        $.get('/books').done(function (books) {
+		            books.forEach(function (book) {
+		                $('tbody').append(`
+		                    <tr>
+		                        <td>${book.id}</td>
+		                        <td>${book.author.lastname} ${book.author.firstname} ${book.author.middlename}</td>
+		                        <td>${book.title}</td>
+		                        <td>${book.genre.name}</td>
+		                        <td><a href="/book-edit.html?id=${book.id}&genre-id=${book.genre.id}&author-id=${book.author.id}">Edit</a></td>
+		                        <td><a href="/book-delete.html?id=${book.id}">Delete</a></td>
+		                    </tr>
+		                `)
+		            });
+		        })
+		    });
+		    $(document).ready(function(){
+		        $("#bookSearchInput").on("keyup", function() {
+		          var value = $(this).val().toLowerCase();
+		          $("#booksTableBody tr").filter(function() {
+		            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		          });
+		        });
+		      });
+		    $("#returnButton").click(function() {
+		        let url = "/index.html";
+		        $(location).attr('href',url);    
+		    });
+	</script>
+</body>
+</html>
