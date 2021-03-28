@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: reactivelib
+  jackson:
+    serialization:
+      indent-output: true
+server:
+  error:
+    include-stacktrace: always
+
+
+logging:
+  level:
+    ru.quizapp: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
