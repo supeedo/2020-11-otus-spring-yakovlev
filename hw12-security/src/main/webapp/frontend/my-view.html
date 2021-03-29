@@ -1,0 +1,28 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="my-view">
+    <template>
+        <style include="shared-styles">
+            :host {
+                display: block;
+                height: 100%;
+            }
+        </style>
+
+    </template>
+
+    <script>
+        class MyView extends Polymer.Element {
+            static get is() {
+                return 'my-view';
+            }
+
+            static get properties() {
+                return {
+                    // Declare your properties here.
+                };
+            }
+        }
+        customElements.define(MyView.is, MyView);
+    </script>
+</dom-module>
