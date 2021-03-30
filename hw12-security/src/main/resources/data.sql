@@ -41,3 +41,13 @@ insert into comments (id, book_id, comment)
 values (default, 4, 'test comment 4');
 insert into comments (id, book_id, comment)
 values (default, 5, 'test comment 5');
+
+insert into roles (id, role_type)
+values (default,'USER');
+insert into roles (id, role_type)
+values (default,'ADMIN');
+
+insert into users (id, user_name, user_password, is_enabled, role_id)
+values (default, 'user', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xd00DMxs.AQubh4a', true, 1);
+insert into users (id, user_name, user_password, is_enabled, role_id)
+values (default, 'admin', '$2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xd00DMxs.AQubh4a', true, 2);

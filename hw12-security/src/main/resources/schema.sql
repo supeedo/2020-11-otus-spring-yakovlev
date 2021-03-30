@@ -26,3 +26,16 @@ CREATE TABLE COMMENTS
     comment VARCHAR(555)                      NOT NULL
 
 );
+CREATE TABLE USERS
+(
+    ID            BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    USER_NAME     VARCHAR(255)                      NOT NULL,
+    USER_PASSWORD VARCHAR(255)                      NOT NULL,
+    IS_ENABLED    BOOLEAN                           NOT NULL,
+    ROLE_ID       VARCHAR(255)                      NOT NULL
+);
+CREATE TABLE ROLES
+(
+    ID        BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    ROLE_TYPE VARCHAR(255)                      NOT NULL
+);

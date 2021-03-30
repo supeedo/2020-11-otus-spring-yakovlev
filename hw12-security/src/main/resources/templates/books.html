@@ -29,6 +29,16 @@
         <tbody></tbody>
     </table>
 
+</div>
+<button id="returnButton">Return</button>
+<script>
+    $("#returnButton").click(function() {
+        let url = "/index";
+        $(location).attr('href',url);
+    });
+</script>
+</body>
+
     <script>
         $(function () {
             $.get('/book').done(function (books) {

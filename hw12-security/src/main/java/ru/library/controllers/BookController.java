@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.library.dto.AuthorDto;
 import ru.library.dto.BookDto;
@@ -74,5 +75,10 @@ public class BookController {
                              Model model) {
         bookService.deleteBookById(id);
         return "redirect:/";
+    }
+
+    @RequestMapping(path = "/books")
+    public String books(){
+        return "books";
     }
 }
