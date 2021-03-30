@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-    Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+   private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
     private final UserRepositories repositories;
 
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         log.info(String.format("Name = {0}", name));
-        Optional<User> user = repositories.findUserByName(name);
+        final Optional<User> user = repositories.findUserByName(name);
         return user.map(userFromDB ->
                 new org.springframework.security.core.userdetails.User(userFromDB.getName(), userFromDB.getPassword(),
                         Set.of(new SimpleGrantedAuthority(userFromDB.getRoles().getRoleName()))))
