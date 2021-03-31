@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Index</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<form>
+    <button>
+        <a href="/add-book" class="button">Add new book</a>
+    </button>
+</form>
+
+<div>
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 5%" bgcolor="#5f9ea0">#</th>
+            <th style="width: 50%" bgcolor="#5f9ea0">Title</th>
+            <th style="width: 15%" bgcolor="#5f9ea0">Author</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Genre</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Comments</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Edit</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Delete</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
+<button id="returnButton">Return</button>
+<script>
+    $("#returnButton").click(function() {
+        let url = "/index";
+        $(location).attr('href',url);
+    });
+</script>
+</body>
+
+    <script>
+        $(function () {
+            $.get('/book').done(function (books) {
+                books.forEach(function (book) {
+                    $('tbody').append(`
+<tr>
+<td style="text-align: center" bgcolor="#d3d3d3">${book.id}</td>
+<td bgcolor="#d3d3d3">${book.title}</td>
+<td bgcolor="#d3d3d3">${book.author.fullName}</td>
+<td bgcolor="#d3d3d3">${book.genre.genreName}</td>
+
+<td style="text-align: center" bgcolor="#d3d3d3">
+<a class="ui-button ui-widget ui-corner-all" href="comment?id=${book.id}" methods="GET">Comment</a>
+</td>
+
+<td style="text-align: center" bgcolor="#d3d3d3">
+<a class="ui-button ui-widget ui-corner-all" href="/edit-book?id=${book.id}" methods="GET">Edit</a>
+</td>
+
+<td style="text-align: center" bgcolor="#d3d3d3">
+<a class="ui-button ui-widget ui-corner-all"  href="/delete?id=${book.id}" methods="GET">Delete</a>
+</td>
+
+</tr>
+`)
+                })
+            })
+        })
+
+    </script>
+
+</div>

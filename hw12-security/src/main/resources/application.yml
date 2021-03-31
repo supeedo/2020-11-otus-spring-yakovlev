@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    initialization-mode: always
+    driver-class-name: org.h2.Driver
+    schema: 'classpath:/schema.sql'
+    data: 'classpath:/data.sql'
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    ru.quizapp: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
