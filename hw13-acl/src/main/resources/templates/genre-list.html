@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>List of genres</title>
+<style type="text/css">
+body {
+	padding: 50px;
+}
+
+.genres, .genres td {
+	border: 1px solid lightgray;
+	padding: 5px;
+}
+</style>
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<h2>Genres</h2>
+
+	<div th:fragment="genres">
+		<table class="table table-bordered table-hover horizontal-align">
+			<thead>
+			<tr>
+				<th style="width: 5%" bgcolor="#5f9ea0">#</th>
+				<th style="width: 15%" bgcolor="#5f9ea0">Genre name</th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr th:each="genre : ${genres}">
+				<td th:text="${genre.id}" style="text-align: center" bgcolor="#d3d3d3">#</td>
+				<td th:text="${genre.genreName}" bgcolor="#d3d3d3">Genre</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<button id="returnButton">Return</button>
+	<script>
+    $("#returnButton").click(function() {
+        var url = "/";
+        $(location).attr('href',url);    
+    });    
+	</script>
+</body>
+</html>

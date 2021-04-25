@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<title>Book info</title>
+
+<div th:fragment="books">
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 5%" bgcolor="#5f9ea0">#</th>
+            <th style="width: 50%" bgcolor="#5f9ea0">Title</th>
+            <th style="width: 15%" bgcolor="#5f9ea0">Author</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Genre</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Edit</th>
+            <th style="width: 8%" bgcolor="#5f9ea0">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+            <td th:text="${book.id}" style="text-align: center" bgcolor="#d3d3d3">#</td>
+            <td th:text="${book.title}" bgcolor="#d3d3d3">Title</td>
+            <td th:text="${book.author.fullName}" bgcolor="#d3d3d3">Author</td>
+            <td th:text="${book.genre.genreName}" bgcolor="#d3d3d3">Genre</td>
+            <td align="center" bgcolor="#d3d3d3">
+                <a th:href="@{'/edit-book/'${book.id}}" href="edit-book.html">Edit</a>
+            </td>
+            <td align="center" bgcolor="#d3d3d3">
+                <a th:href="@{'/delete/'${book.id}}">Del</a>
+            </td>
+        </tbody>
+    </table>
+</div>
+
+<ul>
+    <th:block th:each="comment : ${comments}">
+        <li th:utext="${comment.comment}">..</li>
+    </th:block>
+</ul>
+</html>
